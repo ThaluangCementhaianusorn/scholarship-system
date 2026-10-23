@@ -74,7 +74,7 @@
         </div>
 
         <!-- Print Menu (Staff/Admin) -->
-        <div class="relative group">
+        <div class="relative group role-staff-only">
           <button class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3 py-1.5 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -105,7 +105,7 @@
         <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn tab-active px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
           <span>📊</span> แดชบอร์ดภาพรวม
         </button>
-        <button onclick="switchTab('external')" id="tab-external" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+        <button onclick="switchTab('external')" id="tab-external" class="tab-btn tab-inactive role-staff-only px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
           <span>🏢</span> ทุนสนับสนุนภายนอก
         </button>
         <button onclick="switchTab('announcements')" id="tab-announcements" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
@@ -117,8 +117,8 @@
         <button onclick="switchTab('manage')" id="tab-manage" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
           <span>👥</span> รายการคำขอ & ไทม์ไลน์
         </button>
-        <button onclick="switchTab('settings')" id="tab-settings" class="tab-btn tab-inactive role-admin-only px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 bg-yellow-500/20 text-yellow-300">
-          <span>⚙️</span> ตั้งค่าสถานศึกษา & แผนกวิชา
+        <button onclick="switchTab('settings')" id="tab-settings" class="tab-btn tab-inactive role-staff-only px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 bg-yellow-500/20 text-yellow-300">
+          <span>⚙️</span> <span id="tabSettingsLabel">ตั้งค่าสถานศึกษา & แผนกวิชา</span>
         </button>
       </div>
     </div>
@@ -460,7 +460,7 @@
       </div>
 
       <!-- Part 2: Confirmed Recipients (CRUD Table) -->
-      <div class="card">
+      <div id="confirmedRecipientsCard" class="card role-staff-only">
         <div class="mb-3 flex flex-wrap justify-between items-center gap-3">
           <div>
             <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
@@ -505,7 +505,7 @@
     <div id="content-settings" class="tab-content hidden space-y-6">
       
       <!-- Section 1: การตั้งค่าสถานศึกษาสำหรับนำไปใช้ที่อื่น (ข้อ 2) -->
-      <div class="card bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+      <div id="institutionSettingsSection" class="card bg-gradient-to-r from-blue-900 to-indigo-900 text-white role-admin-only">
         <div class="flex flex-wrap justify-between items-center gap-3">
           <div>
             <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-2 py-0.5 rounded uppercase">White-Label / Customization</span>
@@ -1312,6 +1312,10 @@
     // Institution Customization (ข้อ 2: Multi-Institution Setup)
     // -------------------------------------------------------------
     function saveInstitutionSettings() {
+      if (currentUser?.role !== 'admin') {
+        alert('เฉพาะผู้ดูแลระบบ (Admin) เท่านั้นที่สามารถตั้งค่าข้อมูลสถานศึกษาได้');
+        return;
+      }
       institution.schoolName = $('settingSchoolName').value.trim();
       institution.systemTitle = $('settingSystemTitle').value.trim();
       institution.affiliation = $('settingAffiliation').value.trim();
@@ -1342,6 +1346,10 @@
     }
 
     function importSystemBackup(e) {
+      if (currentUser?.role !== 'admin') {
+        alert('เฉพาะผู้ดูแลระบบ (Admin) เท่านั้นที่สามารถนำเข้ากู้คืนข้อมูลระบบได้');
+        return;
+      }
       const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -1367,6 +1375,7 @@
             setStorage('v6_announces', announcements);
             setStorage('v6_applications', applications);
 
+            syncOfficialsToUsers();
             syncInstitutionUI();
             initYears();
             renderOverviewDashboard();
@@ -1380,6 +1389,10 @@
     }
 
     function clearDemoDataForNewSchool() {
+      if (currentUser?.role !== 'admin') {
+        alert('เฉพาะผู้ดูแลระบบ (Admin) เท่านั้นที่สามารถล้างข้อมูลตัวอย่างสถานศึกษาได้');
+        return;
+      }
       const sName = prompt('กรุณาระบุชื่อสถานศึกษาแห่งใหม่ที่ต้องการใช้งาน:', 'วิทยาลัยอาชีวศึกษา...');
       if (!sName) return;
 
@@ -1410,6 +1423,43 @@
     }
 
     // -------------------------------------------------------------
+    // Synchronize Officials with Users & Session
+    // -------------------------------------------------------------
+    function syncOfficialsToUsers() {
+      let usersUpdated = false;
+      users.forEach(u => {
+        if ((u.role === 'admin' || u.username === 'admin') && officials.adminName && u.name !== officials.adminName) {
+          u.name = officials.adminName;
+          if (officials.adminRole) u.title = officials.adminRole;
+          usersUpdated = true;
+        } else if ((u.role === 'supervisor' || u.username === 'head') && officials.guidanceName && u.name !== officials.guidanceName) {
+          u.name = officials.guidanceName;
+          if (officials.guidanceRole) u.title = officials.guidanceRole;
+          usersUpdated = true;
+        }
+      });
+      if (usersUpdated) {
+        setStorage('v6_users', users);
+      }
+
+      if (currentUser) {
+        let currentUpdated = false;
+        if ((currentUser.role === 'admin' || currentUser.username === 'admin') && officials.adminName && currentUser.name !== officials.adminName) {
+          currentUser.name = officials.adminName;
+          if (officials.adminRole) currentUser.title = officials.adminRole;
+          currentUpdated = true;
+        } else if ((currentUser.role === 'supervisor' || currentUser.username === 'head') && officials.guidanceName && currentUser.name !== officials.guidanceName) {
+          currentUser.name = officials.guidanceName;
+          if (officials.guidanceRole) currentUser.title = officials.guidanceRole;
+          currentUpdated = true;
+        }
+        if (currentUpdated) {
+          setStorage('v6_current_user', currentUser);
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
     // Authentication System
     // -------------------------------------------------------------
     function handleLoginSubmit(e) {
@@ -1417,6 +1467,9 @@
       const u = $('loginUsername').value.trim();
       const p = $('loginPassword').value.trim();
       $('loginError').classList.add('hidden');
+
+      // Sync officials to users before matching
+      syncOfficialsToUsers();
 
       let foundUser = users.find(user => user.username === u && user.password === p);
 
@@ -1437,6 +1490,15 @@
       }
 
       if (foundUser) {
+        // Sync name directly for admin/supervisor
+        if ((foundUser.role === 'admin' || foundUser.username === 'admin') && officials.adminName) {
+          foundUser.name = officials.adminName;
+          if (officials.adminRole) foundUser.title = officials.adminRole;
+        } else if ((foundUser.role === 'supervisor' || foundUser.username === 'head') && officials.guidanceName) {
+          foundUser.name = officials.guidanceName;
+          if (officials.guidanceRole) foundUser.title = officials.guidanceRole;
+        }
+
         currentUser = foundUser;
         setStorage('v6_current_user', currentUser);
         $('loginModal').classList.add('hidden');
@@ -1500,6 +1562,12 @@
         el.style.display = isStaff ? '' : 'none';
       });
 
+      if ($('tabSettingsLabel')) {
+        $('tabSettingsLabel').innerText = isAdmin 
+          ? 'ตั้งค่าสถานศึกษา & แผนกวิชา' 
+          : 'จัดการแผนกวิชา & บุคลากร';
+      }
+
       if (isStudent) {
         $('appStudentId').value = currentUser.username;
         $('appStudentId').readOnly = true;
@@ -1518,6 +1586,14 @@
     // Tab Switching
     // -------------------------------------------------------------
     function switchTab(tabId) {
+      if (!currentUser) return;
+      const isStudent = currentUser.role === 'student';
+
+      // ป้องกันนักเรียนเข้าถึงเมนูทุนภายนอกหรือเมนูตั้งค่า
+      if (isStudent && (tabId === 'external' || tabId === 'settings')) {
+        tabId = 'announcements';
+      }
+
       const tabs = ['overview', 'external', 'announcements', 'apply', 'manage', 'settings'];
       tabs.forEach(t => {
         const btn = $('tab-' + t);
@@ -2303,15 +2379,53 @@
     }
 
     function saveOfficials() {
-      officials.directorName = $('officDirectorName').value.trim();
-      officials.directorRole = $('officDirectorRole').value.trim();
-      officials.guidanceName = $('officGuidanceName').value.trim();
-      officials.guidanceRole = $('officGuidanceRole').value.trim();
-      officials.adminName = $('officAdminName').value.trim();
-      officials.adminRole = $('officAdminRole').value.trim();
+      const dName = $('officDirectorName').value.trim();
+      const dRole = $('officDirectorRole').value.trim();
+      const gName = $('officGuidanceName').value.trim();
+      const gRole = $('officGuidanceRole').value.trim();
+      const aName = $('officAdminName').value.trim();
+      const aRole = $('officAdminRole').value.trim();
+
+      officials.directorName = dName || officials.directorName;
+      officials.directorRole = dRole || officials.directorRole;
+      officials.guidanceName = gName || officials.guidanceName;
+      officials.guidanceRole = gRole || officials.guidanceRole;
+      officials.adminName = aName || officials.adminName;
+      officials.adminRole = aRole || officials.adminRole;
 
       setStorage('v6_officials', officials);
-      alert('บันทึกข้อมูลรายชื่อผู้บริหารและบุคลากรผู้ลงนามเรียบร้อยแล้ว!\nข้อมูลจะแสดงในเอกสารใบสมัครและรายงานสรุปโดยอัตโนมัติ');
+
+      // อัปเดตรายชื่อในฐานข้อมูล users ของ admin และหัวหน้างาน ให้ตรงกับข้อมูลที่แก้ไข
+      let usersUpdated = false;
+      users.forEach(u => {
+        if (u.role === 'admin' || u.username === 'admin') {
+          u.name = officials.adminName;
+          if (officials.adminRole) u.title = officials.adminRole;
+          usersUpdated = true;
+        } else if (u.role === 'supervisor' || u.username === 'head') {
+          u.name = officials.guidanceName;
+          if (officials.guidanceRole) u.title = officials.guidanceRole;
+          usersUpdated = true;
+        }
+      });
+      if (usersUpdated) {
+        setStorage('v6_users', users);
+      }
+
+      // อัปเดตข้อมูลผู้ใช้ที่กำลังเข้าใช้งานอยู่ (currentUser) ทันที เพื่อให้ชื่อแสดงผลตรงกับที่แก้ไข
+      if (currentUser) {
+        if (currentUser.role === 'admin' || currentUser.username === 'admin') {
+          currentUser.name = officials.adminName;
+          if (officials.adminRole) currentUser.title = officials.adminRole;
+        } else if (currentUser.role === 'supervisor' || currentUser.username === 'head') {
+          currentUser.name = officials.guidanceName;
+          if (officials.guidanceRole) currentUser.title = officials.guidanceRole;
+        }
+        setStorage('v6_current_user', currentUser);
+        applyUserPermissions(); // รีเฟรชแถบ Profile ด้านบนทันที ไม่ต้องรีโหลดหรือล็อกเอาต์
+      }
+
+      alert('บันทึกข้อมูลรายชื่อผู้บริหารและบุคลากรผู้ลงนามเรียบร้อยแล้ว!\nระบบได้อัปเดตชื่อผู้ใช้งานเข้าสู่ระบบ (Login) ให้ตรงกันทันที');
     }
 
     function renderStudentAccountsTable() {
@@ -2886,6 +3000,7 @@
     // Bootstrapping
     // -------------------------------------------------------------
     window.onload = function() {
+      syncOfficialsToUsers();
       syncInstitutionUI();
       initYears();
       applyUserPermissions();
