@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบทุนการศึกษา: Dashboard กราฟ จัดการข้อมูล และพิมพ์รายงาน</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts Sarabun -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+    }
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 pb-16">
+  <!-- Top Navigation / Header -->
+  <header class="bg-blue-800 text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="bg-white/10 p-2.5 rounded-xl border border-white/20">
+          <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight">ระบบทุนการศึกษา: Dashboard สรุปทุนและจัดสรรทุน</h1>
+          <p class="text-xs text-blue-200">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+        </div>
+      </div>
+      
+      <!-- Control Actions -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div class="flex items-center bg-blue-900/70 px-3 py-1.5 rounded-lg border border-blue-700/60">
+          <label for="year" class="text-xs font-medium text-blue-200 mr-2">ปีการศึกษา:</label>
+          <select id="year" class="bg-white text-slate-900 rounded px-2.5 py-1 text-sm font-bold border-0 outline-none cursor-pointer">
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+
+        <!-- Add Recipient Button -->
+        <button onclick="openModal()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-2 rounded-lg shadow-sm text-sm transition active:scale-95 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          เพิ่มผู้รับทุน
+        </button>
+
+        <!-- Print Report Button -->
+        <button onclick="printReport()" class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3.5 py-2 rounded-lg shadow-sm text-sm transition active:scale-95 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          พิมพ์รายงาน A4 (PDF)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <!-- KPI Cards -->
+    <section>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500">ภาพรวมตัวชี้วัด (KPIs)</h2>
+        <button onclick="resetData()" class="text-xs text-slate-400 hover:text-slate-600 underline cursor-pointer">คืนค่าข้อมูลเริ่มต้น (Reset)</button>
+      </div>
+      <div id="kpi" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Chart 1: Bar Chart -->
+      <div class="card flex flex-col">
+        <div class="mb-3">
+          <h3 class="font-bold text-slate-800 text-base">ยอดเงินจัดสรรแยกตามประเภททุนการศึกษา</h3>
+          <p class="text-xs text-slate-500">กราฟแท่งสรุปงบประมาณทุนการศึกษาแต่ละประเภท (บาท)</p>
+        </div>
+        <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <canvas id="c1"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Doughnut Chart -->
+      <div class="card flex flex-col">
+        <div class="mb-3">
+          <h3 class="font-bold text-slate-800 text-base">สัดส่วนผู้รับทุนแยกระดับการศึกษา</h3>
+          <p class="text-xs text-slate-500">กราฟโดนัทแสดงสัดส่วนผู้รับทุน ปวช. และ ปวส.</p>
+        </div>
+        <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <canvas id="c2"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rankings Section: Top Majors & Top Students -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Top Majors Ranking -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏆</span>
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">อันดับสาขาวิชาที่ได้รับทุนสูงสุด</h3>
+              <p class="text-xs text-slate-500">เรียงตามยอดเงินจัดสรรทุนรวม</p>
+            </div>
+          </div>
+          <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Top Majors</span>
+        </div>
+        <div id="majorRankings" class="space-y-2.5">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Top Students Ranking -->
+      <div class="card">
+        <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">⭐</span>
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">อันดับนักเรียน/นักศึกษาที่ได้รับทุนสูงสุด</h3>
+              <p class="text-xs text-slate-500">เรียงตามยอดทุนที่ได้รับรายบุคคล</p>
+            </div>
+          </div>
+          <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">Top Students</span>
+        </div>
+        <div id="studentRankings" class="space-y-2.5">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Table Section 1: Summary by Major -->
+    <section class="card">
+      <div class="mb-4 flex flex-wrap justify-between items-center gap-2">
+        <div>
+          <h3 class="font-bold text-slate-800 text-base">ตารางสรุปการจัดสรรทุนตามสาขาวิชา</h3>
+          <p class="text-xs text-slate-500">สรุปจำนวนผู้รับทุนและเงินรวมแยกรายสาขาวิชา (ตรวจสอบเทียบเคียง Google Sheets SUMIF)</p>
+        </div>
+        <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-200">
+          SUMIF Verification Ready
+        </span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-100/80 text-slate-700 text-sm border-b border-slate-200">
+              <th class="p-3 font-semibold">สาขาวิชา</th>
+              <th class="p-3 font-semibold text-right">จำนวนผู้รับทุน (คน)</th>
+              <th class="p-3 font-semibold text-right">เงินรวม (บาท)</th>
+            </tr>
+          </thead>
+          <tbody id="byMajor" class="divide-y divide-slate-100 text-sm">
+            <!-- Rendered by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Table Section 2: Recipient Data Management (Add / Edit / Delete) -->
+    <section class="card">
+      <div class="mb-4 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+            <span>📋 รายชื่อผู้รับทุนการศึกษา (บันทึก / แก้ไข / ลบข้อมูล)</span>
+          </h3>
+          <p class="text-xs text-slate-500">จัดการข้อมูลผู้รับทุนในปีการศึกษาปัจจุบัน ข้อมูลจะอัปเดต Dashboard ทันที</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="text" id="searchInput" oninput="renderRecipientsTable()" placeholder="ค้นหารหัส, ชื่อ, ทุน, สาขา..." 
+            class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none w-52">
+          <button onclick="openModal()" class="inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white font-medium px-3 py-1.5 rounded-lg text-xs transition active:scale-95 cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            เพิ่มข้อมูล
+          </button>
+        </div>
+      </div>
+      
+      <div class="overflow-x-auto border border-slate-200 rounded-lg">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+              <th class="p-3 text-center w-12">ที่</th>
+              <th class="p-3">รหัสนักศึกษา</th>
+              <th class="p-3">ชื่อ-สกุล</th>
+              <th class="p-3">ระดับ/สาขาวิชา</th>
+              <th class="p-3">ประเภททุน</th>
+              <th class="p-3 text-right">จำนวนเงิน (บาท)</th>
+              <th class="p-3 text-center w-28">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="recipientsTableBody" class="divide-y divide-slate-100 text-sm">
+            <!-- Rendered by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Form: Add / Edit Recipient -->
+  <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden transform transition-all">
+      <div class="bg-blue-800 text-white px-6 py-4 flex justify-between items-center">
+        <h3 id="modalTitle" class="text-base font-bold flex items-center gap-2">
+          <span>บันทึกข้อมูลผู้รับทุน</span>
+        </h3>
+        <button onclick="closeModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+
+      <form id="recipientForm" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4">
+        <input type="hidden" id="editIndex" value="-1">
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ปีการศึกษา *</label>
+            <input type="text" id="modalYear" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">รหัสนักศึกษา *</label>
+            <input type="text" id="modalStudentId" required placeholder="เช่น 6720101001" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อ-สกุล นักเรียน/นักศึกษา *</label>
+          <input type="text" id="modalStudentName" required placeholder="เช่น นายสมชาย หมายมั่น" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ระดับการศึกษา *</label>
+            <select id="modalLevel" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+              <option value="ปวช.">ปวช.</option>
+              <option value="ปวส.">ปวส.</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">สาขาวิชา *</label>
+            <input type="text" id="modalMajor" list="majorList" required placeholder="เลือกหรือพิมพ์สาขาวิชา" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            <datalist id="majorList">
+              <option value="ช่างยนต์">
+              <option value="ช่างไฟฟ้ากำลัง">
+              <option value="เทคโนโลยีสารสนเทศ">
+              <option value="การบัญชี">
+              <option value="การตลาด">
+              <option value="ช่างอิเล็กทรอนิกส์">
+              <option value="ช่างเชื่อมโลหะ">
+            </datalist>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">ประเภททุนการศึกษา *</label>
+            <input type="text" id="modalScholarshipName" list="scholarshipList" required placeholder="เลือกหรือพิมพ์ชื่อทุน" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+            <datalist id="scholarshipList">
+              <option value="ทุนเรียนดี">
+              <option value="ทุนขาดแคลนทุนทรัพย์">
+              <option value="ทุนกิจกรรมดีเด่น">
+              <option value="ทุนสถานประกอบการ">
+            </datalist>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">จำนวนเงิน (บาท) *</label>
+            <input type="number" id="modalAmount" required min="100" step="100" placeholder="เช่น 5000" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2.5">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition cursor-pointer">
+            ยกเลิก
+          </button>
+          <button type="submit" class="px-5 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold shadow-sm transition active:scale-95 cursor-pointer">
+            บันทึกข้อมูล
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="text-center py-6 text-xs text-slate-400">
+    ระบบบริหารจัดการงานทุนการศึกษา &copy; วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์
+  </footer>
+
+  <!-- Main JavaScript Logic -->
+  <script>
+    // -------------------------------------------------------------
+    // Initial Seed Data (ข้อมูลเริ่มต้น)
+    // -------------------------------------------------------------
+    const INITIAL_SCHOLARSHIPS = [
+      { id: 1, scholarshipName: 'ทุนเรียนดี', year: '2567', budget: 50000 },
+      { id: 2, scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', year: '2567', budget: 100000 },
+      { id: 3, scholarshipName: 'ทุนกิจกรรมดีเด่น', year: '2567', budget: 30000 },
+      { id: 4, scholarshipName: 'ทุนเรียนดี', year: '2566', budget: 40000 },
+      { id: 5, scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', year: '2566', budget: 80000 },
+    ];
+
+    const INITIAL_RECIPIENTS = [
+      // ปี 2567
+      { studentId: '6720101001', studentName: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'ช่างยนต์', scholarshipName: 'ทุนเรียนดี', amount: 5000, year: '2567' },
+      { studentId: '6720101002', studentName: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'การบัญชี', scholarshipName: 'ทุนเรียนดี', amount: 5000, year: '2567' },
+      { studentId: '6720101003', studentName: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'ช่างไฟฟ้ากำลัง', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', amount: 4000, year: '2567' },
+      { studentId: '6720101004', studentName: 'นางสาวพรพิมล ชื่นใจ', level: 'ปวช.', major: 'เทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', amount: 4000, year: '2567' },
+      { studentId: '6730101001', studentName: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'ช่างยนต์', scholarshipName: 'ทุนเรียนดี', amount: 6000, year: '2567' },
+      { studentId: '6730101002', studentName: 'นายวรวุฒิ สมบูรณ์', level: 'ปวส.', major: 'เทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนกิจกรรมดีเด่น', amount: 3500, year: '2567' },
+      { studentId: '6730101003', studentName: 'นางสาวกมลวรรณ บุญมี', level: 'ปวส.', major: 'การบัญชี', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', amount: 4500, year: '2567' },
+      { studentId: '6730101004', studentName: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'ช่างไฟฟ้ากำลัง', scholarshipName: 'ทุนกิจกรรมดีเด่น', amount: 3500, year: '2567' },
+
+      // ปี 2566
+      { studentId: '6620101001', studentName: 'นายสมเกียรติ สว่างศรี', level: 'ปวช.', major: 'ช่างยนต์', scholarshipName: 'ทุนเรียนดี', amount: 5000, year: '2566' },
+      { studentId: '6620101002', studentName: 'นางสาวรุ่งนภา ศรีทอง', level: 'ปวช.', major: 'การบัญชี', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', amount: 4000, year: '2566' },
+      { studentId: '6630101001', studentName: 'นายธีรภัทร ชาญชัย', level: 'ปวส.', major: 'เทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนเรียนดี', amount: 6000, year: '2566' },
+      { studentId: '6630101002', studentName: 'นายศุภชัย อินทร', level: 'ปวส.', major: 'ช่างไฟฟ้ากำลัง', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', amount: 4500, year: '2566' },
+    ];
+
+    // Local Storage Data Management
+    function getStoredData(key, fallback) {
+      try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function saveStoredData(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (e) {
+        console.warn('Storage save failed:', e);
+      }
+    }
+
+    async function requireLogin() { return true; }
+
+    async function api(action, endpoint) {
+      if (endpoint === 'scholarships') {
+        return getStoredData('scholarship_funds', INITIAL_SCHOLARSHIPS);
+      }
+      if (endpoint === 'recipients') {
+        return getStoredData('scholarship_recipients', INITIAL_RECIPIENTS);
+      }
+      return [];
+    }
+
+    // -------------------------------------------------------------
+    // Helper Functions
+    // -------------------------------------------------------------
+    const groupCount = (rows, key) => rows.reduce((o, r) => {
+      const k = r[key] || 'ไม่ระบุ';
+      o[k] = (o[k] || 0) + 1;
+      return o;
+    }, {});
+
+    const esc = s => String(s ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
+    function reportHead(title, subtitle) {
+      return `
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h2 style="font-size: 18pt; font-weight: bold; margin: 0 0 5px 0;">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+          <h3 style="font-size: 16pt; font-weight: bold; margin: 0 0 5px 0;">${esc(title)}</h3>
+          <p style="font-size: 14pt; margin: 0;">${esc(subtitle)}</p>
+        </div>
+      `;
+    }
+
+    function reportSign(name, role) {
+      return `
+        <div style="margin-top: 35px; display: flex; justify-content: flex-end;">
+          <div style="text-align: center; width: 280px; font-size: 13pt;">
+            <p style="margin-bottom: 45px;">ลงชื่อ .......................................................</p>
+            <p style="margin: 0; line-height: 1.5;">(${esc(name)})</p>
+            <p style="margin: 0; line-height: 1.5;">${esc(role)}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function printHTML(html) {
+      const w = window.open('', '_blank');
+      w.document.write(`
+        <!DOCTYPE html>
+        <html lang="th">
+        <head>
+          <meta charset="UTF-8">
+          <title>พิมพ์รายงานสรุปการจัดสรรทุนการศึกษา</title>
+          <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @page {
+              size: A4 portrait;
+              margin: 20mm 15mm 20mm 20mm;
+            }
+            body {
+              font-family: 'Sarabun', sans-serif;
+              font-size: 13.5pt;
+              line-height: 1.5;
+              color: #111;
+              background: #fff;
+              margin: 0;
+              padding: 0;
+            }
+            .page {
+              page-break-after: always;
+              box-sizing: border-box;
+            }
+            .page:last-child {
+              page-break-after: avoid;
+            }
+            h3 {
+              font-size: 14.5pt;
+              font-weight: bold;
+              margin: 16px 0 8px 0;
+            }
+            .mt { margin-top: 10px; }
+            .rpt {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 8px 0 16px 0;
+            }
+            .rpt th, .rpt td {
+              border: 1px solid #444;
+              padding: 5px 8px;
+              font-size: 12.5pt;
+            }
+            .rpt th {
+              background-color: #f1f5f9;
+              font-weight: bold;
+              text-align: center;
+            }
+            .rpt td.n {
+              text-align: right;
+            }
+            .chart-img {
+              display: block;
+              max-width: 90%;
+              max-height: 240px;
+              margin: 12px auto;
+              border: 1px solid #e2e8f0;
+              padding: 6px;
+              border-radius: 4px;
+            }
+          </style>
+        </head>
+        <body>
+          ${html}
+          <script>
+            window.onload = function() {
+              window.focus();
+              window.print();
+            };
+          <\/script>
+        </body>
+        </html>
+      `);
+      w.document.close();
+    }
+
+    // -------------------------------------------------------------
+    // Core Dashboard Logic (ตาม Prompt)
+    // -------------------------------------------------------------
+    let funds = [], recv = [], c1, c2;
+    const $ = id => document.getElementById(id);
+    const baht = n => Number(n || 0).toLocaleString('th-TH');
+    const sumBy = (rows, key) => rows.reduce((o, r) => {
+      const k = r[key] || 'ไม่ระบุ'; o[k] = (o[k] || 0) + Number(r.amount || 0); return o; }, {});
+
+    async function load() {
+      await requireLogin();
+      [funds, recv] = await Promise.all([api('list', 'scholarships'), api('list', 'recipients')]);
+      updateYearDropdown();
+      render();
+    }
+
+    function updateYearDropdown() {
+      const currentVal = $('year').value;
+      const years = [...new Set(recv.map(r => String(r.year)))].sort().reverse();
+      if (years.length === 0) years.push('2567');
+      $('year').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+      if (currentVal && years.includes(currentVal)) {
+        $('year').value = currentVal;
+      } else {
+        $('year').value = years[0];
+      }
+    }
+
+    function data() {
+      const y = $('year').value;
+      return { 
+        y, 
+        rows: recv.filter(r => String(r.year) === y), 
+        fs: funds.filter(s => String(s.year) === y) 
+      };
+    }
+
+    function render() {
+      const { y, rows, fs } = data();
+      const total = rows.reduce((s, r) => s + Number(r.amount || 0), 0);
+      
+      // 1. KPI Cards
+      $('kpi').innerHTML = [['จำนวนทุน', fs.length], ['ผู้รับทุน (คน)', rows.length], ['เงินรวม (บาท)', baht(total)]]
+        .map(([t, v]) => `<div class="card"><p class="text-sm text-slate-500 font-medium">${t}</p><p class="text-3xl font-bold text-blue-700 mt-1">${v}</p></div>`).join('');
+
+      // 2. Bar Chart (c1) & Doughnut Chart (c2)
+      const byFund = sumBy(rows, 'scholarshipName'), byLevel = groupCount(rows, 'level');
+      c1?.destroy(); c2?.destroy();
+      c1 = new Chart($('c1'), { type: 'bar',
+        data: { labels: Object.keys(byFund), datasets: [{ label: 'เงินรวม (บาท)', data: Object.values(byFund), backgroundColor: '#1d4ed8', borderRadius: 4 }] },
+        options: { 
+          animation: false, 
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { 
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ` ${baht(ctx.raw)} บาท`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { callback: v => baht(v) }
+            }
+          }
+        } 
+      });
+      c2 = new Chart($('c2'), { type: 'doughnut',
+        data: { 
+          labels: Object.keys(byLevel), 
+          datasets: [{ 
+            data: Object.values(byLevel), 
+            backgroundColor: ['#1d4ed8', '#f59e0b', '#10b981', '#6366f1'] 
+          }] 
+        },
+        options: { 
+          animation: false,
+          responsive: true,
+          maintainAspectRatio: false
+        } 
+      });
+
+      // 3. Table: Summary by Major
+      const majors = groupCount(rows, 'major'), mAmt = sumBy(rows, 'major');
+      $('byMajor').innerHTML = Object.keys(majors).map(m =>
+        `<tr class="hover:bg-slate-50 transition"><td class="p-3 text-slate-800 font-medium">${esc(m)}</td><td class="p-3 text-right text-slate-600">${majors[m]}</td><td class="p-3 text-right font-semibold text-blue-900">${baht(mAmt[m])}</td></tr>`).join('');
+
+      // 4. Rankings (สาขาวิชา และ นักเรียนที่ได้รับทุนสูงสุด)
+      renderRankings(rows, majors, mAmt);
+
+      // 5. Manage Recipients Table
+      renderRecipientsTable();
+    }
+
+    // -------------------------------------------------------------
+    // Rankings Logic (จัดอันดับสาขาวิชา และ นักเรียนทุนสูงสุด)
+    // -------------------------------------------------------------
+    function renderRankings(rows, majors, mAmt) {
+      // 1. อันดับสาขาวิชาที่ได้รับทุนสูงสุด (เรียงตามยอดเงิน mAmt)
+      const sortedMajors = Object.keys(mAmt).sort((a, b) => mAmt[b] - mAmt[a]);
+      const medals = ['🥇', '🥈', '🥉'];
+      const rankBg = ['bg-amber-50 border-amber-200 text-amber-900', 'bg-slate-50 border-slate-200 text-slate-800', 'bg-orange-50 border-orange-200 text-orange-900'];
+
+      if (sortedMajors.length === 0) {
+        $('majorRankings').innerHTML = '<p class="text-sm text-slate-400 py-3 text-center">ยังไม่มีข้อมูลสำหรับปีนี้</p>';
+      } else {
+        $('majorRankings').innerHTML = sortedMajors.slice(0, 4).map((m, idx) => {
+          const medal = medals[idx] || `<span class="text-xs font-bold text-slate-500">#${idx + 1}</span>`;
+          const style = rankBg[idx] || 'bg-white border-slate-100 text-slate-700';
+          return `
+            <div class="flex items-center justify-between p-2.5 rounded-lg border ${style} transition hover:shadow-xs">
+              <div class="flex items-center gap-3">
+                <span class="text-lg w-6 text-center">${medal}</span>
+                <div>
+                  <h4 class="font-bold text-sm leading-tight">${esc(m)}</h4>
+                  <p class="text-xs text-slate-500">จำนวน ${majors[m]} คน</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-bold text-blue-800 text-sm">${baht(mAmt[m])}</span>
+                <span class="text-xs text-slate-500 block">บาท</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 2. อันดับนักเรียน/นักศึกษาที่ได้รับทุนสูงสุด (เรียงตาม amount)
+      const sortedStudents = [...rows].sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0));
+      if (sortedStudents.length === 0) {
+        $('studentRankings').innerHTML = '<p class="text-sm text-slate-400 py-3 text-center">ยังไม่มีข้อมูลสำหรับปีนี้</p>';
+      } else {
+        $('studentRankings').innerHTML = sortedStudents.slice(0, 4).map((r, idx) => {
+          const medal = medals[idx] || `<span class="text-xs font-bold text-slate-500">#${idx + 1}</span>`;
+          const style = rankBg[idx] || 'bg-white border-slate-100 text-slate-700';
+          return `
+            <div class="flex items-center justify-between p-2.5 rounded-lg border ${style} transition hover:shadow-xs">
+              <div class="flex items-center gap-3">
+                <span class="text-lg w-6 text-center">${medal}</span>
+                <div>
+                  <h4 class="font-bold text-sm leading-tight">${esc(r.studentName)}</h4>
+                  <p class="text-xs text-slate-500">${esc(r.level)} ${esc(r.major)} &bull; ${esc(r.scholarshipName)}</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-bold text-blue-800 text-sm">${baht(r.amount)}</span>
+                <span class="text-xs text-slate-500 block">บาท</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Recipient CRUD Management
+    // -------------------------------------------------------------
+    function renderRecipientsTable() {
+      const { y, rows } = data();
+      const q = ($('searchInput')?.value || '').trim().toLowerCase();
+      
+      let filtered = rows;
+      if (q) {
+        filtered = rows.filter(r => 
+          (r.studentId && r.studentId.toLowerCase().includes(q)) ||
+          (r.studentName && r.studentName.toLowerCase().includes(q)) ||
+          (r.major && r.major.toLowerCase().includes(q)) ||
+          (r.scholarshipName && r.scholarshipName.toLowerCase().includes(q)) ||
+          (r.level && r.level.toLowerCase().includes(q))
+        );
+      }
+
+      if (filtered.length === 0) {
+        $('recipientsTableBody').innerHTML = `
+          <tr>
+            <td colspan="7" class="p-6 text-center text-slate-400 text-sm">ไม่พบข้อมูลผู้รับทุนการศึกษา</td>
+          </tr>
+        `;
+        return;
+      }
+
+      $('recipientsTableBody').innerHTML = filtered.map((r, i) => {
+        const globalIdx = recv.indexOf(r);
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="p-3 text-center text-slate-400 text-xs">${i + 1}</td>
+            <td class="p-3 font-mono font-semibold text-slate-700 text-xs">${esc(r.studentId)}</td>
+            <td class="p-3 font-medium text-slate-900">${esc(r.studentName)}</td>
+            <td class="p-3 text-slate-600"><span class="px-2 py-0.5 rounded bg-slate-100 text-xs font-semibold mr-1.5">${esc(r.level)}</span>${esc(r.major)}</td>
+            <td class="p-3 text-slate-700">${esc(r.scholarshipName)}</td>
+            <td class="p-3 text-right font-bold text-blue-800">${baht(r.amount)}</td>
+            <td class="p-3 text-center space-x-1.5">
+              <button onclick="editRecipient(${globalIdx})" title="แก้ไข" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 rounded text-xs font-medium cursor-pointer transition">
+                แก้ไข
+              </button>
+              <button onclick="deleteRecipient(${globalIdx})" title="ลบ" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-xs font-medium cursor-pointer transition">
+                ลบ
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Modal Control & Form Handling
+    function openModal(editIdx = -1) {
+      $('editIndex').value = editIdx;
+      if (editIdx >= 0 && recv[editIdx]) {
+        const item = recv[editIdx];
+        $('modalTitle').innerText = 'แก้ไขข้อมูลผู้รับทุนการศึกษา';
+        $('modalYear').value = item.year || $('year').value;
+        $('modalStudentId').value = item.studentId || '';
+        $('modalStudentName').value = item.studentName || '';
+        $('modalLevel').value = item.level || 'ปวช.';
+        $('modalMajor').value = item.major || '';
+        $('modalScholarshipName').value = item.scholarshipName || '';
+        $('modalAmount').value = item.amount || '';
+      } else {
+        $('modalTitle').innerText = 'เพิ่มข้อมูลผู้รับทุนการศึกษาใหม่';
+        $('modalYear').value = $('year').value;
+        $('modalStudentId').value = '';
+        $('modalStudentName').value = '';
+        $('modalLevel').value = 'ปวช.';
+        $('modalMajor').value = '';
+        $('modalScholarshipName').value = 'ทุนเรียนดี';
+        $('modalAmount').value = '';
+      }
+      $('modalOverlay').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      $('modalOverlay').classList.add('hidden');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const idx = parseInt($('editIndex').value, 10);
+      const newRecord = {
+        studentId: $('modalStudentId').value.trim(),
+        studentName: $('modalStudentName').value.trim(),
+        level: $('modalLevel').value.trim(),
+        major: $('modalMajor').value.trim(),
+        scholarshipName: $('modalScholarshipName').value.trim(),
+        amount: Number($('modalAmount').value || 0),
+        year: $('modalYear').value.trim(),
+      };
+
+      if (idx >= 0 && idx < recv.length) {
+        recv[idx] = newRecord;
+      } else {
+        recv.push(newRecord);
+      }
+
+      const fundExists = funds.some(f => f.scholarshipName === newRecord.scholarshipName && String(f.year) === newRecord.year);
+      if (!fundExists) {
+        funds.push({
+          id: Date.now(),
+          scholarshipName: newRecord.scholarshipName,
+          year: newRecord.year,
+          budget: newRecord.amount * 5
+        });
+        saveStoredData('scholarship_funds', funds);
+      }
+
+      saveStoredData('scholarship_recipients', recv);
+      closeModal();
+      updateYearDropdown();
+      $('year').value = newRecord.year;
+      render();
+    }
+
+    function editRecipient(idx) {
+      openModal(idx);
+    }
+
+    function deleteRecipient(idx) {
+      if (idx < 0 || idx >= recv.length) return;
+      const r = recv[idx];
+      if (confirm(`คุณต้องการลบข้อมูลผู้รับทุนของ "${r.studentName}" (${r.scholarshipName}) ใช่หรือไม่?`)) {
+        recv.splice(idx, 1);
+        saveStoredData('scholarship_recipients', recv);
+        updateYearDropdown();
+        render();
+      }
+    }
+
+    function resetData() {
+      if (confirm('ต้องการรีเซ็ตข้อมูลผู้รับทุนกลับสู่ค่าเริ่มต้นของระบบใช่หรือไม่?')) {
+        localStorage.removeItem('scholarship_recipients');
+        localStorage.removeItem('scholarship_funds');
+        recv = [...INITIAL_RECIPIENTS];
+        funds = [...INITIAL_SCHOLARSHIPS];
+        updateYearDropdown();
+        render();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Print Report (A4 PDF 2 หน้า)
+    // -------------------------------------------------------------
+    function printReport() {
+      const { y, rows, fs } = data();
+      const total = rows.reduce((s, r) => s + Number(r.amount || 0), 0);
+      const byFundN = groupCount(rows, 'scholarshipName'), byFundA = sumBy(rows, 'scholarshipName');
+      const majors = groupCount(rows, 'major'), mAmt = sumBy(rows, 'major');
+      printHTML(`<section class="page">
+        ${reportHead('รายงานสรุปการจัดสรรทุนการศึกษา', 'ปีการศึกษา ' + y)}
+        <p class="mt" style="text-indent:2.5cm">ในปีการศึกษา ${esc(y)} วิทยาลัยจัดสรรทุนการศึกษา ${fs.length} ประเภท
+          ให้แก่ผู้เรียน ${rows.length} คน รวมเป็นเงินทั้งสิ้น ${baht(total)} บาท รายละเอียดดังนี้</p>
+        <h3>1. สรุปตามประเภททุน</h3>
+        <table class="rpt"><tr><th>ที่</th><th>ชื่อทุน</th><th>จำนวน (คน)</th><th>จำนวนเงิน (บาท)</th></tr>
+          ${Object.keys(byFundN).map((k, i) => `<tr><td class="n" style="text-align:center">${i + 1}</td><td>${esc(k)}</td><td class="n">${byFundN[k]}</td><td class="n">${baht(byFundA[k])}</td></tr>`).join('')}
+          <tr style="font-weight:bold; background-color:#fafafa;"><th colspan="2" style="text-align:center">รวม</th><th class="n">${rows.length}</th><th class="n">${baht(total)}</th></tr></table>
+        <img class="chart-img" src="${c1.toBase64Image()}">
+        <h3>2. สรุปตามสาขาวิชา</h3>
+        <table class="rpt"><tr><th>สาขาวิชา</th><th>จำนวน (คน)</th><th>จำนวนเงิน (บาท)</th></tr>
+          ${Object.keys(majors).map(m => `<tr><td>${esc(m)}</td><td class="n">${majors[m]}</td><td class="n">${baht(mAmt[m])}</td></tr>`).join('')}</table>
+        ${reportSign('...................................', 'หัวหน้างานทุนการศึกษา')}
+      </section>
+      <section class="page"><h3>ภาคผนวก: รายชื่อผู้รับทุน ปีการศึกษา ${esc(y)}</h3>
+        <table class="rpt"><tr><th>ที่</th><th>รหัส</th><th>ชื่อ-สกุล</th><th>ระดับ/สาขา</th><th>ทุน</th><th>บาท</th></tr>
+          ${rows.map((r, i) => `<tr><td class="n" style="text-align:center">${i + 1}</td><td>${esc(r.studentId)}</td><td>${esc(r.studentName)}</td>
+            <td>${esc(r.level)} ${esc(r.major)}</td><td>${esc(r.scholarshipName)}</td><td class="n">${baht(r.amount)}</td></tr>`).join('')}</table>
+      </section>`);
+    }
+
+    $('year').onchange = render;
+    load();
+  </script>
+</body>
+</html>
