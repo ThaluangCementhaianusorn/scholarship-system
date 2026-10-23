@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบบริหารจัดการและจัดสรรทุนการศึกษา - วท.ท่าหลวงซิเมนต์ไทยอนุสรณ์</title>
+  <title id="pageTitle">ระบบบริหารจัดการและจัดสรรทุนการศึกษา</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
@@ -39,7 +39,7 @@
 <body class="bg-slate-50 min-h-screen text-slate-800 pb-20">
 
   <!-- ============================================================ -->
-  <!-- Header & Top Navigation Bar                                 -->
+  <!-- Header & Top Navigation Bar (Dynamic Institution Name)      -->
   <!-- ============================================================ -->
   <header class="bg-blue-900 text-white shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap justify-between items-center gap-3">
@@ -51,10 +51,10 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base md:text-lg font-bold tracking-tight">ระบบบริหารจัดการทุนการศึกษา</h1>
-            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.2 rounded">PRO</span>
+            <h1 id="headerSystemTitle" class="text-base md:text-lg font-bold tracking-tight">ระบบบริหารจัดการทุนการศึกษา</h1>
+            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.2 rounded">MULTI-ORG</span>
           </div>
-          <p class="text-xs text-blue-200">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+          <p id="headerSchoolName" class="text-xs text-blue-200">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
         </div>
       </div>
       
@@ -81,7 +81,7 @@
             </svg>
             พิมพ์รายงานสรุป A4 &dtrif;
           </button>
-          <div class="absolute right-0 mt-1 w-60 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 py-1 hidden group-hover:block z-50 text-xs">
+          <div class="absolute right-0 mt-1 w-64 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 py-1 hidden group-hover:block z-50 text-xs">
             <button onclick="printReport('overview')" class="w-full text-left px-4 py-2 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
               <span>📊</span> พิมพ์รายงานสรุปภาพรวมทั้งหมด
             </button>
@@ -91,18 +91,9 @@
             <div class="px-4 py-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider border-t border-slate-100">
               พิมพ์แยกตามแผนกวิชา
             </div>
-            <button onclick="printReportByDept('ช่างยนต์')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-              <span>🔧</span> แผนกวิชาช่างยนต์
-            </button>
-            <button onclick="printReportByDept('ช่างไฟฟ้ากำลัง')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-              <span>⚡</span> แผนกวิชาช่างไฟฟ้ากำลัง
-            </button>
-            <button onclick="printReportByDept('เทคโนโลยีสารสนเทศ')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-              <span>💻</span> แผนกวิชาเทคโนโลยีสารสนเทศ
-            </button>
-            <button onclick="printReportByDept('การบัญชี')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-              <span>📑</span> แผนกวิชาการบัญชี
-            </button>
+            <div id="printDeptDropdownList" class="max-h-48 overflow-y-auto">
+              <!-- Dynamically populated from departments list -->
+            </div>
           </div>
         </div>
       </div>
@@ -127,7 +118,7 @@
           <span>👥</span> รายการคำขอ & ไทม์ไลน์
         </button>
         <button onclick="switchTab('settings')" id="tab-settings" class="tab-btn tab-inactive role-admin-only px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 bg-yellow-500/20 text-yellow-300">
-          <span>⚙️</span> จัดการบุคลากร & นำเข้านักเรียน
+          <span>⚙️</span> ตั้งค่าสถานศึกษา & แผนกวิชา
         </button>
       </div>
     </div>
@@ -145,7 +136,7 @@
       <div class="flex justify-between items-center">
         <div>
           <h2 class="text-base font-bold text-slate-800">แดชบอร์ดสรุปภาพรวมทุนการศึกษา</h2>
-          <p class="text-xs text-slate-500">สรุปการจัดสรรทุนการศึกษา ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
+          <p class="text-xs text-slate-500"><span class="school-name-text"></span> &bull; ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
         </div>
         <button onclick="resetData()" class="role-admin-only text-xs text-slate-400 hover:text-rose-600 underline cursor-pointer">
           คืนค่าฐานข้อมูลเริ่มต้น (Reset System)
@@ -239,17 +230,12 @@
           </h2>
           <p class="text-xs text-slate-500">สรุปยอดรวมเงินทุน บริษัท มูลนิธิ และผู้สนับสนุนภาคเอกชน</p>
         </div>
-        <!-- Department Filter -->
+        <!-- Department Filter (Dynamic) -->
         <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
           <label for="deptFilter" class="font-semibold text-slate-600">กรองตามแผนกวิชา:</label>
           <select id="deptFilter" onchange="renderExternalDashboard()" class="bg-slate-50 border border-slate-300 rounded px-2 py-1 outline-none font-medium cursor-pointer">
             <option value="ALL">-- ทุกแผนกวิชา --</option>
-            <option value="ช่างยนต์">แผนกวิชาช่างยนต์</option>
-            <option value="ช่างไฟฟ้ากำลัง">แผนกวิชาช่างไฟฟ้ากำลัง</option>
-            <option value="เทคโนโลยีสารสนเทศ">แผนกวิชาเทคโนโลยีสารสนเทศ</option>
-            <option value="การบัญชี">แผนกวิชาการบัญชี</option>
-            <option value="การตลาด">แผนกวิชาการตลาด</option>
-            <option value="ช่างเชื่อมโลหะ">แผนกวิชาช่างเชื่อมโลหะ</option>
+            <!-- Dynamically populated from departments -->
           </select>
         </div>
       </div>
@@ -318,7 +304,7 @@
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
             <span>📢</span> ประกาศรับสมัครทุนการศึกษา ประจำปีการศึกษา <span class="current-year-label"></span>
           </h2>
-          <p class="text-xs text-slate-500">ติดตามข่าวสาร ประชาสัมพันธ์ทุนการศึกษาทั้งภายในและภายนอกวิทยาลัย</p>
+          <p class="text-xs text-slate-500">ติดตามข่าวสาร ประชาสัมพันธ์ทุนการศึกษาทั้งภายในและภายนอกสถานศึกษา</p>
         </div>
 
         <div class="flex items-center gap-2">
@@ -334,7 +320,7 @@
 
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 4: STUDENT APPLICATION FORM (ยื่นขอรับทุนการศึกษา)         -->
+    <!-- TAB 4: STUDENT APPLICATION FORM                              -->
     <!-- ------------------------------------------------------------ -->
     <div id="content-apply" class="tab-content hidden">
       <div class="max-w-3xl mx-auto card p-6 md:p-8">
@@ -343,7 +329,7 @@
             ระบบรับสมัครออนไลน์สำหรับนักเรียน นักศึกษา
           </span>
           <h2 class="text-lg md:text-xl font-bold text-slate-900">แบบคำขอรับทุนการศึกษา</h2>
-          <p class="text-xs text-slate-500 mt-1">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
+          <p class="text-xs text-slate-500 mt-1"><span class="school-name-text"></span> &bull; ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
         </div>
 
         <form id="studentApplyForm" onsubmit="handleStudentApply(event)" class="mt-5 space-y-4 text-xs">
@@ -378,13 +364,8 @@
               </div>
               <div>
                 <label class="block font-semibold text-slate-600 mb-1">แผนกวิชา *</label>
-                <select id="appMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-                  <option value="ช่างยนต์">แผนกวิชาช่างยนต์</option>
-                  <option value="ช่างไฟฟ้ากำลัง">แผนกวิชาช่างไฟฟ้ากำลัง</option>
-                  <option value="เทคโนโลยีสารสนเทศ">แผนกวิชาเทคโนโลยีสารสนเทศ</option>
-                  <option value="การบัญชี">แผนกวิชาการบัญชี</option>
-                  <option value="การตลาด">แผนกวิชาการตลาด</option>
-                  <option value="ช่างเชื่อมโลหะ">แผนกวิชาช่างเชื่อมโลหะ</option>
+                <select id="appMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white department-select-options">
+                  <!-- Dynamically populated from departments -->
                 </select>
               </div>
               <div>
@@ -442,7 +423,7 @@
 
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 5: RECIPIENT & APPLICATION MANAGEMENT (Timeline Workflow)-->
+    <!-- TAB 5: RECIPIENT & APPLICATION MANAGEMENT                    -->
     <!-- ------------------------------------------------------------ -->
     <div id="content-manage" class="tab-content hidden space-y-5">
       
@@ -519,28 +500,103 @@
 
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 6: ADMIN SETTINGS & STUDENT IMPORTS (ข้อ 1 & ข้อ 2)      -->
+    <!-- TAB 6: SETTINGS FOR MULTI-INSTITUTIONS & DEPARTMENTS         -->
     <!-- ------------------------------------------------------------ -->
     <div id="content-settings" class="tab-content hidden space-y-6">
       
-      <!-- Section 1: บุคลากรผู้มีอำนาจลงนาม & Admin -->
+      <!-- Section 1: การตั้งค่าสถานศึกษาสำหรับนำไปใช้ที่อื่น (ข้อ 2) -->
+      <div class="card bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+        <div class="flex flex-wrap justify-between items-center gap-3">
+          <div>
+            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-2 py-0.5 rounded uppercase">White-Label / Customization</span>
+            <h3 class="text-base font-bold mt-1">ตั้งค่าข้อมูลสถานศึกษาใหม่ (สำหรับนำไปใช้งานในวิทยาลัย/โรงเรียนอื่นๆ)</h3>
+            <p class="text-xs text-blue-200">แก้ไขชื่อสถานศึกษา สังกัด และฝ่ายงาน เพื่อนำระบบนี้ไปใช้กับสถานศึกษาอื่นได้ทันที 100%</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="exportSystemBackup()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg text-xs font-semibold cursor-pointer transition">
+              💾 สำรองข้อมูล (Backup JSON)
+            </button>
+            <label class="px-3 py-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 rounded-lg text-xs font-bold cursor-pointer transition flex items-center gap-1">
+              <span>📥 กู้คืนข้อมูล (Restore)</span>
+              <input type="file" id="restoreFileInput" accept=".json" onchange="importSystemBackup(event)" class="hidden">
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs text-slate-800">
+          <div>
+            <label class="block text-blue-100 font-semibold mb-1">ชื่อสถานศึกษา *</label>
+            <input type="text" id="settingSchoolName" class="w-full px-3 py-2 rounded-lg border-0 bg-white font-bold outline-none focus:ring-2 focus:ring-yellow-400">
+          </div>
+          <div>
+            <label class="block text-blue-100 font-semibold mb-1">ชื่อระบบสารสนเทศ *</label>
+            <input type="text" id="settingSystemTitle" class="w-full px-3 py-2 rounded-lg border-0 bg-white font-bold outline-none focus:ring-2 focus:ring-yellow-400">
+          </div>
+          <div>
+            <label class="block text-blue-100 font-semibold mb-1">สังกัด / หน่วยงานต้นสังกัด *</label>
+            <input type="text" id="settingAffiliation" class="w-full px-3 py-2 rounded-lg border-0 bg-white outline-none focus:ring-2 focus:ring-yellow-400">
+          </div>
+        </div>
+        
+        <div class="mt-4 pt-3 border-t border-white/20 flex justify-between items-center">
+          <button onclick="clearDemoDataForNewSchool()" class="text-xs text-rose-300 hover:text-rose-100 underline cursor-pointer">
+            ⚠️ ล้างข้อมูลนักเรียนและทุนตัวอย่างทั้งหมด (เริ่มต้นใช้งานสถานศึกษาใหม่แบบคลีน)
+          </button>
+          <button onclick="saveInstitutionSettings()" class="px-5 py-2 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold rounded-lg text-xs shadow-md transition active:scale-95 cursor-pointer">
+            บันทึกการตั้งค่าสถานศึกษา
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 2: การจัดการแผนกวิชาและชื่อหัวหน้าแผนก (ข้อ 1) -->
+      <div class="card">
+        <div class="mb-4 pb-3 border-b border-slate-100 flex flex-wrap justify-between items-center gap-2">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span>🔧</span> จัดการแผนกวิชาและชื่อหัวหน้าแผนกวิชา (<span id="deptCountLabel">0</span> แผนก)
+            </h3>
+            <p class="text-xs text-slate-500">สามารถเพิ่มแผนกวิชาใหม่ กำหนดชื่อหัวหน้าแผนก และลบ/แก้ไขแผนกได้ แผนกทั้งหมดจะถูกดึงเข้า Dropdown ทุกหน้าโดยอัตโนมัติ</p>
+          </div>
+          <button onclick="openAddDeptModal()" class="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold transition active:scale-95 cursor-pointer flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            + เพิ่มแผนกวิชาใหม่
+          </button>
+        </div>
+
+        <!-- ตารางแผนกวิชา -->
+        <div class="overflow-x-auto border border-slate-200 rounded-lg">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
+                <th class="p-2.5 text-center w-12">ที่</th>
+                <th class="p-2.5">ชื่อแผนกวิชา</th>
+                <th class="p-2.5">ชื่อ-สกุล หัวหน้าแผนกวิชา (สำหรับลงนามในเอกสาร)</th>
+                <th class="p-2.5 text-center w-36">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="departmentsTableBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 3: บุคลากรผู้มีอำนาจลงนาม & ผู้บริหาร -->
       <div class="card">
         <div class="mb-4 pb-3 border-b border-slate-100 flex justify-between items-center">
           <div>
             <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-              <span>🏛️</span> 1. กำหนดรายชื่อผู้บริหาร หัวหน้างาน และหัวหน้าแผนกวิชา
+              <span>🏛️</span> รายชื่อผู้บริหารและหัวหน้างานผู้มีอำนาจลงนาม
             </h3>
             <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกนำไปแสดงในบล็อกลายเซ็นของแบบฟอร์มใบสมัคร และเอกสารรายงานสรุป A4 อัตโนมัติ</p>
           </div>
-          <button onclick="saveOfficials()" class="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition active:scale-95 cursor-pointer">
+          <button onclick="saveOfficials()" class="px-4 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition active:scale-95 cursor-pointer">
             บันทึกข้อมูลบุคลากร
           </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <!-- ผู้อำนวยการ -->
           <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200 space-y-2">
-            <span class="font-bold text-blue-900 block">👨‍💼 ผู้อำนวยการวิทยาลัย</span>
+            <span class="font-bold text-blue-900 block">👨‍💼 ผู้อำนวยการวิทยาลัย/สถานศึกษา</span>
             <div>
               <label class="block text-slate-600 mb-0.5">ชื่อ-สกุล:</label>
               <input type="text" id="officDirectorName" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white font-medium">
@@ -577,52 +633,19 @@
             </div>
           </div>
         </div>
-
-        <!-- หัวหน้าแผนกวิชาต่างๆ -->
-        <div class="mt-4 pt-4 border-t border-slate-100">
-          <h4 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5">
-            <span>🔧</span> รายชื่อหัวหน้าแผนกวิชา (สำหรับลงนามในส่วนที่ 2 ของใบสมัครตามแผนก)
-          </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างยนต์:</label>
-              <input type="text" id="deptHead_ช่างยนต์" placeholder="ชื่อ-สกุล หน.แผนกช่างยนต์" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างไฟฟ้ากำลัง:</label>
-              <input type="text" id="deptHead_ช่างไฟฟ้ากำลัง" placeholder="ชื่อ-สกุล หน.แผนกช่างไฟฟ้า" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาเทคโนโลยีสารสนเทศ:</label>
-              <input type="text" id="deptHead_เทคโนโลยีสารสนเทศ" placeholder="ชื่อ-สกุล หน.แผนก IT" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาการบัญชี:</label>
-              <input type="text" id="deptHead_การบัญชี" placeholder="ชื่อ-สกุล หน.แผนกบัญชี" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาการตลาด:</label>
-              <input type="text" id="deptHead_การตลาด" placeholder="ชื่อ-สกุล หน.แผนกการตลาด" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-            <div>
-              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างเชื่อมโลหะ:</label>
-              <input type="text" id="deptHead_ช่างเชื่อมโลหะ" placeholder="ชื่อ-สกุล หน.แผนกช่างเชื่อม" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- Section 2: นำเข้าข้อมูลนักเรียน/นักศึกษา (รหัส + Pass) -->
+      <!-- Section 4: นำเข้าข้อมูลนักเรียน/นักศึกษา -->
       <div class="card">
         <div class="mb-4 pb-3 border-b border-slate-100">
           <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-            <span>📥</span> 2. นำเข้าข้อมูลนักเรียน นักศึกษา (รหัสนักศึกษา และ รหัสผ่าน)
+            <span>📥</span> นำเข้าข้อมูลนักเรียน นักศึกษา (รหัสนักศึกษา และ รหัสผ่าน)
           </h3>
           <p class="text-xs text-slate-500">สามารถเพิ่มรายบุคคล หรือวางข้อมูลแบบหลายรายการพร้อมกัน (Batch Import) โดยรหัสผ่านเริ่มต้นจะเท่ากับรหัสนักศึกษาโดยอัตโนมัติ</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
-          <!-- แบบที่ 1: เพิ่มรายคน -->
+          <!-- เพิ่มรายคน -->
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
             <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-1.5">
               <span>👤</span> เพิ่มนักเรียน/นักศึกษา รายบุคคล
@@ -630,7 +653,7 @@
             <form onsubmit="handleAddSingleStudent(event)" class="space-y-3">
               <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <label class="block text-slate-600 mb-0.5">รหัสนักศึกษา (Username & Pass) *</label>
+                  <label class="block text-slate-600 mb-0.5">รหัสนักศึกษา (User & Pass) *</label>
                   <input type="text" id="newStdId" required placeholder="เช่น 6720101010" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
                 </div>
                 <div>
@@ -648,13 +671,8 @@
                 </div>
                 <div>
                   <label class="block text-slate-600 mb-0.5">แผนกวิชา *</label>
-                  <select id="newStdMajor" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
-                    <option value="ช่างยนต์">ช่างยนต์</option>
-                    <option value="ช่างไฟฟ้ากำลัง">ช่างไฟฟ้ากำลัง</option>
-                    <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
-                    <option value="การบัญชี">การบัญชี</option>
-                    <option value="การตลาด">การตลาด</option>
-                    <option value="ช่างเชื่อมโลหะ">ช่างเชื่อมโลหะ</option>
+                  <select id="newStdMajor" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white department-select-options">
+                    <!-- Dynamically populated -->
                   </select>
                 </div>
               </div>
@@ -674,17 +692,17 @@
             </form>
           </div>
 
-          <!-- แบบที่ 2: นำเข้าข้อมูลชุดใหญ่ (Batch Import) -->
+          <!-- Batch Import -->
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
             <div>
               <h4 class="font-bold text-slate-800 mb-1 flex items-center gap-1.5">
                 <span>📋</span> วางข้อมูลนำเข้าหลายรายการ (Batch Import)
               </h4>
               <p class="text-[11px] text-slate-500 mb-2">
-                คัดลอกข้อมูลจาก Excel/Google Sheets โดยเรียงคอลัมน์: <br>
+                คัดลอกจาก Excel/Sheets เรียงคอลัมน์: <br>
                 <code class="bg-white px-1 py-0.5 rounded border border-slate-300 text-blue-700">รหัสนักศึกษา, ชื่อ-สกุล, ระดับ(ปวช./ปวส.), แผนกวิชา, GPA</code>
               </p>
-              <textarea id="batchStudentText" rows="6" placeholder="ตัวอย่าง:&#10;6720101020, นายกมล สุขใจ, ปวช., ช่างยนต์, 3.45&#10;6720101021, นางสาวนิตยา สดใส, ปวช., การบัญชี, 3.80" 
+              <textarea id="batchStudentText" rows="6" placeholder="ตัวอย่าง:&#10;6720101020, นายกมล สุขใจ, ปวช., แผนกวิชาช่างยนต์, 3.45&#10;6720101021, นางสาวนิตยา สดใส, ปวช., แผนกวิชาการบัญชี, 3.80" 
                 class="w-full p-2.5 border border-slate-300 rounded-lg bg-white font-mono text-[11px] outline-none focus:ring-2 focus:ring-blue-500"></textarea>
             </div>
             <button onclick="handleBatchImportStudents()" class="mt-3 w-full py-2 bg-blue-700 hover:bg-blue-600 text-white font-bold rounded-lg transition active:scale-95 cursor-pointer">
@@ -693,7 +711,7 @@
           </div>
         </div>
 
-        <!-- ตารางแสดงรายชื่อนักศึกษาในฐานข้อมูล -->
+        <!-- รายชื่อนักศึกษาในระบบ -->
         <div class="mt-6 pt-4 border-t border-slate-100">
           <div class="flex justify-between items-center mb-3">
             <h4 class="font-bold text-slate-800 text-xs">
@@ -725,10 +743,43 @@
   </main>
 
   <!-- ============================================================ -->
-  <!-- MODALS (DECISION, TIMELINE, ANNOUNCEMENT, RECIPIENT, LOGIN)  -->
+  <!-- MODAL: ADD / EDIT DEPARTMENT (ข้อ 1)                         -->
   <!-- ============================================================ -->
+  <div id="deptModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
+      <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
+        <h3 id="deptModalTitle" class="text-sm font-bold flex items-center gap-1.5">
+          <span>🔧</span> เพิ่มแผนกวิชาใหม่
+        </h3>
+        <button onclick="closeDeptModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
 
-  <!-- MODAL: WORKFLOW & DECISION (อนุมัติ / ไม่อนุมัติ + เหตุผล)     -->
+      <form id="deptForm" onsubmit="handleSaveDepartment(event)" class="p-6 space-y-3.5 text-xs">
+        <input type="hidden" id="editDeptIndex" value="-1">
+        
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">ชื่อแผนกวิชา *</label>
+          <input type="text" id="deptInputName" required placeholder="เช่น แผนกวิชาเทคโนโลยีชีวภาพ" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">ชื่อ-สกุล หัวหน้าแผนกวิชา *</label>
+          <input type="text" id="deptInputHead" required placeholder="เช่น นายสมบูรณ์ ปัญญาดี" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+          <button type="button" onclick="closeDeptModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition cursor-pointer">
+            ยกเลิก
+          </button>
+          <button type="submit" class="px-4 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-semibold shadow-xs transition active:scale-95 cursor-pointer">
+            บันทึกแผนกวิชา
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: WORKFLOW & DECISION -->
   <div id="decisionModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
@@ -856,14 +907,9 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold text-slate-600 mb-1">แผนกวิชาที่เปิดรับ *</label>
-            <select id="annMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+            <select id="annMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white department-select-options">
               <option value="ทุกแผนกวิชา">ทุกแผนกวิชา</option>
-              <option value="ช่างยนต์">เฉพาะช่างยนต์</option>
-              <option value="ช่างไฟฟ้ากำลัง">เฉพาะช่างไฟฟ้ากำลัง</option>
-              <option value="เทคโนโลยีสารสนเทศ">เฉพาะเทคโนโลยีสารสนเทศ</option>
-              <option value="การบัญชี">เฉพาะการบัญชี</option>
-              <option value="การตลาด">เฉพาะการตลาด</option>
-              <option value="ช่างเชื่อมโลหะ">เฉพาะช่างเชื่อมโลหะ</option>
+              <!-- Populated dynamically -->
             </select>
           </div>
           <div>
@@ -926,13 +972,8 @@
           </div>
           <div>
             <label class="block font-semibold text-slate-600 mb-1">แผนกวิชา *</label>
-            <select id="modalMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-              <option value="ช่างยนต์">ช่างยนต์</option>
-              <option value="ช่างไฟฟ้ากำลัง">ช่างไฟฟ้ากำลัง</option>
-              <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
-              <option value="การบัญชี">การบัญชี</option>
-              <option value="การตลาด">การตลาด</option>
-              <option value="ช่างเชื่อมโลหะ">ช่างเชื่อมโลหะ</option>
+            <select id="modalMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white department-select-options">
+              <!-- Dynamically populated from departments -->
             </select>
           </div>
         </div>
@@ -965,7 +1006,7 @@
     </div>
   </div>
 
-  <!-- LOGIN MODAL DIALOG (ข้อ 4: นำส่วน Quick Test Roles ออกแล้ว) -->
+  <!-- LOGIN MODAL DIALOG (Secure) -->
   <div id="loginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white p-6 text-center">
@@ -975,7 +1016,7 @@
           </svg>
         </div>
         <h2 class="text-base font-bold">เข้าสู่ระบบทุนการศึกษา</h2>
-        <p class="text-xs text-blue-200 mt-0.5">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+        <p class="text-xs text-blue-200 mt-0.5 school-name-text">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
       </div>
 
       <form onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4 text-xs">
@@ -1005,7 +1046,7 @@
   </div>
 
   <footer class="text-center py-6 text-xs text-slate-400">
-    ระบบบริหารจัดการงานทุนการศึกษา &copy; วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์
+    <span id="footerSchoolName">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</span> &bull; <span id="footerAffiliation">สำนักงานคณะกรรมการการอาชีวศึกษา</span>
   </footer>
 
   <!-- ============================================================ -->
@@ -1013,33 +1054,50 @@
   <!-- ============================================================ -->
   <script>
     // -------------------------------------------------------------
-    // Initial Datasets & Officials Data (ข้อ 1)
+    // Initial Departments Dataset (ครบ 15 แผนกตามที่ระบุ - ข้อ 1)
     // -------------------------------------------------------------
+    const INITIAL_DEPARTMENTS = [
+      { name: 'แผนกวิชาเทคนิคการผลิต', headName: 'นายสุรศักดิ์ มั่นคง' },
+      { name: 'แผนกวิชาเทคนิคอุตสาหกรรม', headName: 'นายณรงค์ฤทธิ์ ทองดี' },
+      { name: 'แผนกวิชาซ่อมบำรุงเครื่องจักรกล', headName: 'นายวิเชียร บริการ' },
+      { name: 'แผนกวิชาเทคโนโลยีอิเล็กทรอนิกส์', headName: 'นายประเสริฐ วงศ์ษา' },
+      { name: 'แผนกวิชาไฟฟ้ากำลัง', headName: 'นายประสิทธิ์ ศรีสวัสดิ์' },
+      { name: 'แผนกวิชาเทคโนโลยีสารสนเทศ', headName: 'นางสาววราภรณ์ เจริญผล' },
+      { name: 'แผนกวิชาการบัญชี', headName: 'นางดวงใจ มีทรัพย์' },
+      { name: 'แผนกวิชาเทคโนโลยีธุรกิจดิจิทัล', headName: 'นางสาวกัญญาภัทร ดีเลิศ' },
+      { name: 'แผนกวิชาการตลาด', headName: 'นางสาวศศิธร สดใส' },
+      { name: 'แผนกวิชาสามัญสัมพันธ์', headName: 'นางมาริสา สายธาร' },
+      { name: 'แผนกวิชาเทคนิคพื้นฐาน', headName: 'นายเกรียงไกร ช่างกล' },
+      { name: 'แผนกวิชาช่างยนต์', headName: 'นายสุรชัย มั่นคง' },
+      { name: 'แผนกวิชาเมคคาทรอนิกส์', headName: 'นายกิตติคุณ นวัตกรรม' },
+      { name: 'แผนกวิชาเทคโนโลยีคอมพิวเตอร์', headName: 'นายธีรยุทธ ไซเบอร์' },
+      { name: 'แผนกวิชายานยนต์ไฟฟ้า', headName: 'นายอัครเดช พลังงานใหม่' }
+    ];
+
+    // Initial Institution Settings (ข้อ 2: Multi-Institution Customization)
+    const INITIAL_INSTITUTION = {
+      schoolName: 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์',
+      systemTitle: 'ระบบบริหารจัดการและจัดสรรทุนการศึกษา',
+      affiliation: 'สำนักงานคณะกรรมการการอาชีวศึกษา (สอศ.)'
+    };
+
     const INITIAL_OFFICIALS = {
       directorName: 'นายชาตรี เริงชัยภูมิ',
       directorRole: 'ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์',
       guidanceName: 'นายเอกราช เขียวทอง',
       guidanceRole: 'หัวหน้างานครูที่ปรึกษาและการแนะแนว',
       adminName: 'นายวัชรพงศ์ โสภา',
-      adminRole: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)',
-      deptHeads: {
-        'ช่างยนต์': 'นายสุรชัย มั่นคง',
-        'ช่างไฟฟ้ากำลัง': 'นายประสิทธิ์ ศรีสวัสดิ์',
-        'เทคโนโลยีสารสนเทศ': 'นางสาววราภรณ์ เจริญผล',
-        'การบัญชี': 'นางดวงใจ มีทรัพย์',
-        'การตลาด': 'นางสาวศศิธร สดใส',
-        'ช่างเชื่อมโลหะ': 'นายสมบัติ ช่างเหล็ก'
-      }
+      adminRole: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)'
     };
 
     const INITIAL_USERS = [
       { username: 'admin', password: 'admin123', role: 'admin', name: 'นายวัชรพงศ์ โสภา', title: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)' },
       { username: 'head', password: 'head123', role: 'supervisor', name: 'นายเอกราช เขียวทอง', title: 'หัวหน้างานครูที่ปรึกษาและการแนะแนว' },
-      { username: '6720101001', password: '6720101001', role: 'student', name: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'ช่างยนต์', gpa: '3.65', phone: '081-234-5678' },
-      { username: '6720101002', password: '6720101002', role: 'student', name: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'การบัญชี', gpa: '3.80', phone: '082-345-6789' },
-      { username: '6720101003', password: '6720101003', role: 'student', name: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'ช่างไฟฟ้ากำลัง', gpa: '3.20', phone: '083-456-7890' },
-      { username: '6730101001', password: '6730101001', role: 'student', name: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'ช่างยนต์', gpa: '3.55', phone: '084-567-8901' },
-      { username: '6730101004', password: '6730101004', role: 'student', name: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'ช่างไฟฟ้ากำลัง', gpa: '3.40', phone: '085-678-9012' }
+      { username: '6720101001', password: '6720101001', role: 'student', name: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'แผนกวิชาช่างยนต์', gpa: '3.65', phone: '081-234-5678' },
+      { username: '6720101002', password: '6720101002', role: 'student', name: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'แผนกวิชาการบัญชี', gpa: '3.80', phone: '082-345-6789' },
+      { username: '6720101003', password: '6720101003', role: 'student', name: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'แผนกวิชาไฟฟ้ากำลัง', gpa: '3.20', phone: '083-456-7890' },
+      { username: '6730101001', password: '6730101001', role: 'student', name: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'แผนกวิชาช่างยนต์', gpa: '3.55', phone: '084-567-8901' },
+      { username: '6730101004', password: '6730101004', role: 'student', name: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'แผนกวิชาไฟฟ้ากำลัง', gpa: '3.40', phone: '085-678-9012' }
     ];
 
     const INITIAL_SCHOLARSHIPS = [
@@ -1051,19 +1109,19 @@
     ];
 
     const INITIAL_RECIPIENTS = [
-      { studentId: '6720101001', studentName: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'ช่างยนต์', scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)', sponsor: 'มูลนิธิเอสซีจี (SCG)', amount: 6000, year: '2567', type: 'external' },
-      { studentId: '6720101002', studentName: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'การบัญชี', scholarshipName: 'ทุนเรียนดี ประจำวิทยาลัย', sponsor: 'ทุนงบประมาณวิทยาลัย', amount: 5000, year: '2567', type: 'internal' },
-      { studentId: '6720101003', studentName: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'ช่างไฟฟ้ากำลัง', scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน', sponsor: 'ธนาคารออมสิน', amount: 5000, year: '2567', type: 'external' },
-      { studentId: '6720101004', studentName: 'นางสาวพรพิมล ชื่นใจ', level: 'ปวช.', major: 'เทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนเยาวชนคนดี บมจ.ซีพี ออลล์', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', amount: 5000, year: '2567', type: 'external' },
-      { studentId: '6730101001', studentName: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'ช่างยนต์', scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)', sponsor: 'มูลนิธิเอสซีจี (SCG)', amount: 6000, year: '2567', type: 'external' },
-      { studentId: '6730101002', studentName: 'นายวรวุฒิ สมบูรณ์', level: 'ปวส.', major: 'เทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', sponsor: 'กองทุนเพื่อการศึกษาวิทยาลัย', amount: 4500, year: '2567', type: 'internal' },
-      { studentId: '6730101003', studentName: 'นางสาวกมลวรรณ บุญมี', level: 'ปวส.', major: 'การบัญชี', scholarshipName: 'ทุนเยาวชนคนดี บมจ.ซีพี ออลล์', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', amount: 5000, year: '2567', type: 'external' },
-      { studentId: '6730101004', studentName: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'ช่างไฟฟ้ากำลัง', scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน', sponsor: 'ธนาคารออมสิน', amount: 5000, year: '2567', type: 'external' },
+      { studentId: '6720101001', studentName: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'แผนกวิชาช่างยนต์', scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)', sponsor: 'มูลนิธิเอสซีจี (SCG)', amount: 6000, year: '2567', type: 'external' },
+      { studentId: '6720101002', studentName: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'แผนกวิชาการบัญชี', scholarshipName: 'ทุนเรียนดี ประจำวิทยาลัย', sponsor: 'ทุนงบประมาณวิทยาลัย', amount: 5000, year: '2567', type: 'internal' },
+      { studentId: '6720101003', studentName: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'แผนกวิชาไฟฟ้ากำลัง', scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน', sponsor: 'ธนาคารออมสิน', amount: 5000, year: '2567', type: 'external' },
+      { studentId: '6720101004', studentName: 'นางสาวพรพิมล ชื่นใจ', level: 'ปวช.', major: 'แผนกวิชาเทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนเยาวชนคนดี บมจ.ซีพี ออลล์', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', amount: 5000, year: '2567', type: 'external' },
+      { studentId: '6730101001', studentName: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'แผนกวิชาช่างยนต์', scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)', sponsor: 'มูลนิธิเอสซีจี (SCG)', amount: 6000, year: '2567', type: 'external' },
+      { studentId: '6730101002', studentName: 'นายวรวุฒิ สมบูรณ์', level: 'ปวส.', major: 'แผนกวิชาเทคโนโลยีสารสนเทศ', scholarshipName: 'ทุนขาดแคลนทุนทรัพย์', sponsor: 'กองทุนเพื่อการศึกษาวิทยาลัย', amount: 4500, year: '2567', type: 'internal' },
+      { studentId: '6730101003', studentName: 'นางสาวกมลวรรณ บุญมี', level: 'ปวส.', major: 'แผนกวิชาการบัญชี', scholarshipName: 'ทุนเยาวชนคนดี บมจ.ซีพี ออลล์', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', amount: 5000, year: '2567', type: 'external' },
+      { studentId: '6730101004', studentName: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'แผนกวิชาไฟฟ้ากำลัง', scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน', sponsor: 'ธนาคารออมสิน', amount: 5000, year: '2567', type: 'external' },
     ];
 
     const INITIAL_ANNOUNCEMENTS = [
       { id: 101, year: '2567', title: 'ทุนมูลนิธิเอสซีจี (SCG) เพื่อเยาวชนช่างเทคนิค', sponsor: 'มูลนิธิเอสซีจี (SCG)', type: 'external', amount: 6000, quota: 10, major: 'ทุกแผนกวิชา', minGpa: 2.75, deadline: '31 พ.ย. 2567', desc: 'สำหรับนักศึกษาระดับ ปวช. และ ปวส. สาขาวิชาช่างอุตสาหกรรม มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี' },
-      { id: 102, year: '2567', title: 'ทุนสานฝันวิชาชีพ บมจ. ซีพี ออลล์ (CP ALL)', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', type: 'external', amount: 5000, quota: 8, major: 'การบัญชี', minGpa: 2.50, deadline: '15 ธ.ค. 2567', desc: 'สนับสนุนนักเรียนแผนกวิชาการบัญชี และการจัดการธุรกิจ ที่มีความสนใจฝึกงานร่วมกับสถานประกอบการ' },
+      { id: 102, year: '2567', title: 'ทุนสานฝันวิชาชีพ บมจ. ซีพี ออลล์ (CP ALL)', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', type: 'external', amount: 5000, quota: 8, major: 'แผนกวิชาการบัญชี', minGpa: 2.50, deadline: '15 ธ.ค. 2567', desc: 'สนับสนุนนักเรียนแผนกวิชาการบัญชี และการจัดการธุรกิจ ที่มีความสนใจฝึกงานร่วมกับสถานประกอบการ' },
       { id: 103, year: '2567', title: 'ทุนธนาคารออมสิน สร้างอนาคตเด็กไทย', sponsor: 'ธนาคารออมสิน', type: 'external', amount: 5000, quota: 5, major: 'ทุกแผนกวิชา', minGpa: 3.00, deadline: '20 ธ.ค. 2567', desc: 'ทุนช่วยเหลือครอบครัวรายได้น้อย มีจิตสาธารณะ และมีผลการเรียนระดับดีขึ้นไป' },
       { id: 104, year: '2567', title: 'ทุนเรียนดีประจำวิทยาลัย ประจำปีการศึกษา 2567', sponsor: 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์', type: 'internal', amount: 5000, quota: 15, major: 'ทุกแผนกวิชา', minGpa: 3.50, deadline: '10 ม.ค. 2568', desc: 'สำหรับผู้มีผลการเรียนยอดเยี่ยมอันดับ 1 ของแต่ละแผนกวิชา' },
     ];
@@ -1075,7 +1133,7 @@
         studentId: '6720101001',
         studentName: 'นายกิตติศักดิ์ พรหมดี',
         level: 'ปวช.',
-        major: 'ช่างยนต์',
+        major: 'แผนกวิชาช่างยนต์',
         gpa: '3.65',
         phone: '081-234-5678',
         scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)',
@@ -1101,13 +1159,15 @@
       try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
     }
 
-    let officials = getStorage('v5_officials', INITIAL_OFFICIALS);
-    let users = getStorage('v5_users', INITIAL_USERS);
-    let funds = getStorage('v5_funds', INITIAL_SCHOLARSHIPS);
-    let recv = getStorage('v5_recipients', INITIAL_RECIPIENTS);
-    let announcements = getStorage('v5_announces', INITIAL_ANNOUNCEMENTS);
-    let applications = getStorage('v5_applications', INITIAL_APPLICATIONS);
-    let currentUser = getStorage('v5_current_user', null);
+    let institution = getStorage('v6_institution', INITIAL_INSTITUTION);
+    let departments = getStorage('v6_departments', INITIAL_DEPARTMENTS);
+    let officials = getStorage('v6_officials', INITIAL_OFFICIALS);
+    let users = getStorage('v6_users', INITIAL_USERS);
+    let funds = getStorage('v6_funds', INITIAL_SCHOLARSHIPS);
+    let recv = getStorage('v6_recipients', INITIAL_RECIPIENTS);
+    let announcements = getStorage('v6_announces', INITIAL_ANNOUNCEMENTS);
+    let applications = getStorage('v6_applications', INITIAL_APPLICATIONS);
+    let currentUser = getStorage('v6_current_user', null);
 
     const $ = id => document.getElementById(id);
     const baht = n => Number(n || 0).toLocaleString('th-TH');
@@ -1120,7 +1180,237 @@
     let c1, c2, cExtSponsors, cExtMajors;
 
     // -------------------------------------------------------------
-    // Authentication System (ข้อ 4: ไม่แสดง quick test)
+    // Dynamic Institution & Departments Synchronizer
+    // -------------------------------------------------------------
+    function syncInstitutionUI() {
+      const sName = institution.schoolName || 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์';
+      const sTitle = institution.systemTitle || 'ระบบบริหารจัดการและจัดสรรทุนการศึกษา';
+      const sAff = institution.affiliation || 'สำนักงานคณะกรรมการการอาชีวศึกษา';
+
+      $('pageTitle').innerText = `${sTitle} - ${sName}`;
+      $('headerSystemTitle').innerText = sTitle;
+      $('headerSchoolName').innerText = sName;
+      $('footerSchoolName').innerText = sName;
+      $('footerAffiliation').innerText = sAff;
+      document.querySelectorAll('.school-name-text').forEach(el => el.innerText = sName);
+
+      // Settings inputs
+      $('settingSchoolName').value = sName;
+      $('settingSystemTitle').value = sTitle;
+      $('settingAffiliation').value = sAff;
+
+      syncDepartmentDropdowns();
+    }
+
+    function syncDepartmentDropdowns() {
+      // 1. Department filter in External Tab
+      const deptFilter = $('deptFilter');
+      const currentFilterVal = deptFilter ? deptFilter.value : 'ALL';
+      if (deptFilter) {
+        deptFilter.innerHTML = '<option value="ALL">-- ทุกแผนกวิชา --</option>' + 
+          departments.map(d => `<option value="${esc(d.name)}">${esc(d.name)}</option>`).join('');
+        deptFilter.value = currentFilterVal;
+      }
+
+      // 2. Department selects in application form & modal
+      document.querySelectorAll('.department-select-options').forEach(sel => {
+        const curVal = sel.value;
+        const hasAll = sel.id === 'annMajor';
+        sel.innerHTML = (hasAll ? '<option value="ทุกแผนกวิชา">ทุกแผนกวิชา</option>' : '') +
+          departments.map(d => `<option value="${esc(d.name)}">${esc(d.name)}</option>`).join('');
+        if (curVal) sel.value = curVal;
+      });
+
+      // 3. Print by department dropdown list
+      const printList = $('printDeptDropdownList');
+      if (printList) {
+        printList.innerHTML = departments.map(d => `
+          <button onclick="printReportByDept('${esc(d.name)}')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-1.5 cursor-pointer text-[11px]">
+            <span>&bull;</span> ${esc(d.name)}
+          </button>
+        `).join('');
+      }
+
+      renderDepartmentsTable();
+    }
+
+    // -------------------------------------------------------------
+    // Department Management (ข้อ 1)
+    // -------------------------------------------------------------
+    function renderDepartmentsTable() {
+      $('deptCountLabel').innerText = departments.length;
+      $('departmentsTableBody').innerHTML = departments.length === 0
+        ? `<tr><td colspan="4" class="p-4 text-center text-slate-400">ยังไม่มีข้อมูลแผนกวิชา</td></tr>`
+        : departments.map((d, i) => `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-2.5 text-center text-slate-400">${i + 1}</td>
+            <td class="p-2.5 font-bold text-slate-800">${esc(d.name)}</td>
+            <td class="p-2.5 text-slate-700">${esc(d.headName || 'ยังไม่ระบุ')}</td>
+            <td class="p-2.5 text-center space-x-1">
+              <button onclick="editDepartment(${i})" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 rounded text-[11px] font-semibold cursor-pointer">
+                แก้ไข
+              </button>
+              <button onclick="deleteDepartment(${i})" class="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-[11px] font-semibold cursor-pointer">
+                ลบ
+              </button>
+            </td>
+          </tr>
+        `).join('');
+    }
+
+    function openAddDeptModal() {
+      $('editDeptIndex').value = '-1';
+      $('deptModalTitle').innerHTML = '<span>🔧</span> เพิ่มแผนกวิชาใหม่';
+      $('deptInputName').value = '';
+      $('deptInputHead').value = '';
+      $('deptModal').classList.remove('hidden');
+    }
+
+    function editDepartment(idx) {
+      if (idx < 0 || idx >= departments.length) return;
+      const d = departments[idx];
+      $('editDeptIndex').value = idx;
+      $('deptModalTitle').innerHTML = '<span>✏️</span> แก้ไขแผนกวิชา';
+      $('deptInputName').value = d.name;
+      $('deptInputHead').value = d.headName || '';
+      $('deptModal').classList.remove('hidden');
+    }
+
+    function closeDeptModal() {
+      $('deptModal').classList.add('hidden');
+    }
+
+    function handleSaveDepartment(e) {
+      e.preventDefault();
+      const idx = parseInt($('editDeptIndex').value, 10);
+      const name = $('deptInputName').value.trim();
+      const headName = $('deptInputHead').value.trim();
+
+      if (idx >= 0 && idx < departments.length) {
+        departments[idx] = { name, headName };
+      } else {
+        departments.push({ name, headName });
+      }
+
+      setStorage('v6_departments', departments);
+      closeDeptModal();
+      syncDepartmentDropdowns();
+      alert(`บันทึกแผนกวิชา "${name}" เรียบร้อยแล้ว!`);
+    }
+
+    function deleteDepartment(idx) {
+      if (idx < 0 || idx >= departments.length) return;
+      const d = departments[idx];
+      if (confirm(`คุณต้องการลบ "${d.name}" ออกจากระบบใช่หรือไม่?`)) {
+        departments.splice(idx, 1);
+        setStorage('v6_departments', departments);
+        syncDepartmentDropdowns();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Institution Customization (ข้อ 2: Multi-Institution Setup)
+    // -------------------------------------------------------------
+    function saveInstitutionSettings() {
+      institution.schoolName = $('settingSchoolName').value.trim();
+      institution.systemTitle = $('settingSystemTitle').value.trim();
+      institution.affiliation = $('settingAffiliation').value.trim();
+      setStorage('v6_institution', institution);
+      syncInstitutionUI();
+      alert('บันทึกข้อมูลสถานศึกษาใหม่เรียบร้อยแล้ว!\nระบบได้อัปเดตชื่อสถานศึกษาในทุกเมนูและเอกสารรายงานทุกฉบับแล้ว');
+    }
+
+    function exportSystemBackup() {
+      const backupData = {
+        institution,
+        departments,
+        officials,
+        users,
+        funds,
+        recipients: recv,
+        announcements,
+        applications,
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `scholarship_backup_${institution.schoolName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importSystemBackup(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const data = JSON.parse(evt.target.result);
+          if (confirm('คุณต้องการนำเข้าข้อมูลจากไฟล์สำรองนี้ทับข้อมูลปัจจุบันใช่หรือไม่?')) {
+            if (data.institution) institution = data.institution;
+            if (data.departments) departments = data.departments;
+            if (data.officials) officials = data.officials;
+            if (data.users) users = data.users;
+            if (data.funds) funds = data.funds;
+            if (data.recipients) recv = data.recipients;
+            if (data.announcements) announcements = data.announcements;
+            if (data.applications) applications = data.applications;
+
+            setStorage('v6_institution', institution);
+            setStorage('v6_departments', departments);
+            setStorage('v6_officials', officials);
+            setStorage('v6_users', users);
+            setStorage('v6_funds', funds);
+            setStorage('v6_recipients', recv);
+            setStorage('v6_announces', announcements);
+            setStorage('v6_applications', applications);
+
+            syncInstitutionUI();
+            initYears();
+            renderOverviewDashboard();
+            alert('กู้คืนข้อมูลระบบสำเร็จเรียบร้อยแล้ว!');
+          }
+        } catch (err) {
+          alert('ไฟล์สำรองไม่ถูกต้องหรือไม่รองรับ');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function clearDemoDataForNewSchool() {
+      const sName = prompt('กรุณาระบุชื่อสถานศึกษาแห่งใหม่ที่ต้องการใช้งาน:', 'วิทยาลัยอาชีวศึกษา...');
+      if (!sName) return;
+
+      if (confirm(`คุณต้องการล้างข้อมูลตัวอย่างทั้งหมด เพื่อเริ่มต้นใช้งานสำหรับ "${sName}" ใช่หรือไม่?`)) {
+        institution.schoolName = sName;
+        institution.affiliation = 'สำนักงานคณะกรรมการการอาชีวศึกษา';
+        setStorage('v6_institution', institution);
+
+        // Clear students, applications, recipients, funds to fresh state
+        recv = [];
+        applications = [];
+        funds = [];
+        announcements = [];
+        // Keep admin and head
+        users = users.filter(u => u.role === 'admin' || u.role === 'supervisor');
+
+        setStorage('v6_recipients', recv);
+        setStorage('v6_applications', applications);
+        setStorage('v6_funds', funds);
+        setStorage('v6_announces', announcements);
+        setStorage('v6_users', users);
+
+        syncInstitutionUI();
+        initYears();
+        renderOverviewDashboard();
+        alert(`รีเซ็ตระบบเข้าสู่สถานะเริ่มต้นสำหรับ "${sName}" เรียบร้อยแล้ว!\nสามารถเริ่มกำหนดทุนและนำเข้านักศึกษาใหม่ได้ทันที`);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Authentication System
     // -------------------------------------------------------------
     function handleLoginSubmit(e) {
       e.preventDefault();
@@ -1138,17 +1428,17 @@
           role: 'student',
           name: existingStudent ? existingStudent.studentName : `นักเรียน รหัส ${u}`,
           level: existingStudent ? existingStudent.level : 'ปวช.',
-          major: existingStudent ? existingStudent.major : 'ช่างยนต์',
+          major: existingStudent ? existingStudent.major : (departments[0]?.name || 'แผนกวิชาช่างยนต์'),
           gpa: '3.50',
           phone: '08X-XXX-XXXX'
         };
         users.push(foundUser);
-        setStorage('v5_users', users);
+        setStorage('v6_users', users);
       }
 
       if (foundUser) {
         currentUser = foundUser;
-        setStorage('v5_current_user', currentUser);
+        setStorage('v6_current_user', currentUser);
         $('loginModal').classList.add('hidden');
         applyUserPermissions();
         renderOverviewDashboard();
@@ -1161,7 +1451,7 @@
     function logout() {
       if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
         currentUser = null;
-        localStorage.removeItem('v5_current_user');
+        localStorage.removeItem('v6_current_user');
         $('loginUsername').value = '';
         $('loginPassword').value = '';
         $('loginModal').classList.remove('hidden');
@@ -1450,7 +1740,7 @@
         type: 'doughnut',
         data: {
           labels: Object.keys(byDept),
-          datasets: [{ data: Object.values(byDept), backgroundColor: ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'] }]
+          datasets: [{ data: Object.values(byDept), backgroundColor: ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f43f5e'] }]
         },
         options: { animation: false, responsive: true, maintainAspectRatio: false }
       });
@@ -1500,7 +1790,7 @@
             <div class="flex justify-between items-start gap-2 mb-2">
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${a.type === 'external' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}">
-                  ${a.type === 'external' ? '🏢 ทุนหน่วยงานภายนอก' : '🏫 ทุนภายในวิทยาลัย'}
+                  ${a.type === 'external' ? '🏢 ทุนหน่วยงานภายนอก' : '🏫 ทุนภายในสถานศึกษา'}
                 </span>
                 <span class="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">
                   ปี ${esc(a.year || $('year').value)}
@@ -1618,10 +1908,10 @@
           type: annData.type,
           sponsor: annData.sponsor
         });
-        setStorage('v5_funds', funds);
+        setStorage('v6_funds', funds);
       }
 
-      setStorage('v5_announces', announcements);
+      setStorage('v6_announces', announcements);
       closeAnnounceModal();
       initYears();
       $('year').value = annData.year;
@@ -1640,7 +1930,7 @@
       if (!ann) return;
       if (confirm(`คุณต้องการลบประกาศทุน "${ann.title}" ใช่หรือไม่?`)) {
         announcements = announcements.filter(a => a.id !== id);
-        setStorage('v5_announces', announcements);
+        setStorage('v6_announces', announcements);
         renderAnnouncements();
       }
     }
@@ -1675,7 +1965,7 @@
       const select = $('applyScholarshipSelect');
       select.innerHTML = activeFunds.map(f => `
         <option value="${esc(f.scholarshipName)}" data-amount="${f.budget / 10}" data-sponsor="${esc(f.sponsor || f.scholarshipName)}" data-type="${f.type || 'internal'}">
-          ${esc(f.scholarshipName)} - แหล่งทุน: ${esc(f.sponsor || 'วิทยาลัย')}
+          ${esc(f.scholarshipName)} - แหล่งทุน: ${esc(f.sponsor || 'สถานศึกษา')}
         </option>
       `).join('');
       onApplyScholarshipChange();
@@ -1735,7 +2025,7 @@
       };
 
       applications.unshift(newApp);
-      setStorage('v5_applications', applications);
+      setStorage('v6_applications', applications);
 
       alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบขั้นตอนและไทม์ไลน์ได้ในเมนู "รายการคำขอ & ไทม์ไลน์"`);
       
@@ -1798,7 +2088,7 @@
       approved: [
         'คุณสมบัติครบถ้วน ผลการเรียนยอดเยี่ยมและขาดแคลนทุนทรัพย์',
         'ผ่านการสัมภาษณ์และตรงตามข้อกำหนดของแหล่งทุนภายนอก',
-        'มีความประพฤติดีเด่น มีจิตอาสาช่วยเหลือวิทยาลัยสม่ำเสมอ',
+        'มีความประพฤติดีเด่น มีจิตอาสาช่วยเหลือสถานศึกษาสม่ำเสมอ',
         'ได้รับการรับรองเป็นกรณีพิเศษจากหัวหน้าแผนกวิชา'
       ],
       rejected: [
@@ -1884,7 +2174,7 @@
             year: app.year,
             type: app.type
           });
-          setStorage('v5_recipients', recv);
+          setStorage('v6_recipients', recv);
         }
       } else {
         app.status = 'ไม่อนุมัติ';
@@ -1897,10 +2187,10 @@
         });
 
         recv = recv.filter(r => !(r.studentId === app.studentId && r.scholarshipName === app.scholarshipName));
-        setStorage('v5_recipients', recv);
+        setStorage('v6_recipients', recv);
       }
 
-      setStorage('v5_applications', applications);
+      setStorage('v6_applications', applications);
       closeDecisionModal();
       renderApplicationsTable();
       renderConfirmedRecipientsTable();
@@ -1983,7 +2273,7 @@
               <td class="p-3 font-semibold text-slate-900">${esc(r.studentName)}</td>
               <td class="p-3 text-slate-600"><span class="px-1.5 py-0.5 bg-slate-100 rounded text-[10px] font-bold mr-1">${esc(r.level)}</span>${esc(r.major)}</td>
               <td class="p-3 text-blue-900 font-medium">${esc(r.scholarshipName)}</td>
-              <td class="p-3 text-slate-600 text-[11px]">${esc(r.sponsor || 'วิทยาลัย')}</td>
+              <td class="p-3 text-slate-600 text-[11px]">${esc(r.sponsor || 'สถานศึกษา')}</td>
               <td class="p-3 text-right font-bold text-blue-900">${baht(r.amount)}</td>
               ${isAdmin ? `
                 <td class="p-3 text-center space-x-1">
@@ -2001,7 +2291,7 @@
     }
 
     // -------------------------------------------------------------
-    // Tab 6: Admin Settings (ข้อ 1: บุคลากร & ข้อ 2: นำเข้านักเรียน)
+    // Tab 6: Admin Officials & Student Accounts
     // -------------------------------------------------------------
     function renderOfficialsSettings() {
       $('officDirectorName').value = officials.directorName || '';
@@ -2010,12 +2300,6 @@
       $('officGuidanceRole').value = officials.guidanceRole || '';
       $('officAdminName').value = officials.adminName || '';
       $('officAdminRole').value = officials.adminRole || '';
-
-      const deptHeads = officials.deptHeads || {};
-      ['ช่างยนต์', 'ช่างไฟฟ้ากำลัง', 'เทคโนโลยีสารสนเทศ', 'การบัญชี', 'การตลาด', 'ช่างเชื่อมโลหะ'].forEach(dept => {
-        const el = $('deptHead_' + dept);
-        if (el) el.value = deptHeads[dept] || '';
-      });
     }
 
     function saveOfficials() {
@@ -2026,14 +2310,8 @@
       officials.adminName = $('officAdminName').value.trim();
       officials.adminRole = $('officAdminRole').value.trim();
 
-      if (!officials.deptHeads) officials.deptHeads = {};
-      ['ช่างยนต์', 'ช่างไฟฟ้ากำลัง', 'เทคโนโลยีสารสนเทศ', 'การบัญชี', 'การตลาด', 'ช่างเชื่อมโลหะ'].forEach(dept => {
-        const el = $('deptHead_' + dept);
-        if (el) officials.deptHeads[dept] = el.value.trim();
-      });
-
-      setStorage('v5_officials', officials);
-      alert('บันทึกข้อมูลรายชื่อบุคลากรผู้ลงนามเรียบร้อยแล้ว!\nข้อมูลจะแสดงในเอกสารใบสมัครและรายงานสรุปโดยอัตโนมัติ');
+      setStorage('v6_officials', officials);
+      alert('บันทึกข้อมูลรายชื่อผู้บริหารและบุคลากรผู้ลงนามเรียบร้อยแล้ว!\nข้อมูลจะแสดงในเอกสารใบสมัครและรายงานสรุปโดยอัตโนมัติ');
     }
 
     function renderStudentAccountsTable() {
@@ -2071,7 +2349,7 @@
 
       const newStudent = {
         username: sid,
-        password: sid, // รหัสกับ Pass เป็นรหัสนักศึกษาทั้ง 2 ส่วน
+        password: sid,
         role: 'student',
         name: sname,
         level: $('newStdLevel').value,
@@ -2081,7 +2359,7 @@
       };
 
       users.push(newStudent);
-      setStorage('v5_users', users);
+      setStorage('v6_users', users);
       renderStudentAccountsTable();
       alert(`บันทึกข้อมูลนักเรียน "${sname}" เรียบร้อยแล้ว!\nสามารถใช้ User และ Pass: ${sid} เข้าสู่ระบบได้ทันที`);
       $('newStdId').value = '';
@@ -2104,7 +2382,7 @@
           const sid = parts[0];
           const sname = parts[1];
           const slevel = parts[2] || 'ปวช.';
-          const smajor = parts[3] || 'ช่างยนต์';
+          const smajor = parts[3] || (departments[0]?.name || 'แผนกวิชาช่างยนต์');
           const sgpa = parts[4] || '3.50';
 
           const idx = users.findIndex(u => u.username === sid);
@@ -2128,7 +2406,7 @@
         }
       });
 
-      setStorage('v5_users', users);
+      setStorage('v6_users', users);
       renderStudentAccountsTable();
       $('batchStudentText').value = '';
       alert(`นำเข้าข้อมูลนักเรียน/นักศึกษาสำเร็จจำนวน ${count} รายการ!\nรหัสผ่านของทุกคนตั้งค่าเป็นรหัสนักศึกษาโดยอัตโนมัติ`);
@@ -2137,13 +2415,13 @@
     function deleteStudentAccount(username) {
       if (confirm(`คุณต้องการลบบัญชีนักเรียนรหัส ${username} ใช่หรือไม่?`)) {
         users = users.filter(u => u.username !== username);
-        setStorage('v5_users', users);
+        setStorage('v6_users', users);
         renderStudentAccountsTable();
       }
     }
 
     // -------------------------------------------------------------
-    // Print Application Form (PDF A4 พร้อมบล็อกลายเซ็น 4 ฝ่ายจากฐานข้อมูลบุคลากร)
+    // Print Application Form (PDF A4 พร้อมบล็อกลายเซ็น 4 ฝ่าย)
     // -------------------------------------------------------------
     function printStudentApplication(appId) {
       const app = applications.find(a => a.id === appId) || {
@@ -2152,19 +2430,21 @@
         studentId: '6720101001',
         studentName: 'นายกิตติศักดิ์ พรหมดี',
         level: 'ปวช.',
-        major: 'ช่างยนต์',
+        major: 'แผนกวิชาช่างยนต์',
         gpa: '3.65',
         phone: '081-234-5678',
         scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)',
         sponsor: 'มูลนิธิเอสซีจี (SCG)',
         amount: 6000,
-        reason: 'ครอบครัวมีฐานะยากจน บิดามารดามีรายได้ไม่แน่นอน มีความตั้งใจเรียนดีเพื่อนำความรู้ไปประกอบวิชาชีพช่างยนต์',
+        reason: 'ครอบครัวมีฐานะยากจน บิดามารดามีรายได้ไม่แน่นอน มีความตั้งใจเรียนดีเพื่อนำความรู้ไปประกอบวิชาชีพ',
         docs: ['สำเนาบัตรประจำตัวประชาชน', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว']
       };
 
-      const deptHeadName = officials.deptHeads?.[app.major] || '............................................................';
+      const deptObj = departments.find(d => d.name === app.major);
+      const deptHeadName = deptObj ? deptObj.headName : '............................................................';
       const guidanceName = officials.guidanceName || 'นายเอกราช เขียวทอง';
       const directorName = officials.directorName || 'นายชาตรี เริงชัยภูมิ';
+      const sName = institution.schoolName || 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์';
 
       const w = window.open('', '_blank');
       w.document.write(`
@@ -2192,7 +2472,7 @@
         </head>
         <body>
           <div class="header">
-            <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+            <h2>${esc(sName)}</h2>
             <h3>ใบสมัครขอรับทุนการศึกษา ประจำปีการศึกษา ${esc(app.year)}</h3>
             <p>งานแนะแนวและทุนการศึกษา &bull; ฝ่ายพัฒนากิจการนักเรียนนักศึกษา</p>
           </div>
@@ -2204,7 +2484,7 @@
               <div class="col"><strong>จำนวนเงิน:</strong> ${baht(app.amount)} บาท</div>
             </div>
             <div class="row">
-              <div class="col"><strong>แหล่งทุน / ผู้สนับสนุน:</strong> ${esc(app.sponsor || 'วิทยาลัย')}</div>
+              <div class="col"><strong>แหล่งทุน / ผู้สนับสนุน:</strong> ${esc(app.sponsor || 'สถานศึกษา')}</div>
               <div class="col"><strong>รหัสใบสมัคร:</strong> ${esc(app.id)}</div>
             </div>
           </div>
@@ -2236,7 +2516,7 @@
             </ul>
           </div>
 
-          <!-- ลายเซ็น 4 ตำแหน่ง ดึงจากฐานข้อมูลบุคลากร -->
+          <!-- ลายเซ็น 4 ตำแหน่ง -->
           <div class="signatures">
             <div class="sign-box">
               <p style="margin: 0 0 6px 0; font-weight: bold;">(1) ผู้ขอรับทุนการศึกษา</p>
@@ -2253,7 +2533,7 @@
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
               <p style="margin: 2px 0;">(${esc(deptHeadName)})</p>
-              <p style="margin: 0;">หัวหน้าแผนกวิชา${esc(app.major)}</p>
+              <p style="margin: 0;">หัวหน้า${esc(app.major)}</p>
             </div>
 
             <div class="sign-box">
@@ -2271,7 +2551,7 @@
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
               <p style="margin: 2px 0;">(${esc(directorName)})</p>
-              <p style="margin: 0;">ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+              <p style="margin: 0;">ผู้อำนวยการ${esc(sName)}</p>
             </div>
           </div>
 
@@ -2283,11 +2563,12 @@
     }
 
     // -------------------------------------------------------------
-    // Print Reports (ข้อ 3: พิมพ์รายงานในแต่ละส่วน พร้อมรายชื่อ & แผนกวิชา)
+    // Print Reports (Dynamic School Name)
     // -------------------------------------------------------------
     function printReport(type = 'overview') {
       const { y, rows, fs } = getYearData();
       const guidanceName = officials.guidanceName || 'นายเอกราช เขียวทอง';
+      const sName = institution.schoolName || 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์';
 
       if (type === 'external') {
         const extRows = rows.filter(r => r.type === 'external');
@@ -2314,9 +2595,9 @@
             </style>
           </head>
           <body>
-            <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+            <h2>${esc(sName)}</h2>
             <h3>รายงานสรุปการจัดสรรทุนการศึกษาจากหน่วยงานภายนอก ประจำปีการศึกษา ${esc(y)}</h3>
-            <p style="text-indent: 2.5cm">วิทยาลัยได้รับการสนับสนุนทุนการศึกษาจากสถานประกอบการ บริษัท และมูลนิธิภายนอก รวมเป็นเงินทั้งสิ้น ${baht(extTotal)} บาท ให้แก่ผู้เรียนจำนวน ${extRows.length} คน ดังนี้</p>
+            <p style="text-indent: 2.5cm">สถานศึกษาได้รับการสนับสนุนทุนการศึกษาจากสถานประกอบการ บริษัท และมูลนิธิภายนอก รวมเป็นเงินทั้งสิ้น ${baht(extTotal)} บาท ให้แก่ผู้เรียนจำนวน ${extRows.length} คน ดังนี้</p>
             
             <h4 style="margin: 12px 0 6px 0;">1. สรุปยอดเงินตามองค์กรผู้สนับสนุน</h4>
             <table class="rpt">
@@ -2325,7 +2606,7 @@
               <tr style="font-weight:bold; background:#fafafa;"><th colspan="2">รวมทั้งสิ้น</th><th class="n">${baht(extTotal)}</th></tr>
             </table>
 
-            <h4 style="margin: 16px 0 6px 0;">2. รายชื่อนักเรียน นักศึกษาที่ได้รับทุนสนับสนุนภายนอก (แยกตามแผนกวิชา)</h4>
+            <h4 style="margin: 16px 0 6px 0;">2. รายชื่อนักเรียน นักศึกษาที่ได้รับทุนสนับสนุนภายนอก (แสดงแผนกวิชา)</h4>
             <table class="rpt">
               <tr><th>ที่</th><th>รหัสนักศึกษา</th><th>ชื่อ-สกุล</th><th>แผนกวิชา</th><th>ทุนที่ได้รับ</th><th>หน่วยงานผู้สนับสนุน</th><th>บาท</th></tr>
               ${extRows.map((r, i) => `
@@ -2356,7 +2637,7 @@
         return;
       }
 
-      // Default: Overview 2 Pages Report
+      // Default: Overview Report
       const total = rows.reduce((s, r) => s + Number(r.amount || 0), 0);
       const byFundN = groupCount(rows, 'scholarshipName'), byFundA = sumBy(rows, 'scholarshipName');
       const majors = groupCount(rows, 'major'), mAmt = sumBy(rows, 'major');
@@ -2385,9 +2666,9 @@
         </head>
         <body>
           <section class="page">
-            <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+            <h2>${esc(sName)}</h2>
             <h3>รายงานสรุปการจัดสรรทุนการศึกษา ประจำปีการศึกษา ${esc(y)}</h3>
-            <p style="text-indent: 2.5cm">ในปีการศึกษา ${esc(y)} วิทยาลัยได้ดำเนินการจัดสรรทุนการศึกษาทั้งสิ้น ${fs.length} ประเภท
+            <p style="text-indent: 2.5cm">ในปีการศึกษา ${esc(y)} สถานศึกษาได้ดำเนินการจัดสรรทุนการศึกษาทั้งสิ้น ${fs.length} ประเภท
               ให้แก่ผู้เรียนจำนวน ${rows.length} คน รวมเป็นงบประมาณทั้งสิ้น ${baht(total)} บาท รายละเอียดดังนี้</p>
             
             <h4 style="margin: 12px 0 6px 0; font-size: 13.5pt;">1. สรุปตามประเภททุนการศึกษา</h4>
@@ -2415,7 +2696,7 @@
           </section>
 
           <section class="page">
-            <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+            <h2>${esc(sName)}</h2>
             <h3>ภาคผนวก: รายนามผู้ได้รับจัดสรรทุนการศึกษา ปีการศึกษา ${esc(y)} (แสดงแผนกวิชา)</h3>
             <table class="rpt">
               <tr><th>ที่</th><th>รหัส</th><th>ชื่อ-สกุล</th><th>แผนกวิชา</th><th>ทุนที่ได้รับ</th><th>แหล่งทุน</th><th>บาท</th></tr>
@@ -2426,7 +2707,7 @@
                   <td>${esc(r.studentName)}</td>
                   <td>${esc(r.level)} ${esc(r.major)}</td>
                   <td>${esc(r.scholarshipName)}</td>
-                  <td>${esc(r.sponsor || 'วิทยาลัย')}</td>
+                  <td>${esc(r.sponsor || 'สถานศึกษา')}</td>
                   <td class="n">${baht(r.amount)}</td>
                 </tr>
               `).join('')}
@@ -2439,12 +2720,13 @@
       w.document.close();
     }
 
-    // พิมพ์รายงานเจาะจงเฉพาะแผนกวิชา
     function printReportByDept(deptName) {
       const { y, rows } = getYearData();
       const deptRows = rows.filter(r => r.major === deptName);
       const deptTotal = deptRows.reduce((s, r) => s + Number(r.amount || 0), 0);
-      const deptHead = officials.deptHeads?.[deptName] || '............................................................';
+      const deptObj = departments.find(d => d.name === deptName);
+      const deptHead = deptObj ? deptObj.headName : '............................................................';
+      const sName = institution.schoolName || 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์';
 
       const w = window.open('', '_blank');
       w.document.write(`
@@ -2452,7 +2734,7 @@
         <html lang="th">
         <head>
           <meta charset="UTF-8">
-          <title>รายงานสรุปการจัดสรรทุน - แผนกวิชา${esc(deptName)}</title>
+          <title>รายงานสรุปการจัดสรรทุน - ${esc(deptName)}</title>
           <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
           <style>
             @page { size: A4 portrait; margin: 18mm 15mm 18mm 20mm; }
@@ -2466,9 +2748,9 @@
           </style>
         </head>
         <body>
-          <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
-          <h3>รายงานสรุปผลการจัดสรรทุนการศึกษา แผนกวิชา${esc(deptName)} ประจำปีการศึกษา ${esc(y)}</h3>
-          <p style="text-indent: 2.5cm">สรุปรายชื่อนักเรียน นักศึกษาแผนกวิชา${esc(deptName)} ที่ได้รับการพิจารณาจัดสรรทุนการศึกษา รวมเป็นเงินทั้งสิ้น ${baht(deptTotal)} บาท จำนวนผู้ได้รับทุน ${deptRows.length} คน รายละเอียดดังนี้</p>
+          <h2>${esc(sName)}</h2>
+          <h3>รายงานสรุปผลการจัดสรรทุนการศึกษา ${esc(deptName)} ประจำปีการศึกษา ${esc(y)}</h3>
+          <p style="text-indent: 2.5cm">สรุปรายชื่อนักเรียน นักศึกษา ${esc(deptName)} ที่ได้รับการพิจารณาจัดสรรทุนการศึกษา รวมเป็นเงินทั้งสิ้น ${baht(deptTotal)} บาท จำนวนผู้ได้รับทุน ${deptRows.length} คน รายละเอียดดังนี้</p>
 
           <table class="rpt">
             <tr><th>ที่</th><th>รหัสนักศึกษา</th><th>ชื่อ-สกุล</th><th>ระดับชั้น</th><th>ทุนที่ได้รับ</th><th>แหล่งทุน</th><th>จำนวนเงิน (บาท)</th></tr>
@@ -2480,12 +2762,12 @@
                   <td>${esc(r.studentName)}</td>
                   <td>${esc(r.level)}</td>
                   <td>${esc(r.scholarshipName)}</td>
-                  <td>${esc(r.sponsor || 'วิทยาลัย')}</td>
+                  <td>${esc(r.sponsor || 'สถานศึกษา')}</td>
                   <td class="n">${baht(r.amount)}</td>
                 </tr>
               `).join('')}
             <tr style="font-weight:bold; background:#fafafa;">
-              <th colspan="6" style="text-align:center">รวมเงินจัดสรรทุนแผนกวิชา${esc(deptName)}</th>
+              <th colspan="6" style="text-align:center">รวมเงินจัดสรรทุน${esc(deptName)}</th>
               <th class="n">${baht(deptTotal)}</th>
             </tr>
           </table>
@@ -2494,7 +2776,7 @@
             <div style="text-align: center; width: 280px; font-size: 12.5pt;">
               <p style="margin-bottom: 45px;">ลงชื่อ .......................................................</p>
               <p style="margin: 0;">(${esc(deptHead)})</p>
-              <p style="margin: 0;">หัวหน้าแผนกวิชา${esc(deptName)}</p>
+              <p style="margin: 0;">หัวหน้า${esc(deptName)}</p>
             </div>
           </div>
           <script>window.onload = function() { window.focus(); window.print(); };<\/script>
@@ -2516,7 +2798,7 @@
         $('modalStudentId').value = item.studentId || '';
         $('modalStudentName').value = item.studentName || '';
         $('modalLevel').value = item.level || 'ปวช.';
-        $('modalMajor').value = item.major || 'ช่างยนต์';
+        $('modalMajor').value = item.major || (departments[0]?.name || 'แผนกวิชาช่างยนต์');
         $('modalScholarshipName').value = item.scholarshipName || '';
         $('modalAmount').value = item.amount || '';
         $('modalSponsor').value = item.sponsor || '';
@@ -2526,10 +2808,10 @@
         $('modalStudentId').value = '';
         $('modalStudentName').value = '';
         $('modalLevel').value = 'ปวช.';
-        $('modalMajor').value = 'ช่างยนต์';
-        $('modalScholarshipName').value = 'ทุนเรียนดี ประจำวิทยาลัย';
+        $('modalMajor').value = departments[0]?.name || 'แผนกวิชาช่างยนต์';
+        $('modalScholarshipName').value = 'ทุนเรียนดี ประจำสถานศึกษา';
         $('modalAmount').value = '5000';
-        $('modalSponsor').value = 'ทุนงบประมาณวิทยาลัย';
+        $('modalSponsor').value = 'ทุนงบประมาณสถานศึกษา';
       }
       $('modalOverlay').classList.remove('hidden');
     }
@@ -2547,7 +2829,7 @@
         sponsor: $('modalSponsor').value.trim(),
         amount: Number($('modalAmount').value || 0),
         year: $('modalYear').value.trim(),
-        type: $('modalSponsor').value.includes('วิทยาลัย') ? 'internal' : 'external'
+        type: $('modalSponsor').value.includes('วิทยาลัย') || $('modalSponsor').value.includes('สถานศึกษา') ? 'internal' : 'external'
       };
 
       if (idx >= 0 && idx < recv.length) {
@@ -2556,7 +2838,7 @@
         recv.push(newRec);
       }
 
-      setStorage('v5_recipients', recv);
+      setStorage('v6_recipients', recv);
       closeModal();
       initYears();
       renderOverviewDashboard();
@@ -2568,7 +2850,7 @@
       if (idx < 0 || idx >= recv.length) return;
       if (confirm(`คุณต้องการลบข้อมูลผู้รับทุนของ "${recv[idx].studentName}" ใช่หรือไม่?`)) {
         recv.splice(idx, 1);
-        setStorage('v5_recipients', recv);
+        setStorage('v6_recipients', recv);
         renderOverviewDashboard();
         renderConfirmedRecipientsTable();
       }
@@ -2576,18 +2858,23 @@
 
     function resetData() {
       if (confirm('คุณต้องการคืนค่าข้อมูลเริ่มต้นของระบบทั้งหมดใช่หรือไม่?')) {
-        localStorage.removeItem('v5_officials');
-        localStorage.removeItem('v5_users');
-        localStorage.removeItem('v5_funds');
-        localStorage.removeItem('v5_recipients');
-        localStorage.removeItem('v5_announces');
-        localStorage.removeItem('v5_applications');
+        localStorage.removeItem('v6_institution');
+        localStorage.removeItem('v6_departments');
+        localStorage.removeItem('v6_officials');
+        localStorage.removeItem('v6_users');
+        localStorage.removeItem('v6_funds');
+        localStorage.removeItem('v6_recipients');
+        localStorage.removeItem('v6_announces');
+        localStorage.removeItem('v6_applications');
+        institution = { ...INITIAL_INSTITUTION };
+        departments = [...INITIAL_DEPARTMENTS];
         officials = { ...INITIAL_OFFICIALS };
         users = [...INITIAL_USERS];
         funds = [...INITIAL_SCHOLARSHIPS];
         recv = [...INITIAL_RECIPIENTS];
         announcements = [...INITIAL_ANNOUNCEMENTS];
         applications = [...INITIAL_APPLICATIONS];
+        syncInstitutionUI();
         initYears();
         applyUserPermissions();
         renderOverviewDashboard();
@@ -2599,6 +2886,7 @@
     // Bootstrapping
     // -------------------------------------------------------------
     window.onload = function() {
+      syncInstitutionUI();
       initYears();
       applyUserPermissions();
     };
