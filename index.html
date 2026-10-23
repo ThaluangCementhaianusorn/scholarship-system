@@ -13,9 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Sarabun', sans-serif;
-    }
+    body { font-family: 'Sarabun', sans-serif; }
     .card {
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
@@ -44,42 +42,39 @@
   <!-- Header & Top Navigation Bar                                 -->
   <!-- ============================================================ -->
   <header class="bg-blue-900 text-white shadow-md sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap justify-between items-center gap-3">
       <div class="flex items-center space-x-3">
         <div class="bg-white/10 p-2 rounded-xl border border-white/20 flex items-center justify-center">
-          <svg class="w-7 h-7 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
           </svg>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-lg md:text-xl font-bold tracking-tight">ระบบบริหารจัดการทุนการศึกษาครบวงจร</h1>
-            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.5 rounded">Smart 2026</span>
+            <h1 class="text-base md:text-lg font-bold tracking-tight">ระบบบริหารจัดการทุนการศึกษา</h1>
+            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.2 rounded">Workflow</span>
           </div>
-          <p class="text-xs text-blue-200">งานแนะแนวและทุนการศึกษา วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+          <p class="text-xs text-blue-200">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
         </div>
       </div>
       
-      <!-- Role Switcher & Action Tools -->
-      <div class="flex flex-wrap items-center gap-2.5">
-        <!-- Role Indicator & Toggle -->
-        <div class="flex items-center bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-700/60 text-xs">
-          <span class="text-slate-300 mr-2">สถานะ:</span>
-          <button id="roleBadge" onclick="toggleRole()" class="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-2 py-0.5 rounded cursor-pointer transition flex items-center gap-1">
-            <span id="roleIcon">👨‍💼</span> <span id="roleText">ผู้ดูแลระบบ (Admin)</span>
-          </button>
-        </div>
-
+      <!-- Right Side: User Profile & Actions -->
+      <div class="flex flex-wrap items-center gap-2.5 text-xs">
         <!-- Global Year Select -->
-        <div class="flex items-center bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-700/60 text-xs">
+        <div class="flex items-center bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-700/60">
           <label for="year" class="text-blue-200 mr-1.5 font-medium">ปีการศึกษา:</label>
           <select id="year" onchange="handleYearChange()" class="bg-white text-slate-900 rounded px-2 py-0.5 text-xs font-bold border-0 outline-none cursor-pointer">
             <!-- Dynamically populated -->
           </select>
         </div>
 
-        <!-- Quick Print Report -->
-        <button onclick="printReport()" class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3 py-1.5 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
+        <!-- Authenticated User Info -->
+        <div id="userProfileBar" class="flex items-center bg-blue-950/90 px-3 py-1 rounded-lg border border-blue-600/60 gap-2">
+          <!-- Dynamic Profile -->
+        </div>
+
+        <!-- Print Report (Staff/Admin) -->
+        <button id="topPrintBtn" onclick="printReport()" class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3 py-1 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
           </svg>
@@ -90,21 +85,21 @@
 
     <!-- Navigation Tabs -->
     <div class="bg-blue-950 border-t border-blue-800/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto space-x-2 py-1.5 text-xs font-medium no-scrollbar">
-        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn tab-active px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
-          <span>📊</span> ภาพรวมทุน & ทุนภายใน
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex overflow-x-auto space-x-2 py-1 text-xs font-medium no-scrollbar">
+        <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn tab-active px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+          <span>📊</span> แดชบอร์ดภาพรวม
         </button>
-        <button onclick="switchTab('external')" id="tab-external" class="tab-btn tab-inactive px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
-          <span>🏢</span> แดชบอร์ดทุนสนับสนุนภายนอก
+        <button onclick="switchTab('external')" id="tab-external" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+          <span>🏢</span> ทุนสนับสนุนภายนอก
         </button>
-        <button onclick="switchTab('announcements')" id="tab-announcements" class="tab-btn tab-inactive px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+        <button onclick="switchTab('announcements')" id="tab-announcements" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
           <span>📢</span> ประกาศรับสมัครทุน
         </button>
-        <button onclick="switchTab('apply')" id="tab-apply" class="tab-btn tab-inactive px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+        <button onclick="switchTab('apply')" id="tab-apply" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
           <span>📝</span> ยื่นขอรับทุน (นักศึกษา)
         </button>
-        <button onclick="switchTab('manage')" id="tab-manage" class="tab-btn tab-inactive px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
-          <span>👥</span> จัดการคำขอ & รายชื่อผู้รับทุน
+        <button onclick="switchTab('manage')" id="tab-manage" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
+          <span>👥</span> รายการคำขอ & ไทม์ไลน์พิจารณา
         </button>
       </div>
     </div>
@@ -113,36 +108,33 @@
   <!-- ============================================================ -->
   <!-- MAIN CONTENT TABS CONTAINER                                  -->
   <!-- ============================================================ -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
 
     <!-- ------------------------------------------------------------ -->
     <!-- TAB 1: OVERVIEW & INTERNAL SCHOLARSHIPS DASHBOARD            -->
     <!-- ------------------------------------------------------------ -->
-    <div id="content-overview" class="tab-content space-y-6">
-      <!-- Section Title & Reset -->
+    <div id="content-overview" class="tab-content space-y-5">
       <div class="flex justify-between items-center">
         <div>
-          <h2 class="text-base font-bold text-slate-800">แดชบอร์ดสรุปภาพรวมทุนการศึกษา (Dashboard Overview)</h2>
-          <p class="text-xs text-slate-500">สรุปข้อมูลการจัดสรรทุนการศึกษา วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+          <h2 class="text-base font-bold text-slate-800">แดชบอร์ดสรุปภาพรวมทุนการศึกษา</h2>
+          <p class="text-xs text-slate-500">สรุปการจัดสรรทุนการศึกษา ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
         </div>
-        <button onclick="resetData()" class="text-xs text-slate-400 hover:text-rose-600 underline cursor-pointer">
-          คืนค่าข้อมูลระบบเริ่มต้น (Reset Data)
+        <button onclick="resetData()" class="role-admin-only text-xs text-slate-400 hover:text-rose-600 underline cursor-pointer">
+          คืนค่าฐานข้อมูลเริ่มต้น (Reset System)
         </button>
       </div>
 
       <!-- KPI Cards -->
-      <div id="kpi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Rendered by JS -->
-      </div>
+      <div id="kpi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
 
       <!-- Charts Section -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="card flex flex-col">
           <div class="mb-3">
             <h3 class="font-bold text-slate-800 text-sm">ยอดเงินจัดสรรแยกตามประเภททุนการศึกษา</h3>
-            <p class="text-xs text-slate-500">กราฟแท่งแสดงงบประมาณทุนการศึกษาแต่ละประเภท (บาท)</p>
+            <p class="text-xs text-slate-500">งบประมาณทุนการศึกษาแต่ละประเภท (บาท)</p>
           </div>
-          <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <div class="relative flex-1 min-h-[250px] flex items-center justify-center">
             <canvas id="c1"></canvas>
           </div>
         </div>
@@ -152,14 +144,14 @@
             <h3 class="font-bold text-slate-800 text-sm">สัดส่วนผู้รับทุนแยกระดับการศึกษา</h3>
             <p class="text-xs text-slate-500">สัดส่วนผู้รับทุนระดับ ปวช. และ ปวส.</p>
           </div>
-          <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <div class="relative flex-1 min-h-[250px] flex items-center justify-center">
             <canvas id="c2"></canvas>
           </div>
         </div>
       </div>
 
       <!-- Rankings: Top Majors & Top Students -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="card">
           <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
             <h3 class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
@@ -211,13 +203,13 @@
     <!-- ------------------------------------------------------------ -->
     <!-- TAB 2: EXTERNAL SPONSORS DASHBOARD                           -->
     <!-- ------------------------------------------------------------ -->
-    <div id="content-external" class="tab-content hidden space-y-6">
+    <div id="content-external" class="tab-content hidden space-y-5">
       <div class="flex flex-wrap justify-between items-center gap-3">
         <div>
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span>🏢</span> แดชบอร์ดทุนการศึกษาจากหน่วยงานภายนอกที่สนับสนุน
+            <span>🏢</span> แดชบอร์ดทุนการศึกษาจากหน่วยงานภายนอก
           </h2>
-          <p class="text-xs text-slate-500">สรุปยอดรวมเงินทุน บริษัท มูลนิธิ และผู้สนับสนุนจากภาคเอกชนและหน่วยงานภายนอก</p>
+          <p class="text-xs text-slate-500">สรุปยอดรวมเงินทุน บริษัท มูลนิธิ และผู้สนับสนุนภาคเอกชน</p>
         </div>
         <!-- Department Filter -->
         <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
@@ -234,19 +226,15 @@
         </div>
       </div>
 
-      <!-- External KPIs -->
-      <div id="externalKpi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Rendered by JS -->
-      </div>
+      <div id="externalKpi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
 
-      <!-- External Charts -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="card flex flex-col">
           <div class="mb-3">
             <h3 class="font-bold text-slate-800 text-sm">ยอดเงินสนับสนุนแยกตามองค์กร/บริษัทภายนอก</h3>
             <p class="text-xs text-slate-500">เปรียบเทียบงบประมาณที่แต่ละหน่วยงานสนับสนุน (บาท)</p>
           </div>
-          <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <div class="relative flex-1 min-h-[250px] flex items-center justify-center">
             <canvas id="cExternalSponsors"></canvas>
           </div>
         </div>
@@ -256,7 +244,7 @@
             <h3 class="font-bold text-slate-800 text-sm">สัดส่วนทุนภายนอกที่จัดสรรให้แต่ละแผนกวิชา</h3>
             <p class="text-xs text-slate-500">การกระจายตัวของทุนสนับสนุนภายนอกสู่แผนกวิชา</p>
           </div>
-          <div class="relative flex-1 min-h-[260px] flex items-center justify-center">
+          <div class="relative flex-1 min-h-[250px] flex items-center justify-center">
             <canvas id="cExternalMajors"></canvas>
           </div>
         </div>
@@ -264,15 +252,9 @@
 
       <!-- External Sponsors Table -->
       <div class="card">
-        <div class="mb-4 flex flex-wrap justify-between items-center gap-2">
-          <div>
-            <h3 class="font-bold text-slate-800 text-sm">รายนามหน่วยงานภายนอกและสถานประกอบการที่สนับสนุนทุน</h3>
-            <p class="text-xs text-slate-500">ข้อมูลผู้สนับสนุน งบประมาณ และสถานะการจัดสรร</p>
-          </div>
-          <button onclick="openExternalSponsorModal()" class="admin-only inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg text-xs shadow-xs transition cursor-pointer">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            เพิ่มหน่วยงานผู้สนับสนุน
-          </button>
+        <div class="mb-3">
+          <h3 class="font-bold text-slate-800 text-sm">รายนามหน่วยงานภายนอกและสถานประกอบการที่สนับสนุนทุน</h3>
+          <p class="text-xs text-slate-500">ข้อมูลผู้สนับสนุน งบประมาณ และสถานะการจัดสรร</p>
         </div>
         <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="w-full text-left border-collapse text-xs">
@@ -287,9 +269,7 @@
                 <th class="p-3 text-center">ประเภท</th>
               </tr>
             </thead>
-            <tbody id="externalSponsorsTableBody" class="divide-y divide-slate-100">
-              <!-- Rendered by JS -->
-            </tbody>
+            <tbody id="externalSponsorsTableBody" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
       </div>
@@ -299,24 +279,25 @@
     <!-- ------------------------------------------------------------ -->
     <!-- TAB 3: SCHOLARSHIP ANNOUNCEMENTS (โพสต์ประกาศประชาสัมพันธ์) -->
     <!-- ------------------------------------------------------------ -->
-    <div id="content-announcements" class="tab-content hidden space-y-6">
+    <div id="content-announcements" class="tab-content hidden space-y-5">
       <div class="flex flex-wrap justify-between items-center gap-3">
         <div>
           <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span>📢</span> ประกาศรับสมัครทุนการศึกษา ประจำปีการศึกษา <span id="announceYearText"></span>
+            <span>📢</span> ประกาศรับสมัครทุนการศึกษา ประจำปีการศึกษา <span class="current-year-label"></span>
           </h2>
           <p class="text-xs text-slate-500">ติดตามข่าวสาร ประชาสัมพันธ์ทุนการศึกษาทั้งภายในและภายนอกวิทยาลัย</p>
         </div>
-        <button onclick="openAnnounceModal()" class="admin-only inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white font-semibold px-3.5 py-2 rounded-lg text-xs shadow transition cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          โพสต์ประกาศทุนใหม่ (Admin)
-        </button>
+
+        <!-- Role: Admin & Supervisor can Add Announcement -->
+        <div class="flex items-center gap-2">
+          <button onclick="openAnnounceModal()" class="role-staff-only inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg text-xs shadow transition cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            + โพสต์ประกาศทุนใหม่ (Admin/หัวหน้างาน)
+          </button>
+        </div>
       </div>
 
-      <!-- Announcements Grid -->
-      <div id="announcementList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Rendered by JS -->
-      </div>
+      <div id="announcementList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </div>
 
 
@@ -325,48 +306,47 @@
     <!-- ------------------------------------------------------------ -->
     <div id="content-apply" class="tab-content hidden">
       <div class="max-w-3xl mx-auto card p-6 md:p-8">
-        <div class="text-center pb-6 border-b border-slate-200">
+        <div class="text-center pb-5 border-b border-slate-200">
           <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full mb-2">
             ระบบรับสมัครออนไลน์สำหรับนักเรียน นักศึกษา
           </span>
           <h2 class="text-lg md:text-xl font-bold text-slate-900">แบบคำขอรับทุนการศึกษา</h2>
-          <p class="text-xs text-slate-500 mt-1">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ ประจำปีการศึกษา <span class="font-bold text-blue-700" id="applyYearText">2567</span></p>
+          <p class="text-xs text-slate-500 mt-1">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ ประจำปีการศึกษา <span class="font-bold text-blue-700 current-year-label"></span></p>
         </div>
 
-        <form id="studentApplyForm" onsubmit="handleStudentApply(event)" class="mt-6 space-y-5 text-sm">
+        <form id="studentApplyForm" onsubmit="handleStudentApply(event)" class="mt-5 space-y-4 text-xs">
           <!-- เลือกทุนที่ต้องการสมัคร -->
-          <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200 space-y-3">
-            <label class="block font-bold text-blue-950 text-xs uppercase tracking-wider">
+          <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200 space-y-2">
+            <label class="block font-bold text-blue-950 uppercase tracking-wider">
               1. เลือกทุนการศึกษาที่ต้องการขอรับ *
             </label>
-            <select id="applyScholarshipSelect" required onchange="onApplyScholarshipChange()" class="w-full px-3 py-2 bg-white border border-blue-300 rounded-lg text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none">
-              <!-- Dynamically populated from active scholarships -->
+            <select id="applyScholarshipSelect" required onchange="onApplyScholarshipChange()" class="w-full px-3 py-2 bg-white border border-blue-300 rounded-lg text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none">
             </select>
-            <div id="scholarshipHint" class="text-xs text-blue-800"></div>
+            <div id="scholarshipHint" class="text-[11px] text-blue-800"></div>
           </div>
 
           <!-- ข้อมูลส่วนตัวผู้สมัคร -->
           <div>
-            <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-3">2. ข้อมูลผู้ขอรับทุนการศึกษา</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h3 class="font-bold text-slate-800 uppercase tracking-wider mb-2">2. ข้อมูลผู้ขอรับทุนการศึกษา</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">รหัสนักศึกษา *</label>
-                <input type="text" id="appStudentId" required placeholder="เช่น 6720101005" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block font-semibold text-slate-600 mb-1">รหัสนักศึกษา *</label>
+                <input type="text" id="appStudentId" required placeholder="เช่น 6720101001" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">ชื่อ-สกุล นักเรียน/นักศึกษา *</label>
-                <input type="text" id="appStudentName" required placeholder="เช่น นายวรภัทร รักดี" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block font-semibold text-slate-600 mb-1">ชื่อ-สกุล นักเรียน/นักศึกษา *</label>
+                <input type="text" id="appStudentName" required placeholder="เช่น นายสมชาย หมายมั่น" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">ระดับการศึกษา *</label>
-                <select id="appLevel" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                <label class="block font-semibold text-slate-600 mb-1">ระดับการศึกษา *</label>
+                <select id="appLevel" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
                   <option value="ปวช.">ประกาศนียบัตรวิชาชีพ (ปวช.)</option>
                   <option value="ปวส.">ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</option>
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">แผนกวิชา *</label>
-                <select id="appMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                <label class="block font-semibold text-slate-600 mb-1">แผนกวิชา *</label>
+                <select id="appMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
                   <option value="ช่างยนต์">แผนกวิชาช่างยนต์</option>
                   <option value="ช่างไฟฟ้ากำลัง">แผนกวิชาช่างไฟฟ้ากำลัง</option>
                   <option value="เทคโนโลยีสารสนเทศ">แผนกวิชาเทคโนโลยีสารสนเทศ</option>
@@ -376,59 +356,53 @@
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">ระดับผลการเรียนเฉลี่ยสะสม (GPA) *</label>
-                <input type="number" step="0.01" min="0" max="4.00" id="appGpa" required placeholder="เช่น 3.65" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block font-semibold text-slate-600 mb-1">ผลการเรียนเฉลี่ยสะสม (GPA) *</label>
+                <input type="number" step="0.01" min="0" max="4.00" id="appGpa" required placeholder="เช่น 3.50" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">เบอร์โทรศัพท์ที่ติดต่อได้ *</label>
-                <input type="tel" id="appPhone" required placeholder="เช่น 081-234-5678" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none">
+                <label class="block font-semibold text-slate-600 mb-1">เบอร์โทรศัพท์ที่ติดต่อได้ *</label>
+                <input type="tel" id="appPhone" required placeholder="เช่น 081-234-5678" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
               </div>
             </div>
           </div>
 
           <!-- เหตุผลความจำเป็น -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">เหตุผลและความจำเป็นในการขอรับทุนการศึกษา *</label>
-            <textarea id="appReason" rows="3" required placeholder="อธิบายสภาพความเป็นอยู่ของครอบครัว หรือความจำเป็นในการนำทุนการศึกษาไปใช้พัฒนาการเรียน..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+            <label class="block font-semibold text-slate-600 mb-1">เหตุผลและความจำเป็นในการขอรับทุนการศึกษา *</label>
+            <textarea id="appReason" rows="3" required placeholder="อธิบายสภาพความเป็นอยู่ของครอบครัว หรือความจำเป็นในการนำทุนการศึกษาไปใช้..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
           </div>
 
           <!-- แนบเอกสารเพิ่มเติม -->
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-2">3. แนบเอกสารประกอบการพิจารณา</h3>
-            <p class="text-[11px] text-slate-500 mb-3">ติ๊กเลือกเอกสารที่แนบและระบุชื่อไฟล์/อัปโหลดไฟล์จำลอง</p>
-            <div class="space-y-2.5 text-xs">
+            <h3 class="font-bold text-slate-800 uppercase tracking-wider mb-2">3. แนบเอกสารประกอบการพิจารณา</h3>
+            <div class="space-y-2 text-xs">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="docIdCard" checked class="rounded text-blue-600 focus:ring-blue-500">
-                <span class="font-medium text-slate-700">สำเนาบัตรประจำตัวประชาชน / สำเนาบัตรนักเรียน</span>
+                <input type="checkbox" id="docIdCard" checked class="rounded text-blue-600">
+                <span>สำเนาบัตรประจำตัวประชาชน / สำเนาบัตรนักเรียน</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="docTranscript" checked class="rounded text-blue-600 focus:ring-blue-500">
-                <span class="font-medium text-slate-700">ใบแสดงผลการเรียน (Transcript / ปพ.1 หรือ รบ.)</span>
+                <input type="checkbox" id="docTranscript" checked class="rounded text-blue-600">
+                <span>ใบแสดงผลการเรียน (Transcript / ปพ.1 หรือ รบ.)</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="docIncome" class="rounded text-blue-600 focus:ring-blue-500">
-                <span class="font-medium text-slate-700">หนังสือรับรองรายได้ครอบครัว / หนังสือรับรองจากผู้นำชุมชน</span>
+                <input type="checkbox" id="docIncome" class="rounded text-blue-600">
+                <span>หนังสือรับรองรายได้ครอบครัว / รับรองจากครูที่ปรึกษา</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="docHouse" class="rounded text-blue-600 focus:ring-blue-500">
-                <span class="font-medium text-slate-700">ภาพถ่ายสภาพบ้านและที่พักอาศัย</span>
+                <input type="checkbox" id="docHouse" class="rounded text-blue-600">
+                <span>ภาพถ่ายสภาพบ้านและที่พักอาศัย</span>
               </label>
             </div>
             <div class="mt-3 pt-3 border-t border-slate-200">
-              <label class="block text-[11px] font-semibold text-slate-600 mb-1">อัปโหลดไฟล์เอกสาร (PDF หรือรูปภาพรวม):</label>
-              <input type="file" id="appFileInput" accept=".pdf,image/*" class="text-xs text-slate-500 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
-              <p class="text-[10px] text-slate-400 mt-1">* ระบบบันทึกสถานะการแนบเอกสารเพื่อใช้ตรวจสอบในใบสมัคร</p>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-1">อัปโหลดไฟล์เอกสาร (PDF หรือรูปภาพ):</label>
+              <input type="file" id="appFileInput" accept=".pdf,image/*" class="text-xs text-slate-500 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
             </div>
           </div>
 
-          <!-- Buttons -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200">
-            <span class="text-xs text-slate-500">กรุณาตรวจสอบข้อมูลก่อนกดส่งใบสมัคร</span>
-            <div class="flex gap-2">
-              <button type="submit" class="bg-blue-700 hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs shadow-md transition active:scale-95 cursor-pointer">
-                บันทึกและส่งใบสมัคร
-              </button>
-            </div>
+          <div class="flex justify-end pt-3 border-t border-slate-200">
+            <button type="submit" class="bg-blue-700 hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
+              บันทึกและส่งใบสมัคร
+            </button>
           </div>
         </form>
       </div>
@@ -436,19 +410,19 @@
 
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 5: RECIPIENT & APPLICATION MANAGEMENT (Admin)            -->
+    <!-- TAB 5: RECIPIENT & APPLICATION MANAGEMENT (Timeline Workflow)-->
     <!-- ------------------------------------------------------------ -->
-    <div id="content-manage" class="tab-content hidden space-y-6">
+    <div id="content-manage" class="tab-content hidden space-y-5">
       
-      <!-- Part 1: Pending Applications -->
+      <!-- Part 1: Applications Table & Timeline Action -->
       <div class="card">
-        <div class="mb-4 flex flex-wrap justify-between items-center gap-2">
+        <div class="mb-3 flex flex-wrap justify-between items-center gap-2">
           <div>
             <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
-              <span>📥 รายการใบสมัครขอรับทุนการศึกษาที่รอดำเนินการ</span>
+              <span>📥 รายการใบสมัครขอรับทุนการศึกษา & ไทม์ไลน์การพิจารณา</span>
               <span id="pendingCountBadge" class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-bold">0 คำขอ</span>
             </h3>
-            <p class="text-xs text-slate-500">ตรวจสอบคุณสมบัติ อนุมัติทุน และสั่งพิมพ์ใบสมัคร A4 พร้อมบล็อกลายเซ็น 4 ฝ่าย</p>
+            <p class="text-xs text-slate-500">กระบวนการพิจารณาอนุมัติ/ไม่อนุมัติ บันทึกเหตุผลคุณสมบัติ และดูไทม์ไลน์ขั้นตอน</p>
           </div>
         </div>
 
@@ -464,29 +438,27 @@
                 <th class="p-3">ทุนที่สมัคร</th>
                 <th class="p-3 text-right">จำนวนเงิน</th>
                 <th class="p-3 text-center">สถานะ</th>
-                <th class="p-3 text-center w-40">ดำเนินการ</th>
+                <th class="p-3 text-center w-48">ดำเนินการ / ไทม์ไลน์</th>
               </tr>
             </thead>
-            <tbody id="applicationTableBody" class="divide-y divide-slate-100">
-              <!-- Rendered by JS -->
-            </tbody>
+            <tbody id="applicationTableBody" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
       </div>
 
       <!-- Part 2: Confirmed Recipients (CRUD Table) -->
       <div class="card">
-        <div class="mb-4 flex flex-wrap justify-between items-center gap-3">
+        <div class="mb-3 flex flex-wrap justify-between items-center gap-3">
           <div>
             <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
               <span>📋 รายชื่อผู้ได้รับจัดสรรทุนการศึกษาแล้ว (อนุมัติแล้ว)</span>
             </h3>
-            <p class="text-xs text-slate-500">รายชื่อนี้จะถูกนำไปคำนวณใน Dashboard และพิมพ์รายงานสรุป A4 (PDF)</p>
+            <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกนำไปคำนวณในแดชบอร์ดและพิมพ์รายงานสรุป A4</p>
           </div>
           <div class="flex items-center gap-2">
             <input type="text" id="manageSearchInput" oninput="renderConfirmedRecipientsTable()" placeholder="ค้นหารหัส, ชื่อ, ทุน, แผนก..." 
               class="px-3 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none w-52">
-            <button onclick="openModal()" class="admin-only inline-flex items-center gap-1 bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-3 py-1.5 rounded-lg text-xs transition cursor-pointer">
+            <button onclick="openModal()" class="role-admin-only inline-flex items-center gap-1 bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-3 py-1.5 rounded-lg text-xs transition cursor-pointer">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               เพิ่มผู้รับทุนโดยตรง
             </button>
@@ -502,14 +474,12 @@
                 <th class="p-3">ชื่อ-สกุล</th>
                 <th class="p-3">ระดับ/แผนกวิชา</th>
                 <th class="p-3">ประเภททุน</th>
-                <th class="p-3">แหล่งทุน (ภายใน/ภายนอก)</th>
+                <th class="p-3">แหล่งทุน</th>
                 <th class="p-3 text-right">จำนวนเงิน (บาท)</th>
-                <th class="p-3 text-center w-28">จัดการ</th>
+                <th class="p-3 text-center w-28 role-admin-only">จัดการ</th>
               </tr>
             </thead>
-            <tbody id="recipientsTableBody" class="divide-y divide-slate-100">
-              <!-- Rendered by JS -->
-            </tbody>
+            <tbody id="recipientsTableBody" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
       </div>
@@ -518,18 +488,197 @@
   </main>
 
   <!-- ============================================================ -->
-  <!-- MODALS                                                       -->
+  <!-- MODAL: WORKFLOW & DECISION (อนุมัติ / ไม่อนุมัติ + เหตุผล)     -->
   <!-- ============================================================ -->
+  <div id="decisionModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+      <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
+        <h3 class="text-sm font-bold flex items-center gap-2">
+          <span>⚖️ พิจารณาคำขอรับทุนการศึกษา</span>
+        </h3>
+        <button onclick="closeDecisionModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
 
-  <!-- Modal 1: Add / Edit Recipient Form -->
+      <form id="decisionForm" onsubmit="handleDecisionSubmit(event)" class="p-6 space-y-4 text-xs">
+        <input type="hidden" id="decisionAppId" value="">
+
+        <!-- Applicant Summary Card -->
+        <div id="decisionApplicantInfo" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-slate-700">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Result Choice -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1.5">ผลการพิจารณาตัดสินใจ *</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-emerald-300 bg-emerald-50/70 hover:bg-emerald-100 cursor-pointer">
+              <input type="radio" name="decisionChoice" value="approved" checked onchange="toggleReasonPresets()" class="text-emerald-600 focus:ring-emerald-500">
+              <span class="font-bold text-emerald-800">✅ อนุมัติทุน (Approve)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-lg border border-rose-300 bg-rose-50/70 hover:bg-rose-100 cursor-pointer">
+              <input type="radio" name="decisionChoice" value="rejected" onchange="toggleReasonPresets()" class="text-rose-600 focus:ring-rose-500">
+              <span class="font-bold text-rose-800">❌ ไม่อนุมัติ (Reject)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Preset Reasons Dropdown -->
+        <div id="reasonPresetContainer">
+          <label class="block font-semibold text-slate-700 mb-1">เลือกเหตุผลตามเกณฑ์มาตรฐาน:</label>
+          <select id="reasonPresetSelect" onchange="applyReasonPreset()" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none bg-white font-medium">
+            <!-- Dynamically populated based on decision -->
+          </select>
+        </div>
+
+        <!-- Specific Reason Textarea -->
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">บันทึกเหตุผลและข้อเสนอแนะเพิ่มเติม *</label>
+          <textarea id="decisionReasonText" rows="3" required placeholder="ระบุเหตุผล เช่น คุณสมบัติผ่านเกณฑ์ หรือ คุณสมบัติไม่เพียงพอด้าน GPA..." 
+            class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+          <button type="button" onclick="closeDecisionModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition cursor-pointer">
+            ยกเลิก
+          </button>
+          <button type="submit" class="px-4 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-semibold shadow-xs transition active:scale-95 cursor-pointer">
+            บันทึกผลการพิจารณา
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: TIMELINE DISPLAY (แสดงประวัติขั้นตอนและเหตุผล)         -->
+  <!-- ============================================================ -->
+  <div id="timelineModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+      <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
+        <h3 class="text-sm font-bold flex items-center gap-2">
+          <span>⏱️ ประวัติและไทม์ไลน์การพิจารณาทุน</span>
+        </h3>
+        <button onclick="closeTimelineModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div id="timelineApplicantHeader" class="pb-3 border-b border-slate-100 text-xs">
+          <!-- Applicant Details -->
+        </div>
+
+        <!-- Vertical Timeline List -->
+        <div id="timelineStepsList" class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 text-xs">
+          <!-- Dynamically populated -->
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end">
+          <button type="button" onclick="closeTimelineModal()" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition cursor-pointer">
+            ปิดหน้าต่าง
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MODAL: POST / EDIT ANNOUNCEMENT (กำหนดปีการศึกษาได้)          -->
+  <!-- ============================================================ -->
+  <div id="announceModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
+      <div class="bg-blue-900 text-white px-6 py-3.5 flex justify-between items-center">
+        <h3 id="announceModalTitle" class="text-sm font-bold">📢 ประกาศรับสมัครทุนการศึกษา</h3>
+        <button onclick="closeAnnounceModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+
+      <form id="announceForm" onsubmit="handleAnnounceSubmit(event)" class="p-6 space-y-3.5 text-xs">
+        <input type="hidden" id="editAnnounceId" value="-1">
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">ปีการศึกษา *</label>
+            <input type="text" id="annYear" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">ประเภทแหล่งทุน *</label>
+            <select id="annType" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+              <option value="external">หน่วยงานภายนอก / เอกชน</option>
+              <option value="internal">ทุนภายในวิทยาลัย</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">ชื่อโครงการทุนการศึกษา *</label>
+          <input type="text" id="annTitle" required placeholder="เช่น ทุนสนับสนุนการศึกษา SCG เพื่อวิชาชีพช่าง" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">หน่วยงาน/แหล่งทุน *</label>
+            <input type="text" id="annSponsor" required placeholder="เช่น มูลนิธิเอสซีจี (SCG Foundation)" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">กำหนดวันปิดรับสมัคร *</label>
+            <input type="text" id="annDeadline" required placeholder="เช่น 31 ธ.ค. 2567" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">มูลค่าทุนละ (บาท) *</label>
+            <input type="number" id="annAmount" required min="500" step="500" placeholder="เช่น 6000" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">จำนวนที่เปิดรับ (ทุน) *</label>
+            <input type="number" id="annQuota" required min="1" placeholder="เช่น 10" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">แผนกวิชาที่เปิดรับ *</label>
+            <select id="annMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+              <option value="ทุกแผนกวิชา">ทุกแผนกวิชา</option>
+              <option value="ช่างยนต์">เฉพาะช่างยนต์</option>
+              <option value="ช่างไฟฟ้ากำลัง">เฉพาะช่างไฟฟ้ากำลัง</option>
+              <option value="เทคโนโลยีสารสนเทศ">เฉพาะเทคโนโลยีสารสนเทศ</option>
+              <option value="การบัญชี">เฉพาะการบัญชี</option>
+              <option value="การตลาด">เฉพาะการตลาด</option>
+              <option value="ช่างเชื่อมโลหะ">เฉพาะช่างเชื่อมโลหะ</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-600 mb-1">เกรดเฉลี่ยขั้นต่ำ (GPA) *</label>
+            <input type="number" step="0.05" id="annMinGpa" required value="2.50" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">รายละเอียดคุณสมบัติ & เอกสาร *</label>
+          <textarea id="annDesc" rows="2" required placeholder="เช่น เป็นนักเรียนระดับ ปวช./ปวส. ที่มีความประพฤติดี..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+          <button type="button" onclick="closeAnnounceModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition cursor-pointer">
+            ยกเลิก
+          </button>
+          <button type="submit" class="px-4 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-semibold shadow-xs transition active:scale-95 cursor-pointer">
+            บันทึกประกาศ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Recipient Form -->
   <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
       <div class="bg-blue-900 text-white px-6 py-3.5 flex justify-between items-center">
-        <h3 id="modalTitle" class="text-sm font-bold flex items-center gap-2">บันทึกข้อมูลผู้รับทุน</h3>
+        <h3 id="modalTitle" class="text-sm font-bold">บันทึกข้อมูลผู้รับทุน</h3>
         <button onclick="closeModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
       </div>
 
-      <form id="recipientForm" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4 text-xs">
+      <form id="recipientForm" onsubmit="handleFormSubmit(event)" class="p-6 space-y-3.5 text-xs">
         <input type="hidden" id="editIndex" value="-1">
         
         <div class="grid grid-cols-2 gap-3">
@@ -597,74 +746,56 @@
     </div>
   </div>
 
-  <!-- Modal 2: Post Announcement / Add Scholarship (Admin) -->
-  <div id="announceModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
-      <div class="bg-blue-900 text-white px-6 py-3.5 flex justify-between items-center">
-        <h3 class="text-sm font-bold flex items-center gap-2">📢 โพสต์ประกาศรับสมัครทุนการศึกษา</h3>
-        <button onclick="closeAnnounceModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+  <!-- LOGIN MODAL DIALOG -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
+      <div class="bg-blue-900 text-white p-6 text-center">
+        <div class="w-14 h-14 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
+          <svg class="w-8 h-8 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold">เข้าสู่ระบบทุนการศึกษา</h2>
+        <p class="text-xs text-blue-200 mt-1">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
       </div>
 
-      <form id="announceForm" onsubmit="handleAnnounceSubmit(event)" class="p-6 space-y-3.5 text-xs">
+      <form onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4 text-xs">
+        <div id="loginError" class="hidden p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-lg text-xs"></div>
+
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">ชื่อโครงการทุนการศึกษา *</label>
-          <input type="text" id="annTitle" required placeholder="เช่น ทุนสนับสนุนการศึกษา SCG เพื่อวิชาชีพช่าง" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">หน่วยงาน/แหล่งทุน *</label>
-            <input type="text" id="annSponsor" required placeholder="เช่น มูลนิธิเอสซีจี (SCG Foundation)" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">ประเภทแหล่งทุน *</label>
-            <select id="annType" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-              <option value="external">หน่วยงานภายนอก / เอกชน</option>
-              <option value="internal">ทุนภายในวิทยาลัย</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">มูลค่าทุนละ (บาท) *</label>
-            <input type="number" id="annAmount" required min="500" step="500" placeholder="เช่น 6000" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">จำนวนที่เปิดรับ (ทุน) *</label>
-            <input type="number" id="annQuota" required min="1" placeholder="เช่น 10" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">แผนกวิชาที่เปิดรับ *</label>
-            <select id="annMajor" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
-              <option value="ทุกแผนกวิชา">ทุกแผนกวิชา</option>
-              <option value="ช่างยนต์">เฉพาะช่างยนต์</option>
-              <option value="ช่างไฟฟ้ากำลัง">เฉพาะช่างไฟฟ้ากำลัง</option>
-              <option value="เทคโนโลยีสารสนเทศ">เฉพาะเทคโนโลยีสารสนเทศ</option>
-              <option value="การบัญชี">เฉพาะการบัญชี</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-semibold text-slate-600 mb-1">เกรดเฉลี่ยขั้นต่ำ (GPA) *</label>
-            <input type="number" step="0.05" id="annMinGpa" required value="2.50" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-          </div>
+          <label class="block font-semibold text-slate-700 mb-1">ชื่อผู้ใช้ (Username) / รหัสนักศึกษา</label>
+          <input type="text" id="loginUsername" required placeholder="รหัสนักศึกษา หรือ ชื่อผู้ใช้" 
+            class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-600 outline-none">
         </div>
 
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">รายละเอียดคุณสมบัติ & เอกสาร *</label>
-          <textarea id="annDesc" rows="2" required placeholder="เช่น เป็นนักเรียนระดับ ปวช./ปวส. ที่มีความประพฤติดี ขาดแคลนทุนทรัพย์..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+          <label class="block font-semibold text-slate-700 mb-1">รหัสผ่าน (Password)</label>
+          <input type="password" id="loginPassword" required placeholder="รหัสผ่าน (นักศึกษาใช้รหัสเดียวกับ User)" 
+            class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-blue-600 outline-none">
         </div>
 
-        <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
-          <button type="button" onclick="closeAnnounceModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition cursor-pointer">
-            ยกเลิก
-          </button>
-          <button type="submit" class="px-4 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-semibold shadow-xs transition active:scale-95 cursor-pointer">
-            บันทึกและโพสต์ประกาศ
-          </button>
+        <button type="submit" class="w-full py-2.5 bg-blue-700 hover:bg-blue-600 text-white font-bold rounded-lg text-xs shadow-md transition active:scale-95 cursor-pointer">
+          เข้าสู่ระบบ
+        </button>
+
+        <div class="pt-4 border-t border-slate-100">
+          <p class="text-[11px] font-bold text-slate-500 mb-2 text-center uppercase tracking-wider">
+            ⚡ เข้าสู่ระบบด่วนสำหรับทดสอบ (Quick Test Roles)
+          </p>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="quickLogin('admin')" class="p-2 border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-blue-900 rounded-lg font-semibold text-center transition cursor-pointer">
+              👨‍💼 ระดับ Admin
+              <span class="block text-[10px] text-blue-600 font-normal">admin / admin123</span>
+            </button>
+            <button type="button" onclick="quickLogin('supervisor')" class="p-2 border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-900 rounded-lg font-semibold text-center transition cursor-pointer">
+              👔 หัวหน้างาน
+              <span class="block text-[10px] text-emerald-600 font-normal">head / head123</span>
+            </button>
+            <button type="button" onclick="quickLogin('student')" class="p-2 border border-amber-200 bg-amber-50/70 hover:bg-amber-100 text-amber-900 rounded-lg font-semibold text-center transition cursor-pointer">
+              🎓 นักเรียน/นศ.
+              <span class="block text-[10px] text-amber-700 font-normal">6720101001 ทั้งคู่</span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -675,13 +806,21 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- JAVASCRIPT APPLICATION CORE                                  -->
+  <!-- JAVASCRIPT APPLICATION CORE (AUTH, WORKFLOW & DATA ENGINE)   -->
   <!-- ============================================================ -->
   <script>
     // -------------------------------------------------------------
-    // Data Storage & Initial Seeds
+    // Initial Datasets
     // -------------------------------------------------------------
-    let currentRole = 'admin'; // 'admin' or 'student'
+    const INITIAL_USERS = [
+      { username: 'admin', password: 'admin123', role: 'admin', name: 'นายวัชรพงศ์ โสภา', title: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)' },
+      { username: 'head', password: 'head123', role: 'supervisor', name: 'นายเอกราช เขียวทอง', title: 'หัวหน้างานครูที่ปรึกษาและการแนะแนว' },
+      { username: '6720101001', password: '6720101001', role: 'student', name: 'นายกิตติศักดิ์ พรหมดี', level: 'ปวช.', major: 'ช่างยนต์', gpa: '3.65', phone: '081-234-5678' },
+      { username: '6720101002', password: '6720101002', role: 'student', name: 'นางสาวสุดารัตน์ วงศ์ษา', level: 'ปวช.', major: 'การบัญชี', gpa: '3.80', phone: '082-345-6789' },
+      { username: '6720101003', password: '6720101003', role: 'student', name: 'นายณัฐพล เจริญผล', level: 'ปวช.', major: 'ช่างไฟฟ้ากำลัง', gpa: '3.20', phone: '083-456-7890' },
+      { username: '6730101001', password: '6730101001', role: 'student', name: 'นายธนกฤต มั่นคง', level: 'ปวส.', major: 'ช่างยนต์', gpa: '3.55', phone: '084-567-8901' },
+      { username: '6730101004', password: '6730101004', role: 'student', name: 'นายอภิสิทธิ์ แก้วคำ', level: 'ปวส.', major: 'ช่างไฟฟ้ากำลัง', gpa: '3.40', phone: '085-678-9012' }
+    ];
 
     const INITIAL_SCHOLARSHIPS = [
       { id: 1, scholarshipName: 'ทุนเรียนดี ประจำวิทยาลัย', year: '2567', budget: 50000, type: 'internal', sponsor: 'ทุนงบประมาณวิทยาลัย' },
@@ -703,30 +842,57 @@
     ];
 
     const INITIAL_ANNOUNCEMENTS = [
-      { id: 101, title: 'ทุนมูลนิธิเอสซีจี (SCG) เพื่อเยาวชนช่างเทคนิค', sponsor: 'มูลนิธิเอสซีจี (SCG)', type: 'external', amount: 6000, quota: 10, major: 'ทุกแผนกวิชา', minGpa: 2.75, deadline: '31 พ.ย. 2567', desc: 'สำหรับนักศึกษาระดับ ปวช. และ ปวส. สาขาวิชาช่างอุตสาหกรรม มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี' },
-      { id: 102, title: 'ทุนสานฝันวิชาชีพ บมจ. ซีพี ออลล์ (CP ALL)', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', type: 'external', amount: 5000, quota: 8, major: 'การบัญชี', minGpa: 2.50, deadline: '15 ธ.ค. 2567', desc: 'สนับสนุนนักเรียนแผนกวิชาการบัญชี และการจัดการธุรกิจ ที่มีความสนใจฝึกงานร่วมกับสถานประกอบการ' },
-      { id: 103, title: 'ทุนธนาคารออมสิน สร้างอนาคตเด็กไทย', sponsor: 'ธนาคารออมสิน', type: 'external', amount: 5000, quota: 5, major: 'ทุกแผนกวิชา', minGpa: 3.00, deadline: '20 ธ.ค. 2567', desc: 'ทุนช่วยเหลือครอบครัวรายได้น้อย มีจิตสาธารณะ และมีผลการเรียนระดับดีขึ้นไป' },
-      { id: 104, title: 'ทุนเรียนดีประจำวิทยาลัย ประจำปีการศึกษา 2567', sponsor: 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์', type: 'internal', amount: 5000, quota: 15, major: 'ทุกแผนกวิชา', minGpa: 3.50, deadline: '10 ม.ค. 2568', desc: 'สำหรับผู้มีผลการเรียนยอดเยี่ยมอันดับ 1 ของแต่ละแผนกวิชา' },
+      { id: 101, year: '2567', title: 'ทุนมูลนิธิเอสซีจี (SCG) เพื่อเยาวชนช่างเทคนิค', sponsor: 'มูลนิธิเอสซีจี (SCG)', type: 'external', amount: 6000, quota: 10, major: 'ทุกแผนกวิชา', minGpa: 2.75, deadline: '31 พ.ย. 2567', desc: 'สำหรับนักศึกษาระดับ ปวช. และ ปวส. สาขาวิชาช่างอุตสาหกรรม มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี' },
+      { id: 102, year: '2567', title: 'ทุนสานฝันวิชาชีพ บมจ. ซีพี ออลล์ (CP ALL)', sponsor: 'บมจ. ซีพี ออลล์ (CP ALL)', type: 'external', amount: 5000, quota: 8, major: 'การบัญชี', minGpa: 2.50, deadline: '15 ธ.ค. 2567', desc: 'สนับสนุนนักเรียนแผนกวิชาการบัญชี และการจัดการธุรกิจ ที่มีความสนใจฝึกงานร่วมกับสถานประกอบการ' },
+      { id: 103, year: '2567', title: 'ทุนธนาคารออมสิน สร้างอนาคตเด็กไทย', sponsor: 'ธนาคารออมสิน', type: 'external', amount: 5000, quota: 5, major: 'ทุกแผนกวิชา', minGpa: 3.00, deadline: '20 ธ.ค. 2567', desc: 'ทุนช่วยเหลือครอบครัวรายได้น้อย มีจิตสาธารณะ และมีผลการเรียนระดับดีขึ้นไป' },
+      { id: 104, year: '2567', title: 'ทุนเรียนดีประจำวิทยาลัย ประจำปีการศึกษา 2567', sponsor: 'วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์', type: 'internal', amount: 5000, quota: 15, major: 'ทุกแผนกวิชา', minGpa: 3.50, deadline: '10 ม.ค. 2568', desc: 'สำหรับผู้มีผลการเรียนยอดเยี่ยมอันดับ 1 ของแต่ละแผนกวิชา' },
     ];
 
     const INITIAL_APPLICATIONS = [
       { 
         id: 'APP-6701',
         year: '2567',
-        studentId: '6720101009',
-        studentName: 'นายพงศธร สมหมาย',
+        studentId: '6720101001',
+        studentName: 'นายกิตติศักดิ์ พรหมดี',
         level: 'ปวช.',
         major: 'ช่างยนต์',
-        gpa: '3.68',
-        phone: '089-111-2222',
+        gpa: '3.65',
+        phone: '081-234-5678',
         scholarshipName: 'ทุนการศึกษาเครือซิเมนต์ไทย (SCG)',
         sponsor: 'มูลนิธิเอสซีจี (SCG)',
         amount: 6000,
         type: 'external',
         reason: 'ครอบครัวประกอบอาชีพเกษตรกรรม รายได้ไม่แน่นอน และต้องการนำเงินทุนไปซื้ออุปกรณ์ฝึกงานและชุดเครื่องมือช่าง',
-        docs: ['สำเนาบัตรประชาชน', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว'],
+        docs: ['สำเนาบัตรประจำตัวประชาชน', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว'],
+        status: 'อนุมัติแล้ว',
+        appliedAt: '2026-10-23',
+        timeline: [
+          { title: 'ยื่นใบสมัครขอรับทุน', by: 'ผู้สมัคร (นายกิตติศักดิ์ พรหมดี)', date: '23 ต.ค. 2567 10:15', note: 'ส่งใบสมัครและแนบเอกสารครบถ้วนในระบบ' },
+          { title: 'ตรวจสอบคุณสมบัติและเอกสาร', by: 'งานแนะแนวและทุนการศึกษา', date: '23 ต.ค. 2567 14:30', note: 'ตรวจสอบผลการเรียน GPA 3.65 และหนังสือรับรองรายได้ผ่านเกณฑ์' },
+          { title: 'ผลการพิจารณา: อนุมัติทุนการศึกษา', by: 'คณะกรรมการพิจารณาทุน (นายวัชรพงศ์ โสภา)', date: '23 ต.ค. 2567 16:45', note: 'อนุมัติทุนการศึกษาเครือซิเมนต์ไทย (SCG) จำนวน 6,000 บาท' }
+        ]
+      },
+      { 
+        id: 'APP-6702',
+        year: '2567',
+        studentId: '6720101003',
+        studentName: 'นายณัฐพล เจริญผล',
+        level: 'ปวช.',
+        major: 'ช่างไฟฟ้ากำลัง',
+        gpa: '2.40',
+        phone: '083-456-7890',
+        scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน',
+        sponsor: 'ธนาคารออมสิน',
+        amount: 5000,
+        type: 'external',
+        reason: 'ต้องการเงินทุนแบ่งเบาภาระครอบครัว',
+        docs: ['สำเนาบัตรประจำตัวประชาชน'],
         status: 'รอดำเนินการ',
-        appliedAt: '2026-10-23'
+        appliedAt: '2026-10-23',
+        timeline: [
+          { title: 'ยื่นใบสมัครขอรับทุน', by: 'ผู้สมัคร (นายณัฐพล เจริญผล)', date: '23 ต.ค. 2567 11:20', note: 'ส่งใบสมัครในระบบ' },
+          { title: 'ตรวจสอบคุณสมบัติเบื้องต้น', by: 'หัวหน้างานครูที่ปรึกษา', date: '23 ต.ค. 2567 15:10', note: 'รอการพิจารณาคุณสมบัติ GPA (เกณฑ์กำหนด 3.00)' }
+        ]
       }
     ];
 
@@ -737,12 +903,13 @@
       try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
     }
 
-    let funds = getStorage('v2_scholarship_funds', INITIAL_SCHOLARSHIPS);
-    let recv = getStorage('v2_scholarship_recipients', INITIAL_RECIPIENTS);
-    let announcements = getStorage('v2_scholarship_announces', INITIAL_ANNOUNCEMENTS);
-    let applications = getStorage('v2_scholarship_applications', INITIAL_APPLICATIONS);
+    let users = getStorage('v4_users', INITIAL_USERS);
+    let funds = getStorage('v4_funds', INITIAL_SCHOLARSHIPS);
+    let recv = getStorage('v4_recipients', INITIAL_RECIPIENTS);
+    let announcements = getStorage('v4_announces', INITIAL_ANNOUNCEMENTS);
+    let applications = getStorage('v4_applications', INITIAL_APPLICATIONS);
+    let currentUser = getStorage('v4_current_user', null);
 
-    // Helpers
     const $ = id => document.getElementById(id);
     const baht = n => Number(n || 0).toLocaleString('th-TH');
     const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -754,20 +921,122 @@
     let c1, c2, cExtSponsors, cExtMajors;
 
     // -------------------------------------------------------------
-    // Role Switching
+    // Authentication System
     // -------------------------------------------------------------
-    function toggleRole() {
-      currentRole = (currentRole === 'admin') ? 'student' : 'admin';
-      $('roleIcon').innerText = (currentRole === 'admin') ? '👨‍💼' : '🎓';
-      $('roleText').innerText = (currentRole === 'admin') ? 'ผู้ดูแลระบบ (Admin)' : 'นักเรียน/นักศึกษา';
-      $('roleBadge').className = (currentRole === 'admin')
-        ? 'bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-2 py-0.5 rounded cursor-pointer transition flex items-center gap-1'
-        : 'bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-2 py-0.5 rounded cursor-pointer transition flex items-center gap-1';
-      
-      // Update UI visibility for admin buttons
-      document.querySelectorAll('.admin-only').forEach(el => {
-        el.style.display = (currentRole === 'admin') ? '' : 'none';
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const u = $('loginUsername').value.trim();
+      const p = $('loginPassword').value.trim();
+      $('loginError').classList.add('hidden');
+
+      let foundUser = users.find(user => user.username === u && user.password === p);
+
+      if (!foundUser && u === p && /^\d{10}$/.test(u)) {
+        const existingStudent = recv.find(r => r.studentId === u);
+        foundUser = {
+          username: u,
+          password: p,
+          role: 'student',
+          name: existingStudent ? existingStudent.studentName : `นักเรียน รหัส ${u}`,
+          level: existingStudent ? existingStudent.level : 'ปวช.',
+          major: existingStudent ? existingStudent.major : 'ช่างยนต์',
+          gpa: '3.50',
+          phone: '08X-XXX-XXXX'
+        };
+        users.push(foundUser);
+        setStorage('v4_users', users);
+      }
+
+      if (foundUser) {
+        currentUser = foundUser;
+        setStorage('v4_current_user', currentUser);
+        $('loginModal').classList.add('hidden');
+        applyUserPermissions();
+        renderOverviewDashboard();
+      } else {
+        $('loginError').innerText = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง! (สำหรับนักเรียน นักศึกษา ให้ใช้รหัสนักศึกษาทั้งในช่อง Username และ Password)';
+        $('loginError').classList.remove('hidden');
+      }
+    }
+
+    function quickLogin(role) {
+      if (role === 'admin') {
+        $('loginUsername').value = 'admin';
+        $('loginPassword').value = 'admin123';
+      } else if (role === 'supervisor') {
+        $('loginUsername').value = 'head';
+        $('loginPassword').value = 'head123';
+      } else if (role === 'student') {
+        $('loginUsername').value = '6720101001';
+        $('loginPassword').value = '6720101001';
+      }
+      handleLoginSubmit(new Event('submit'));
+    }
+
+    function logout() {
+      if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
+        currentUser = null;
+        localStorage.removeItem('v4_current_user');
+        $('loginUsername').value = '';
+        $('loginPassword').value = '';
+        $('loginModal').classList.remove('hidden');
+      }
+    }
+
+    function applyUserPermissions() {
+      if (!currentUser) {
+        $('loginModal').classList.remove('hidden');
+        return;
+      }
+
+      const roleBadgeBg = currentUser.role === 'admin' 
+        ? 'bg-rose-500' 
+        : currentUser.role === 'supervisor' 
+        ? 'bg-emerald-500' 
+        : 'bg-amber-500';
+
+      const roleThai = currentUser.role === 'admin' 
+        ? 'ผู้ดูแลระบบ (Admin)' 
+        : currentUser.role === 'supervisor' 
+        ? 'หัวหน้างาน' 
+        : 'นักเรียน/นักศึกษา';
+
+      $('userProfileBar').innerHTML = `
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full ${roleBadgeBg} animate-pulse"></span>
+          <span class="font-bold text-white">${esc(currentUser.name)}</span>
+          <span class="px-1.5 py-0.2 rounded text-[10px] font-black ${roleBadgeBg} text-white">${roleThai}</span>
+        </div>
+        <button onclick="logout()" class="ml-2 text-rose-300 hover:text-rose-100 underline text-[11px] cursor-pointer">
+          ออกจากระบบ
+        </button>
+      `;
+
+      const isAdmin = currentUser.role === 'admin';
+      const isSupervisor = currentUser.role === 'supervisor';
+      const isStaff = isAdmin || isSupervisor;
+      const isStudent = currentUser.role === 'student';
+
+      document.querySelectorAll('.role-admin-only').forEach(el => {
+        el.style.display = isAdmin ? '' : 'none';
       });
+
+      document.querySelectorAll('.role-staff-only').forEach(el => {
+        el.style.display = isStaff ? '' : 'none';
+      });
+
+      if (isStudent) {
+        $('appStudentId').value = currentUser.username;
+        $('appStudentId').readOnly = true;
+        $('appStudentName').value = currentUser.name;
+        if (currentUser.level) $('appLevel').value = currentUser.level;
+        if (currentUser.major) $('appMajor').value = currentUser.major;
+        if (currentUser.gpa) $('appGpa').value = currentUser.gpa;
+        if (currentUser.phone) $('appPhone').value = currentUser.phone;
+        switchTab('announcements');
+      } else {
+        switchTab('overview');
+      }
     }
 
     // -------------------------------------------------------------
@@ -779,10 +1048,10 @@
         const btn = $('tab-' + t);
         const content = $('content-' + t);
         if (t === tabId) {
-          btn.className = 'tab-btn tab-active px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
+          btn.className = 'tab-btn tab-active px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
           content.classList.remove('hidden');
         } else {
-          btn.className = 'tab-btn tab-inactive px-3.5 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
+          btn.className = 'tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
           content.classList.add('hidden');
         }
       });
@@ -801,17 +1070,25 @@
     // Year Initialization
     // -------------------------------------------------------------
     function initYears() {
-      const years = [...new Set([...recv.map(r => String(r.year)), ...funds.map(f => String(f.year)), '2567'])].sort().reverse();
+      const years = [...new Set([
+        ...recv.map(r => String(r.year)), 
+        ...funds.map(f => String(f.year)), 
+        ...announcements.map(a => String(a.year || '2567')), 
+        '2567'
+      ])].sort().reverse();
+      
       $('year').innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
       $('year').value = years[0] || '2567';
-      $('applyYearText').innerText = $('year').value;
-      $('announceYearText').innerText = $('year').value;
+      updateYearLabels();
+    }
+
+    function updateYearLabels() {
+      const y = $('year').value;
+      document.querySelectorAll('.current-year-label').forEach(el => el.innerText = y);
     }
 
     function handleYearChange() {
-      const y = $('year').value;
-      $('applyYearText').innerText = y;
-      $('announceYearText').innerText = y;
+      updateYearLabels();
       renderOverviewDashboard();
       renderExternalDashboard();
       renderAnnouncements();
@@ -826,12 +1103,13 @@
         y,
         rows: recv.filter(r => String(r.year) === y),
         fs: funds.filter(s => String(s.year) === y),
-        apps: applications.filter(a => String(a.year) === y)
+        apps: applications.filter(a => String(a.year) === y),
+        anns: announcements.filter(a => String(a.year || '2567') === y)
       };
     }
 
     // -------------------------------------------------------------
-    // Tab 1: Render Overview Dashboard
+    // Tab 1: Overview Dashboard
     // -------------------------------------------------------------
     function renderOverviewDashboard() {
       const { rows, fs } = getYearData();
@@ -839,7 +1117,6 @@
       const extRows = rows.filter(r => r.type === 'external');
       const extAmount = extRows.reduce((s, r) => s + Number(r.amount || 0), 0);
 
-      // 4 KPIs
       $('kpi').innerHTML = [
         ['จำนวนประเภททุน', fs.length, 'ทุนการศึกษาทั้งหมด', 'text-blue-700'],
         ['ผู้รับทุนทั้งหมด (คน)', rows.length, 'ปวช. และ ปวส.', 'text-emerald-700'],
@@ -853,7 +1130,6 @@
         </div>
       `).join('');
 
-      // Charts
       const byFund = sumBy(rows, 'scholarshipName');
       const byLevel = groupCount(rows, 'level');
 
@@ -882,12 +1158,10 @@
         options: { animation: false, responsive: true, maintainAspectRatio: false }
       });
 
-      // Rankings
       const majors = groupCount(rows, 'major');
       const mAmt = sumBy(rows, 'major');
       renderRankings(rows, majors, mAmt);
 
-      // Table: byMajor
       $('byMajor').innerHTML = Object.keys(majors).map(m => `
         <tr class="hover:bg-slate-50 transition">
           <td class="p-2.5 font-medium text-slate-800">${esc(m)}</td>
@@ -935,7 +1209,7 @@
     }
 
     // -------------------------------------------------------------
-    // Tab 2: Render External Sponsors Dashboard
+    // Tab 2: External Sponsors Dashboard
     // -------------------------------------------------------------
     function renderExternalDashboard() {
       const { rows } = getYearData();
@@ -949,7 +1223,6 @@
       const totalExtAmount = extRecipients.reduce((s, r) => s + Number(r.amount || 0), 0);
       const uniqueSponsors = [...new Set(extRecipients.map(r => r.sponsor || r.scholarshipName))];
 
-      // External KPIs
       $('externalKpi').innerHTML = [
         ['งบสนับสนุนภายนอกรวม', baht(totalExtAmount) + ' บ.', selectedDept === 'ALL' ? 'ทุกแผนกวิชา' : `เฉพาะแผนก${selectedDept}`, 'text-amber-800'],
         ['จำนวนหน่วยงาน/บริษัท', uniqueSponsors.length, 'องค์กรที่ร่วมสนับสนุน', 'text-blue-800'],
@@ -963,7 +1236,6 @@
         </div>
       `).join('');
 
-      // Group by Sponsor & Major
       const bySponsor = sumBy(extRecipients, 'sponsor');
       const byDept = groupCount(extRecipients, 'major');
 
@@ -992,7 +1264,6 @@
         options: { animation: false, responsive: true, maintainAspectRatio: false }
       });
 
-      // Table of External Sponsors
       const externalFunds = funds.filter(f => f.type === 'external' && String(f.year) === $('year').value);
       $('externalSponsorsTableBody').innerHTML = externalFunds.length === 0
         ? `<tr><td colspan="7" class="p-6 text-center text-slate-400">ยังไม่มีข้อมูลหน่วยงานภายนอกในปีนี้</td></tr>`
@@ -1015,17 +1286,35 @@
     }
 
     // -------------------------------------------------------------
-    // Tab 3: Render Announcements (โพสต์ประชาสัมพันธ์)
+    // Tab 3: Announcements (กำหนดปีได้, แก้ไข, ลบ, เพิ่มได้ทั้ง Admin และหัวหน้างาน)
     // -------------------------------------------------------------
     function renderAnnouncements() {
+      const { anns } = getYearData();
       const container = $('announcementList');
-      container.innerHTML = announcements.map(a => `
+      const isStaff = currentUser?.role === 'admin' || currentUser?.role === 'supervisor';
+
+      if (anns.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full card p-8 text-center text-slate-400">
+            <p class="text-sm">ยังไม่มีประกาศรับสมัครทุนการศึกษาในปีการศึกษา ${esc($('year').value)}</p>
+            ${isStaff ? `<button onclick="openAnnounceModal()" class="mt-3 px-4 py-1.5 bg-blue-700 text-white rounded-lg text-xs font-semibold cursor-pointer">+ โพสต์ประกาศแรก</button>` : ''}
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = anns.map(a => `
         <div class="card flex flex-col justify-between border-t-4 ${a.type === 'external' ? 'border-t-amber-500' : 'border-t-blue-600'} hover:shadow-md transition">
           <div>
             <div class="flex justify-between items-start gap-2 mb-2">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${a.type === 'external' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}">
-                ${a.type === 'external' ? '🏢 ทุนหน่วยงานภายนอก' : '🏫 ทุนภายในวิทยาลัย'}
-              </span>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${a.type === 'external' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}">
+                  ${a.type === 'external' ? '🏢 ทุนหน่วยงานภายนอก' : '🏫 ทุนภายในวิทยาลัย'}
+                </span>
+                <span class="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded">
+                  ปี ${esc(a.year || $('year').value)}
+                </span>
+              </div>
               <span class="text-[11px] text-slate-400 font-medium">ปิดรับ: ${esc(a.deadline)}</span>
             </div>
             <h3 class="font-bold text-slate-900 text-sm leading-snug mb-1">${esc(a.title)}</h3>
@@ -1050,12 +1339,120 @@
             </div>
           </div>
 
-          <button onclick="applyForThisScholarship('${esc(a.title)}', '${esc(a.sponsor)}', ${a.amount}, '${a.type}')" 
-            class="w-full py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer flex items-center justify-center gap-1.5">
-            <span>📝</span> ยื่นสมัครขอรับทุนนี้
-          </button>
+          <div class="space-y-2 pt-2 border-t border-slate-100">
+            <button onclick="applyForThisScholarship('${esc(a.title)}', '${esc(a.sponsor)}', ${a.amount}, '${a.type}')" 
+              class="w-full py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer flex items-center justify-center gap-1.5">
+              <span>📝</span> ยื่นสมัครขอรับทุนนี้
+            </button>
+
+            ${isStaff ? `
+              <div class="flex gap-2">
+                <button onclick="editAnnouncement(${a.id})" class="flex-1 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 rounded text-[11px] font-semibold transition cursor-pointer">
+                  ✏️ แก้ไขประกาศ
+                </button>
+                <button onclick="deleteAnnouncement(${a.id})" class="py-1 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-[11px] font-semibold transition cursor-pointer">
+                  🗑️ ลบ
+                </button>
+              </div>
+            ` : ''}
+          </div>
         </div>
       `).join('');
+    }
+
+    function openAnnounceModal(annId = -1) {
+      $('editAnnounceId').value = annId;
+      if (annId > 0) {
+        const item = announcements.find(a => a.id === annId);
+        if (item) {
+          $('announceModalTitle').innerText = '✏️ แก้ไขประกาศรับสมัครทุนการศึกษา';
+          $('annYear').value = item.year || $('year').value;
+          $('annType').value = item.type || 'external';
+          $('annTitle').value = item.title || '';
+          $('annSponsor').value = item.sponsor || '';
+          $('annDeadline').value = item.deadline || '';
+          $('annAmount').value = item.amount || '';
+          $('annQuota').value = item.quota || 1;
+          $('annMajor').value = item.major || 'ทุกแผนกวิชา';
+          $('annMinGpa').value = item.minGpa || 2.50;
+          $('annDesc').value = item.desc || '';
+        }
+      } else {
+        $('announceModalTitle').innerText = '📢 โพสต์ประกาศรับสมัครทุนใหม่';
+        $('annYear').value = $('year').value;
+        $('annType').value = 'external';
+        $('annTitle').value = '';
+        $('annSponsor').value = '';
+        $('annDeadline').value = '31 ธ.ค. ' + $('year').value;
+        $('annAmount').value = '5000';
+        $('annQuota').value = '10';
+        $('annMajor').value = 'ทุกแผนกวิชา';
+        $('annMinGpa').value = '2.50';
+        $('annDesc').value = '';
+      }
+      $('announceModalOverlay').classList.remove('hidden');
+    }
+
+    function closeAnnounceModal() {
+      $('announceModalOverlay').classList.add('hidden');
+    }
+
+    function handleAnnounceSubmit(e) {
+      e.preventDefault();
+      const annId = parseInt($('editAnnounceId').value, 10);
+      const annData = {
+        id: annId > 0 ? annId : Date.now(),
+        year: $('annYear').value.trim(),
+        title: $('annTitle').value.trim(),
+        sponsor: $('annSponsor').value.trim(),
+        type: $('annType').value,
+        amount: Number($('annAmount').value || 0),
+        quota: Number($('annQuota').value || 1),
+        major: $('annMajor').value,
+        minGpa: Number($('annMinGpa').value || 2.5),
+        deadline: $('annDeadline').value.trim(),
+        desc: $('annDesc').value.trim()
+      };
+
+      if (annId > 0) {
+        const idx = announcements.findIndex(a => a.id === annId);
+        if (idx !== -1) announcements[idx] = annData;
+      } else {
+        announcements.unshift(annData);
+        // เพิ่มเข้ากองทุนอัตโนมัติ
+        funds.push({
+          id: Date.now(),
+          scholarshipName: annData.title,
+          year: annData.year,
+          budget: annData.amount * annData.quota,
+          type: annData.type,
+          sponsor: annData.sponsor
+        });
+        setStorage('v4_funds', funds);
+      }
+
+      setStorage('v4_announces', announcements);
+      closeAnnounceModal();
+      initYears();
+      $('year').value = annData.year;
+      updateYearLabels();
+      renderAnnouncements();
+      renderOverviewDashboard();
+      alert('บันทึกประกาศรับสมัครทุนการศึกษาเรียบร้อยแล้ว!');
+    }
+
+    function editAnnouncement(id) {
+      openAnnounceModal(id);
+    }
+
+    function deleteAnnouncement(id) {
+      const ann = announcements.find(a => a.id === id);
+      if (!ann) return;
+      if (confirm(`คุณต้องการลบประกาศทุน "${ann.title}" ใช่หรือไม่?`)) {
+        announcements = announcements.filter(a => a.id !== id);
+        setStorage('v4_announces', announcements);
+        renderAnnouncements();
+      }
     }
 
     function applyForThisScholarship(title, sponsor, amount, type) {
@@ -1123,6 +1520,8 @@
       if ($('docHouse').checked) docs.push('ภาพถ่ายบ้าน/ที่พักอาศัย');
       if ($('appFileInput').files.length > 0) docs.push(`ไฟล์แนบ: ${$('appFileInput').files[0].name}`);
 
+      const nowStr = new Date().toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
       const newApp = {
         id: 'APP-' + Date.now().toString().slice(-4),
         year: $('year').value,
@@ -1139,30 +1538,35 @@
         reason: $('appReason').value.trim(),
         docs: docs,
         status: 'รอดำเนินการ',
-        appliedAt: new Date().toISOString().split('T')[0]
+        appliedAt: new Date().toISOString().split('T')[0],
+        timeline: [
+          { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${$('appStudentName').value.trim()})`, date: nowStr, note: 'ยื่นใบสมัครผ่านระบบออนไลน์เรียบร้อยแล้ว' }
+        ]
       };
 
       applications.unshift(newApp);
-      setStorage('v2_scholarship_applications', applications);
+      setStorage('v4_applications', applications);
 
-      alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบสถานะหรือสั่งพิมพ์ใบสมัครได้ในเมนู "จัดการคำขอ & รายชื่อผู้รับทุน"`);
+      alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบขั้นตอนและไทม์ไลน์ได้ในเมนู "รายการคำขอ & ไทม์ไลน์พิจารณา"`);
       
-      // Reset form & go to manage
-      $('studentApplyForm').reset();
       switchTab('manage');
     }
 
     // -------------------------------------------------------------
-    // Tab 5: Manage Applications & Confirmed Recipients
+    // Tab 5: Applications & Decision Workflow with Timeline
     // -------------------------------------------------------------
     function renderApplicationsTable() {
       const { apps } = getYearData();
-      const pending = apps.filter(a => a.status === 'รอดำเนินการ');
+      const isStudent = currentUser?.role === 'student';
+      const isStaff = currentUser?.role === 'admin' || currentUser?.role === 'supervisor';
+      
+      const visibleApps = isStudent ? apps.filter(a => a.studentId === currentUser.username) : apps;
+      const pending = visibleApps.filter(a => a.status === 'รอดำเนินการ');
       $('pendingCountBadge').innerText = `${pending.length} คำขอ`;
 
-      $('applicationTableBody').innerHTML = apps.length === 0
+      $('applicationTableBody').innerHTML = visibleApps.length === 0
         ? `<tr><td colspan="9" class="p-6 text-center text-slate-400">ยังไม่มีรายการใบสมัครในปีการศึกษานี้</td></tr>`
-        : apps.map((a, i) => `
+        : visibleApps.map((a, i) => `
           <tr class="hover:bg-slate-50 transition">
             <td class="p-3 text-center text-slate-400">${i + 1}</td>
             <td class="p-3 font-mono font-bold text-slate-700">${esc(a.studentId)}</td>
@@ -1177,18 +1581,27 @@
             <td class="p-3 text-center">
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${
                 a.status === 'อนุมัติแล้ว' ? 'bg-emerald-100 text-emerald-800' :
-                a.status === 'ปฏิเสธ' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
+                a.status === 'ไม่อนุมัติ' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
               }">${esc(a.status)}</span>
             </td>
-            <td class="p-3 text-center space-x-1">
-              <!-- Print Application Button (ลายเซ็น 4 ฝ่าย) -->
+            <td class="p-3 text-center space-x-1 whitespace-nowrap">
+              <!-- Timeline Button -->
+              <button onclick="viewTimeline('${a.id}')" title="ดูไทม์ไลน์กระบวนการพิจารณา" 
+                class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded text-[11px] font-medium cursor-pointer transition">
+                ⏱️ ไทม์ไลน์
+              </button>
+
+              <!-- Print Form Button -->
               <button onclick="printStudentApplication('${a.id}')" title="พิมพ์ใบสมัคร A4 พร้อมลายเซ็น 4 ฝ่าย" 
                 class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 rounded text-[11px] font-medium cursor-pointer transition">
-                🖨️ พิมพ์ใบสมัคร
+                🖨️ พิมพ์
               </button>
-              ${a.status === 'รอดำเนินการ' ? `
-                <button onclick="approveApplication('${a.id}')" class="admin-only px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 rounded text-[11px] font-medium cursor-pointer transition">
-                  อนุมัติ
+
+              <!-- Staff Decision Button -->
+              ${isStaff ? `
+                <button onclick="openDecisionModal('${a.id}')" title="พิจารณาอนุมัติ / ไม่อนุมัติ พร้อมระบุเหตุผล"
+                  class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-300 rounded text-[11px] font-bold cursor-pointer transition">
+                  ⚖️ พิจารณา
                 </button>
               ` : ''}
             </td>
@@ -1196,36 +1609,177 @@
         `).join('');
     }
 
-    function approveApplication(appId) {
+    // Decision Modal Controls
+    const REASON_PRESETS = {
+      approved: [
+        'คุณสมบัติครบถ้วน ผลการเรียนยอดเยี่ยมและขาดแคลนทุนทรัพย์',
+        'ผ่านการสัมภาษณ์และตรงตามข้อกำหนดของแหล่งทุนภายนอก',
+        'มีความประพฤติดีเด่น มีจิตอาสาช่วยเหลือวิทยาลัยสม่ำเสมอ',
+        'ได้รับการรับรองเป็นกรณีพิเศษจากหัวหน้าแผนกวิชา'
+      ],
+      rejected: [
+        'คุณสมบัติอาจไม่เพียงพอ (ผลการเรียนเฉลี่ย GPA ไม่ถึงเกณฑ์ขั้นต่ำ)',
+        'เอกสารหลักฐานไม่ครบถ้วนหรือไม่ถูกต้องตามกำหนดเวลา',
+        'จำนวนโควตาผู้รับทุนในแผนกวิชานี้ครบตามจำนวนแล้ว',
+        'สภาพทางเศรษฐกิจและรายได้ครอบครัวไม่อยู่ในเกณฑ์ขาดแคลน',
+        'เคยได้รับทุนการศึกษาประเภทอื่นในปีการศึกษานี้แล้ว'
+      ]
+    };
+
+    function openDecisionModal(appId) {
       const app = applications.find(a => a.id === appId);
       if (!app) return;
-      if (confirm(`ยืนยันการอนุมัติทุนการศึกษาให้แก่ "${app.studentName}" ใช่หรือไม่?`)) {
+
+      $('decisionAppId').value = appId;
+      $('decisionApplicantInfo').innerHTML = `
+        <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+          <span class="font-bold text-slate-900">${esc(app.studentName)} (${esc(app.studentId)})</span>
+          <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-bold">${esc(app.level)} ${esc(app.major)}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+          <div><strong>ทุนที่สมัคร:</strong> ${esc(app.scholarshipName)}</div>
+          <div><strong>ผลการเรียน (GPA):</strong> ${esc(app.gpa)}</div>
+          <div class="col-span-2"><strong>เหตุผลที่ขอ:</strong> ${esc(app.reason)}</div>
+        </div>
+      `;
+
+      // Set default choice
+      document.querySelector('input[name="decisionChoice"][value="approved"]').checked = true;
+      toggleReasonPresets();
+      $('decisionModal').classList.remove('hidden');
+    }
+
+    function closeDecisionModal() {
+      $('decisionModal').classList.add('hidden');
+    }
+
+    function toggleReasonPresets() {
+      const choice = document.querySelector('input[name="decisionChoice"]:checked').value;
+      const select = $('reasonPresetSelect');
+      const list = REASON_PRESETS[choice] || [];
+      select.innerHTML = '<option value="">-- เลือกเหตุผลมาตรฐาน (หรือพิมพ์เองด้านล่าง) --</option>' +
+        list.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('');
+      $('decisionReasonText').value = list[0] || '';
+    }
+
+    function applyReasonPreset() {
+      const val = $('reasonPresetSelect').value;
+      if (val) $('decisionReasonText').value = val;
+    }
+
+    function handleDecisionSubmit(e) {
+      e.preventDefault();
+      const appId = $('decisionAppId').value;
+      const app = applications.find(a => a.id === appId);
+      if (!app) return;
+
+      const choice = document.querySelector('input[name="decisionChoice"]:checked').value;
+      const reason = $('decisionReasonText').value.trim();
+      const reviewer = currentUser ? `${currentUser.name} (${currentUser.title || currentUser.role})` : 'คณะกรรมการพิจารณาทุน';
+      const nowStr = new Date().toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      if (choice === 'approved') {
         app.status = 'อนุมัติแล้ว';
-        
-        // Add to confirmed recipients
-        recv.push({
-          studentId: app.studentId,
-          studentName: app.studentName,
-          level: app.level,
-          major: app.major,
-          scholarshipName: app.scholarshipName,
-          sponsor: app.sponsor,
-          amount: app.amount,
-          year: app.year,
-          type: app.type
+        if (!app.timeline) app.timeline = [];
+        app.timeline.push({
+          title: 'ผลการพิจารณา: อนุมัติทุนการศึกษา ✅',
+          by: reviewer,
+          date: nowStr,
+          note: reason
         });
 
-        setStorage('v2_scholarship_applications', applications);
-        setStorage('v2_scholarship_recipients', recv);
-        renderApplicationsTable();
-        renderConfirmedRecipientsTable();
-        alert('อนุมัติทุนเรียบร้อยแล้ว! ข้อมูลได้ถูกนำเข้าระบบ Dashboard อัตโนมัติ');
+        // Add to confirmed recipients if not exists
+        const exists = recv.some(r => r.studentId === app.studentId && r.scholarshipName === app.scholarshipName);
+        if (!exists) {
+          recv.push({
+            studentId: app.studentId,
+            studentName: app.studentName,
+            level: app.level,
+            major: app.major,
+            scholarshipName: app.scholarshipName,
+            sponsor: app.sponsor,
+            amount: app.amount,
+            year: app.year,
+            type: app.type
+          });
+          setStorage('v4_recipients', recv);
+        }
+      } else {
+        app.status = 'ไม่อนุมัติ';
+        if (!app.timeline) app.timeline = [];
+        app.timeline.push({
+          title: 'ผลการพิจารณา: ไม่อนุมัติทุนการศึกษา ❌',
+          by: reviewer,
+          date: nowStr,
+          note: `เหตุผล: ${reason}`
+        });
+
+        // Remove from confirmed if previously approved
+        recv = recv.filter(r => !(r.studentId === app.studentId && r.scholarshipName === app.scholarshipName));
+        setStorage('v4_recipients', recv);
       }
+
+      setStorage('v4_applications', applications);
+      closeDecisionModal();
+      renderApplicationsTable();
+      renderConfirmedRecipientsTable();
+      renderOverviewDashboard();
+      alert(`บันทึกผลการพิจารณา "${app.status}" เรียบร้อยแล้ว!`);
+    }
+
+    // Timeline Modal Controls
+    function viewTimeline(appId) {
+      const app = applications.find(a => a.id === appId);
+      if (!app) return;
+
+      $('timelineApplicantHeader').innerHTML = `
+        <div class="flex justify-between items-start">
+          <div>
+            <h4 class="font-bold text-sm text-slate-900">${esc(app.studentName)} (${esc(app.studentId)})</h4>
+            <p class="text-slate-500">${esc(app.level)} ${esc(app.major)} &bull; ${esc(app.scholarshipName)}</p>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[11px] font-bold ${
+            app.status === 'อนุมัติแล้ว' ? 'bg-emerald-100 text-emerald-800' :
+            app.status === 'ไม่อนุมัติ' ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
+          }">${esc(app.status)}</span>
+        </div>
+      `;
+
+      const timeline = app.timeline || [
+        { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${app.studentName})`, date: app.appliedAt, note: 'ยื่นคำขอรับทุนการศึกษาในระบบ' }
+      ];
+
+      $('timelineStepsList').innerHTML = timeline.map((t, idx) => {
+        const isApproved = t.title.includes('อนุมัติทุน');
+        const isRejected = t.title.includes('ไม่อนุมัติ');
+        const dotBg = isApproved ? 'bg-emerald-500 ring-4 ring-emerald-100' : isRejected ? 'bg-rose-500 ring-4 ring-rose-100' : 'bg-blue-600 ring-4 ring-blue-100';
+
+        return `
+          <div class="relative">
+            <span class="absolute -left-[27px] top-1 w-3 h-3 rounded-full ${dotBg}"></span>
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 shadow-2xs">
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-800">${esc(t.title)}</span>
+                <span class="text-[10px] text-slate-400">${esc(t.date)}</span>
+              </div>
+              <p class="text-[11px] text-blue-700 font-semibold mb-1">โดย: ${esc(t.by)}</p>
+              <p class="text-[11px] text-slate-600 bg-white p-2 rounded border border-slate-100">${esc(t.note)}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      $('timelineModal').classList.remove('hidden');
+    }
+
+    function closeTimelineModal() {
+      $('timelineModal').classList.add('hidden');
     }
 
     function renderConfirmedRecipientsTable() {
       const { rows } = getYearData();
       const q = ($('manageSearchInput')?.value || '').trim().toLowerCase();
+      const isAdmin = currentUser?.role === 'admin';
 
       let filtered = rows;
       if (q) {
@@ -1251,14 +1805,16 @@
               <td class="p-3 text-blue-900 font-medium">${esc(r.scholarshipName)}</td>
               <td class="p-3 text-slate-600 text-[11px]">${esc(r.sponsor || 'วิทยาลัย')}</td>
               <td class="p-3 text-right font-bold text-blue-900">${baht(r.amount)}</td>
-              <td class="p-3 text-center space-x-1">
-                <button onclick="editRecipient(${globalIdx})" class="admin-only px-2 py-0.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 rounded text-[11px] cursor-pointer">
-                  แก้ไข
-                </button>
-                <button onclick="deleteRecipient(${globalIdx})" class="admin-only px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-[11px] cursor-pointer">
-                  ลบ
-                </button>
-              </td>
+              ${isAdmin ? `
+                <td class="p-3 text-center space-x-1">
+                  <button onclick="editRecipient(${globalIdx})" class="px-2 py-0.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-300 rounded text-[11px] cursor-pointer">
+                    แก้ไข
+                  </button>
+                  <button onclick="deleteRecipient(${globalIdx})" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-[11px] cursor-pointer">
+                    ลบ
+                  </button>
+                </td>
+              ` : `<td class="p-3 text-center text-slate-400">-</td>`}
             </tr>
           `;
         }).join('');
@@ -1293,58 +1849,19 @@
           <title>ใบสมัครขอรับทุนการศึกษา - ${esc(app.studentName)}</title>
           <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
           <style>
-            @page {
-              size: A4 portrait;
-              margin: 18mm 18mm 18mm 20mm;
-            }
-            body {
-              font-family: 'Sarabun', sans-serif;
-              font-size: 13pt;
-              line-height: 1.5;
-              color: #000;
-              background: #fff;
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 20px;
-            }
+            @page { size: A4 portrait; margin: 18mm 18mm 18mm 20mm; }
+            body { font-family: 'Sarabun', sans-serif; font-size: 13pt; line-height: 1.5; color: #000; }
+            .header { text-align: center; margin-bottom: 18px; }
             .header h2 { font-size: 16pt; font-weight: bold; margin: 0; }
             .header h3 { font-size: 14pt; font-weight: bold; margin: 4px 0; }
             .header p { font-size: 12pt; margin: 0; }
-            .box {
-              border: 1px solid #333;
-              padding: 12px 16px;
-              margin-bottom: 14px;
-              border-radius: 4px;
-            }
-            .box-title {
-              font-weight: bold;
-              font-size: 13.5pt;
-              margin-bottom: 8px;
-              border-bottom: 1px dashed #666;
-              padding-bottom: 4px;
-            }
-            .row {
-              display: flex;
-              margin-bottom: 6px;
-            }
+            .box { border: 1px solid #333; padding: 12px 16px; margin-bottom: 12px; border-radius: 4px; }
+            .box-title { font-weight: bold; font-size: 13.5pt; margin-bottom: 8px; border-bottom: 1px dashed #666; padding-bottom: 4px; }
+            .row { display: flex; margin-bottom: 5px; }
             .col { flex: 1; }
-            .signatures {
-              margin-top: 25px;
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 20px 30px;
-            }
-            .sign-box {
-              text-align: center;
-              font-size: 12pt;
-              padding: 10px;
-              border: 1px solid #777;
-              border-radius: 4px;
-            }
-            .sign-space {
-              height: 45px;
-            }
+            .signatures { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 25px; }
+            .sign-box { text-align: center; font-size: 11.5pt; padding: 8px; border: 1px solid #777; border-radius: 4px; }
+            .sign-space { height: 42px; }
           </style>
         </head>
         <body>
@@ -1380,7 +1897,7 @@
             <div class="row">
               <div class="col"><strong>เบอร์โทรศัพท์:</strong> ${esc(app.phone)}</div>
             </div>
-            <div style="margin-top: 8px;">
+            <div style="margin-top: 6px;">
               <strong>เหตุผลและความจำเป็นในการขอรับทุน:</strong>
               <p style="text-indent: 1.5cm; margin: 4px 0;">${esc(app.reason)}</p>
             </div>
@@ -1393,11 +1910,10 @@
             </ul>
           </div>
 
-          <!-- บล็อกลายเซ็น 4 ตำแหน่งสำคัญ -->
+          <!-- ลายเซ็น 4 ตำแหน่ง -->
           <div class="signatures">
-            <!-- 1. ลายเซ็นผู้ขอรับทุน -->
             <div class="sign-box">
-              <p style="margin: 0 0 8px 0; font-weight: bold;">(1) ผู้ขอรับทุนการศึกษา</p>
+              <p style="margin: 0 0 6px 0; font-weight: bold;">(1) ผู้ขอรับทุนการศึกษา</p>
               <p>ขอรับรองว่าข้อความทั้งหมดเป็นความจริงทุกประการ</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
@@ -1405,9 +1921,8 @@
               <p style="margin: 0;">วันที่ ........ / .................... / ........</p>
             </div>
 
-            <!-- 2. ลายเซ็นหัวหน้าแผนกวิชา -->
             <div class="sign-box">
-              <p style="margin: 0 0 8px 0; font-weight: bold;">(2) ความเห็นหัวหน้าแผนกวิชา</p>
+              <p style="margin: 0 0 6px 0; font-weight: bold;">(2) ความเห็นหัวหน้าแผนกวิชา</p>
               <p>[ &nbsp; ] เห็นสมควรให้ได้รับทุน &nbsp; [ &nbsp; ] ไม่เห็นสมควร</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
@@ -1415,19 +1930,17 @@
               <p style="margin: 0;">หัวหน้าแผนกวิชา${esc(app.major)}</p>
             </div>
 
-            <!-- 3. ลายเซ็นหัวหน้างานแนะแนว -->
             <div class="sign-box">
-              <p style="margin: 0 0 8px 0; font-weight: bold;">(3) งานครูที่ปรึกษาและการแนะแนว</p>
+              <p style="margin: 0 0 6px 0; font-weight: bold;">(3) งานครูที่ปรึกษาและการแนะแนว</p>
               <p>ได้ตรวจสอบคุณสมบัติตามเกณฑ์เรียบร้อยแล้ว</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
-              <p style="margin: 2px 0;">(............................................................)</p>
+              <p style="margin: 2px 0;">(นายเอกราช เขียวทอง)</p>
               <p style="margin: 0;">หัวหน้างานครูที่ปรึกษาและการแนะแนว</p>
             </div>
 
-            <!-- 4. ลายเซ็นผู้อำนวยการ -->
             <div class="sign-box">
-              <p style="margin: 0 0 8px 0; font-weight: bold;">(4) คำสั่งการ / การพิจารณาอนุมัติ</p>
+              <p style="margin: 0 0 6px 0; font-weight: bold;">(4) คำสั่งการ / การพิจารณาอนุมัติ</p>
               <p>[ &nbsp; ] อนุมัติ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] ไม่อนุมัติ</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
@@ -1436,12 +1949,7 @@
             </div>
           </div>
 
-          <script>
-            window.onload = function() {
-              window.focus();
-              window.print();
-            };
-          <\/script>
+          <script>window.onload = function() { window.focus(); window.print(); };<\/script>
         </body>
         </html>
       `);
@@ -1587,7 +2095,7 @@
         recv.push(newRec);
       }
 
-      setStorage('v2_scholarship_recipients', recv);
+      setStorage('v4_recipients', recv);
       closeModal();
       initYears();
       renderOverviewDashboard();
@@ -1599,64 +2107,28 @@
       if (idx < 0 || idx >= recv.length) return;
       if (confirm(`คุณต้องการลบข้อมูลผู้รับทุนของ "${recv[idx].studentName}" ใช่หรือไม่?`)) {
         recv.splice(idx, 1);
-        setStorage('v2_scholarship_recipients', recv);
+        setStorage('v4_recipients', recv);
         renderOverviewDashboard();
         renderConfirmedRecipientsTable();
       }
     }
 
-    // Announcement Modal
-    function openAnnounceModal() { $('announceModalOverlay').classList.remove('hidden'); }
-    function closeAnnounceModal() { $('announceModalOverlay').classList.add('hidden'); }
-
-    function handleAnnounceSubmit(e) {
-      e.preventDefault();
-      const newAnn = {
-        id: Date.now(),
-        title: $('annTitle').value.trim(),
-        sponsor: $('annSponsor').value.trim(),
-        type: $('annType').value,
-        amount: Number($('annAmount').value || 0),
-        quota: Number($('annQuota').value || 1),
-        major: $('annMajor').value,
-        minGpa: Number($('annMinGpa').value || 2.5),
-        deadline: '31 ธ.ค. 2567',
-        desc: $('annDesc').value.trim()
-      };
-
-      announcements.unshift(newAnn);
-      setStorage('v2_scholarship_announces', announcements);
-      
-      // Auto add to funds pool
-      funds.push({
-        id: Date.now(),
-        scholarshipName: newAnn.title,
-        year: $('year').value,
-        budget: newAnn.amount * newAnn.quota,
-        type: newAnn.type,
-        sponsor: newAnn.sponsor
-      });
-      setStorage('v2_scholarship_funds', funds);
-
-      closeAnnounceModal();
-      renderAnnouncements();
-      renderOverviewDashboard();
-      alert('โพสต์ประกาศรับสมัครทุนใหม่เรียบร้อยแล้ว!');
-    }
-
     function resetData() {
       if (confirm('คุณต้องการคืนค่าข้อมูลเริ่มต้นของระบบทั้งหมดใช่หรือไม่?')) {
-        localStorage.removeItem('v2_scholarship_funds');
-        localStorage.removeItem('v2_scholarship_recipients');
-        localStorage.removeItem('v2_scholarship_announces');
-        localStorage.removeItem('v2_scholarship_applications');
+        localStorage.removeItem('v4_users');
+        localStorage.removeItem('v4_funds');
+        localStorage.removeItem('v4_recipients');
+        localStorage.removeItem('v4_announces');
+        localStorage.removeItem('v4_applications');
+        users = [...INITIAL_USERS];
         funds = [...INITIAL_SCHOLARSHIPS];
         recv = [...INITIAL_RECIPIENTS];
         announcements = [...INITIAL_ANNOUNCEMENTS];
         applications = [...INITIAL_APPLICATIONS];
         initYears();
+        applyUserPermissions();
         renderOverviewDashboard();
-        alert('คืนค่าข้อมูลเริ่มต้นเรียบร้อยแล้ว');
+        alert('คืนค่าฐานข้อมูลเริ่มต้นเรียบร้อยแล้ว');
       }
     }
 
@@ -1665,7 +2137,7 @@
     // -------------------------------------------------------------
     window.onload = function() {
       initYears();
-      renderOverviewDashboard();
+      applyUserPermissions();
     };
   </script>
 </body>
