@@ -52,13 +52,13 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="text-base md:text-lg font-bold tracking-tight">ระบบบริหารจัดการทุนการศึกษา</h1>
-            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.2 rounded">Workflow</span>
+            <span class="text-[10px] bg-yellow-400 text-blue-950 font-black px-1.5 py-0.2 rounded">PRO</span>
           </div>
           <p class="text-xs text-blue-200">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
         </div>
       </div>
       
-      <!-- Right Side: User Profile & Actions -->
+      <!-- Right Side: User Profile & Reports Dropdown -->
       <div class="flex flex-wrap items-center gap-2.5 text-xs">
         <!-- Global Year Select -->
         <div class="flex items-center bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-700/60">
@@ -73,13 +73,38 @@
           <!-- Dynamic Profile -->
         </div>
 
-        <!-- Print Report (Staff/Admin) -->
-        <button id="topPrintBtn" onclick="printReport()" class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3 py-1 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-          </svg>
-          พิมพ์รายงานสรุป A4
-        </button>
+        <!-- Print Menu (Staff/Admin) -->
+        <div class="relative group">
+          <button class="inline-flex items-center gap-1.5 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold px-3 py-1.5 rounded-lg text-xs shadow transition active:scale-95 cursor-pointer">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            พิมพ์รายงานสรุป A4 &dtrif;
+          </button>
+          <div class="absolute right-0 mt-1 w-60 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 py-1 hidden group-hover:block z-50 text-xs">
+            <button onclick="printReport('overview')" class="w-full text-left px-4 py-2 hover:bg-slate-100 flex items-center gap-2 cursor-pointer">
+              <span>📊</span> พิมพ์รายงานสรุปภาพรวมทั้งหมด
+            </button>
+            <button onclick="printReport('external')" class="w-full text-left px-4 py-2 hover:bg-slate-100 flex items-center gap-2 cursor-pointer border-t border-slate-100">
+              <span>🏢</span> พิมพ์รายงานทุนสนับสนุนภายนอก
+            </button>
+            <div class="px-4 py-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-wider border-t border-slate-100">
+              พิมพ์แยกตามแผนกวิชา
+            </div>
+            <button onclick="printReportByDept('ช่างยนต์')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+              <span>🔧</span> แผนกวิชาช่างยนต์
+            </button>
+            <button onclick="printReportByDept('ช่างไฟฟ้ากำลัง')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+              <span>⚡</span> แผนกวิชาช่างไฟฟ้ากำลัง
+            </button>
+            <button onclick="printReportByDept('เทคโนโลยีสารสนเทศ')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+              <span>💻</span> แผนกวิชาเทคโนโลยีสารสนเทศ
+            </button>
+            <button onclick="printReportByDept('การบัญชี')" class="w-full text-left px-4 py-1.5 hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+              <span>📑</span> แผนกวิชาการบัญชี
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -99,7 +124,10 @@
           <span>📝</span> ยื่นขอรับทุน (นักศึกษา)
         </button>
         <button onclick="switchTab('manage')" id="tab-manage" class="tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5">
-          <span>👥</span> รายการคำขอ & ไทม์ไลน์พิจารณา
+          <span>👥</span> รายการคำขอ & ไทม์ไลน์
+        </button>
+        <button onclick="switchTab('settings')" id="tab-settings" class="tab-btn tab-inactive role-admin-only px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 bg-yellow-500/20 text-yellow-300">
+          <span>⚙️</span> จัดการบุคลากร & นำเข้านักเรียน
         </button>
       </div>
     </div>
@@ -111,7 +139,7 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 space-y-5">
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 1: OVERVIEW & INTERNAL SCHOLARSHIPS DASHBOARD            -->
+    <!-- TAB 1: OVERVIEW DASHBOARD                                    -->
     <!-- ------------------------------------------------------------ -->
     <div id="content-overview" class="tab-content space-y-5">
       <div class="flex justify-between items-center">
@@ -252,9 +280,14 @@
 
       <!-- External Sponsors Table -->
       <div class="card">
-        <div class="mb-3">
-          <h3 class="font-bold text-slate-800 text-sm">รายนามหน่วยงานภายนอกและสถานประกอบการที่สนับสนุนทุน</h3>
-          <p class="text-xs text-slate-500">ข้อมูลผู้สนับสนุน งบประมาณ และสถานะการจัดสรร</p>
+        <div class="mb-3 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm">รายนามหน่วยงานภายนอกและสถานประกอบการที่สนับสนุนทุน</h3>
+            <p class="text-xs text-slate-500">ข้อมูลผู้สนับสนุน งบประมาณ และสถานะการจัดสรร</p>
+          </div>
+          <button onclick="printReport('external')" class="inline-flex items-center gap-1 bg-amber-500 hover:bg-amber-400 text-white font-bold px-3 py-1.5 rounded-lg text-xs shadow-xs transition cursor-pointer">
+            🖨️ พิมพ์รายงานทุนภายนอก A4
+          </button>
         </div>
         <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="w-full text-left border-collapse text-xs">
@@ -277,7 +310,7 @@
 
 
     <!-- ------------------------------------------------------------ -->
-    <!-- TAB 3: SCHOLARSHIP ANNOUNCEMENTS (โพสต์ประกาศประชาสัมพันธ์) -->
+    <!-- TAB 3: SCHOLARSHIP ANNOUNCEMENTS                             -->
     <!-- ------------------------------------------------------------ -->
     <div id="content-announcements" class="tab-content hidden space-y-5">
       <div class="flex flex-wrap justify-between items-center gap-3">
@@ -288,7 +321,6 @@
           <p class="text-xs text-slate-500">ติดตามข่าวสาร ประชาสัมพันธ์ทุนการศึกษาทั้งภายในและภายนอกวิทยาลัย</p>
         </div>
 
-        <!-- Role: Admin & Supervisor can Add Announcement -->
         <div class="flex items-center gap-2">
           <button onclick="openAnnounceModal()" class="role-staff-only inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg text-xs shadow transition cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -453,7 +485,7 @@
             <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
               <span>📋 รายชื่อผู้ได้รับจัดสรรทุนการศึกษาแล้ว (อนุมัติแล้ว)</span>
             </h3>
-            <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกนำไปคำนวณในแดชบอร์ดและพิมพ์รายงานสรุป A4</p>
+            <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกนำไปคำนวณในแดชบอร์ดและพิมพ์รายงานสรุป A4 (แสดงชื่อและแผนกวิชา)</p>
           </div>
           <div class="flex items-center gap-2">
             <input type="text" id="manageSearchInput" oninput="renderConfirmedRecipientsTable()" placeholder="ค้นหารหัส, ชื่อ, ทุน, แผนก..." 
@@ -485,11 +517,218 @@
       </div>
     </div>
 
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- TAB 6: ADMIN SETTINGS & STUDENT IMPORTS (ข้อ 1 & ข้อ 2)      -->
+    <!-- ------------------------------------------------------------ -->
+    <div id="content-settings" class="tab-content hidden space-y-6">
+      
+      <!-- Section 1: บุคลากรผู้มีอำนาจลงนาม & Admin -->
+      <div class="card">
+        <div class="mb-4 pb-3 border-b border-slate-100 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <span>🏛️</span> 1. กำหนดรายชื่อผู้บริหาร หัวหน้างาน และหัวหน้าแผนกวิชา
+            </h3>
+            <p class="text-xs text-slate-500">ข้อมูลนี้จะถูกนำไปแสดงในบล็อกลายเซ็นของแบบฟอร์มใบสมัคร และเอกสารรายงานสรุป A4 อัตโนมัติ</p>
+          </div>
+          <button onclick="saveOfficials()" class="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white rounded-lg text-xs font-bold transition active:scale-95 cursor-pointer">
+            บันทึกข้อมูลบุคลากร
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+          <!-- ผู้อำนวยการ -->
+          <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200 space-y-2">
+            <span class="font-bold text-blue-900 block">👨‍💼 ผู้อำนวยการวิทยาลัย</span>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ชื่อ-สกุล:</label>
+              <input type="text" id="officDirectorName" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white font-medium">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ตำแหน่ง:</label>
+              <input type="text" id="officDirectorRole" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+          </div>
+
+          <!-- หัวหน้างานแนะแนว -->
+          <div class="p-3.5 bg-emerald-50/60 rounded-xl border border-emerald-200 space-y-2">
+            <span class="font-bold text-emerald-900 block">👔 หัวหน้างานครูที่ปรึกษาและแนะแนว</span>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ชื่อ-สกุล:</label>
+              <input type="text" id="officGuidanceName" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white font-medium">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ตำแหน่ง:</label>
+              <input type="text" id="officGuidanceRole" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+          </div>
+
+          <!-- ผู้ดูแลระบบ Admin หลัก -->
+          <div class="p-3.5 bg-rose-50/60 rounded-xl border border-rose-200 space-y-2">
+            <span class="font-bold text-rose-900 block">🛡️ ผู้ดูแลระบบหลัก (Admin)</span>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ชื่อ-สกุล ผู้ดูแลระบบ:</label>
+              <input type="text" id="officAdminName" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white font-medium">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">ตำแหน่ง / ฝ่ายงาน:</label>
+              <input type="text" id="officAdminRole" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- หัวหน้าแผนกวิชาต่างๆ -->
+        <div class="mt-4 pt-4 border-t border-slate-100">
+          <h4 class="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5">
+            <span>🔧</span> รายชื่อหัวหน้าแผนกวิชา (สำหรับลงนามในส่วนที่ 2 ของใบสมัครตามแผนก)
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างยนต์:</label>
+              <input type="text" id="deptHead_ช่างยนต์" placeholder="ชื่อ-สกุล หน.แผนกช่างยนต์" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างไฟฟ้ากำลัง:</label>
+              <input type="text" id="deptHead_ช่างไฟฟ้ากำลัง" placeholder="ชื่อ-สกุล หน.แผนกช่างไฟฟ้า" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาเทคโนโลยีสารสนเทศ:</label>
+              <input type="text" id="deptHead_เทคโนโลยีสารสนเทศ" placeholder="ชื่อ-สกุล หน.แผนก IT" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาการบัญชี:</label>
+              <input type="text" id="deptHead_การบัญชี" placeholder="ชื่อ-สกุล หน.แผนกบัญชี" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาการตลาด:</label>
+              <input type="text" id="deptHead_การตลาด" placeholder="ชื่อ-สกุล หน.แผนกการตลาด" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+            <div>
+              <label class="block text-slate-600 mb-0.5">หน.แผนกวิชาช่างเชื่อมโลหะ:</label>
+              <input type="text" id="deptHead_ช่างเชื่อมโลหะ" placeholder="ชื่อ-สกุล หน.แผนกช่างเชื่อม" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: นำเข้าข้อมูลนักเรียน/นักศึกษา (รหัส + Pass) -->
+      <div class="card">
+        <div class="mb-4 pb-3 border-b border-slate-100">
+          <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <span>📥</span> 2. นำเข้าข้อมูลนักเรียน นักศึกษา (รหัสนักศึกษา และ รหัสผ่าน)
+          </h3>
+          <p class="text-xs text-slate-500">สามารถเพิ่มรายบุคคล หรือวางข้อมูลแบบหลายรายการพร้อมกัน (Batch Import) โดยรหัสผ่านเริ่มต้นจะเท่ากับรหัสนักศึกษาโดยอัตโนมัติ</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
+          <!-- แบบที่ 1: เพิ่มรายคน -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-800 mb-3 flex items-center gap-1.5">
+              <span>👤</span> เพิ่มนักเรียน/นักศึกษา รายบุคคล
+            </h4>
+            <form onsubmit="handleAddSingleStudent(event)" class="space-y-3">
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-600 mb-0.5">รหัสนักศึกษา (Username & Pass) *</label>
+                  <input type="text" id="newStdId" required placeholder="เช่น 6720101010" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                </div>
+                <div>
+                  <label class="block text-slate-600 mb-0.5">ชื่อ-สกุล *</label>
+                  <input type="text" id="newStdName" required placeholder="เช่น นายธีรเดช เจริญสุข" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-600 mb-0.5">ระดับการศึกษา *</label>
+                  <select id="newStdLevel" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                    <option value="ปวช.">ปวช.</option>
+                    <option value="ปวส.">ปวส.</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-slate-600 mb-0.5">แผนกวิชา *</label>
+                  <select id="newStdMajor" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                    <option value="ช่างยนต์">ช่างยนต์</option>
+                    <option value="ช่างไฟฟ้ากำลัง">ช่างไฟฟ้ากำลัง</option>
+                    <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
+                    <option value="การบัญชี">การบัญชี</option>
+                    <option value="การตลาด">การตลาด</option>
+                    <option value="ช่างเชื่อมโลหะ">ช่างเชื่อมโลหะ</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-slate-600 mb-0.5">ผลการเรียน (GPA):</label>
+                  <input type="number" step="0.01" id="newStdGpa" value="3.50" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                </div>
+                <div>
+                  <label class="block text-slate-600 mb-0.5">เบอร์โทรศัพท์:</label>
+                  <input type="tel" id="newStdPhone" placeholder="08X-XXX-XXXX" class="w-full px-2.5 py-1.5 border border-slate-300 rounded bg-white">
+                </div>
+              </div>
+              <button type="submit" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition active:scale-95 cursor-pointer">
+                + บันทึกนักศึกษาใหม่
+              </button>
+            </form>
+          </div>
+
+          <!-- แบบที่ 2: นำเข้าข้อมูลชุดใหญ่ (Batch Import) -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                <span>📋</span> วางข้อมูลนำเข้าหลายรายการ (Batch Import)
+              </h4>
+              <p class="text-[11px] text-slate-500 mb-2">
+                คัดลอกข้อมูลจาก Excel/Google Sheets โดยเรียงคอลัมน์: <br>
+                <code class="bg-white px-1 py-0.5 rounded border border-slate-300 text-blue-700">รหัสนักศึกษา, ชื่อ-สกุล, ระดับ(ปวช./ปวส.), แผนกวิชา, GPA</code>
+              </p>
+              <textarea id="batchStudentText" rows="6" placeholder="ตัวอย่าง:&#10;6720101020, นายกมล สุขใจ, ปวช., ช่างยนต์, 3.45&#10;6720101021, นางสาวนิตยา สดใส, ปวช., การบัญชี, 3.80" 
+                class="w-full p-2.5 border border-slate-300 rounded-lg bg-white font-mono text-[11px] outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <button onclick="handleBatchImportStudents()" class="mt-3 w-full py-2 bg-blue-700 hover:bg-blue-600 text-white font-bold rounded-lg transition active:scale-95 cursor-pointer">
+              📥 ประมวลผลนำเข้าข้อมูลนักเรียนทั้งหมด
+            </button>
+          </div>
+        </div>
+
+        <!-- ตารางแสดงรายชื่อนักศึกษาในฐานข้อมูล -->
+        <div class="mt-6 pt-4 border-t border-slate-100">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="font-bold text-slate-800 text-xs">
+              รายชื่อนักเรียน นักศึกษาในระบบ (<span id="totalStudentsCount">0</span> คน)
+            </h4>
+            <span class="text-[11px] text-slate-400">* นักเรียนทุกคนสามารถใช้รหัสนักศึกษาเป็น Password เข้าสู่ระบบได้ทันที</span>
+          </div>
+          <div class="overflow-x-auto border border-slate-200 rounded-lg max-h-64 overflow-y-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead class="sticky top-0 bg-slate-100 z-10">
+                <tr class="text-slate-700 border-b border-slate-200">
+                  <th class="p-2.5 text-center w-10">ที่</th>
+                  <th class="p-2.5">รหัสนักศึกษา (User & Pass)</th>
+                  <th class="p-2.5">ชื่อ-สกุล</th>
+                  <th class="p-2.5">ระดับ/แผนกวิชา</th>
+                  <th class="p-2.5 text-center">GPA</th>
+                  <th class="p-2.5 text-center w-20">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="studentAccountsTableBody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
   </main>
 
   <!-- ============================================================ -->
-  <!-- MODAL: WORKFLOW & DECISION (อนุมัติ / ไม่อนุมัติ + เหตุผล)     -->
+  <!-- MODALS (DECISION, TIMELINE, ANNOUNCEMENT, RECIPIENT, LOGIN)  -->
   <!-- ============================================================ -->
+
+  <!-- MODAL: WORKFLOW & DECISION (อนุมัติ / ไม่อนุมัติ + เหตุผล)     -->
   <div id="decisionModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
@@ -501,13 +740,8 @@
 
       <form id="decisionForm" onsubmit="handleDecisionSubmit(event)" class="p-6 space-y-4 text-xs">
         <input type="hidden" id="decisionAppId" value="">
+        <div id="decisionApplicantInfo" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-slate-700"></div>
 
-        <!-- Applicant Summary Card -->
-        <div id="decisionApplicantInfo" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-slate-700">
-          <!-- Rendered dynamically -->
-        </div>
-
-        <!-- Result Choice -->
         <div>
           <label class="block font-bold text-slate-700 mb-1.5">ผลการพิจารณาตัดสินใจ *</label>
           <div class="grid grid-cols-2 gap-3">
@@ -522,18 +756,14 @@
           </div>
         </div>
 
-        <!-- Preset Reasons Dropdown -->
         <div id="reasonPresetContainer">
           <label class="block font-semibold text-slate-700 mb-1">เลือกเหตุผลตามเกณฑ์มาตรฐาน:</label>
-          <select id="reasonPresetSelect" onchange="applyReasonPreset()" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none bg-white font-medium">
-            <!-- Dynamically populated based on decision -->
-          </select>
+          <select id="reasonPresetSelect" onchange="applyReasonPreset()" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none bg-white font-medium"></select>
         </div>
 
-        <!-- Specific Reason Textarea -->
         <div>
           <label class="block font-semibold text-slate-700 mb-1">บันทึกเหตุผลและข้อเสนอแนะเพิ่มเติม *</label>
-          <textarea id="decisionReasonText" rows="3" required placeholder="ระบุเหตุผล เช่น คุณสมบัติผ่านเกณฑ์ หรือ คุณสมบัติไม่เพียงพอด้าน GPA..." 
+          <textarea id="decisionReasonText" rows="3" required placeholder="ระบุเหตุผล เช่น คุณสมบัติผ่านเกณฑ์ หรือ คุณสมบัติอาจไม่เพียงพอด้าน GPA..." 
             class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
         </div>
 
@@ -549,9 +779,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- MODAL: TIMELINE DISPLAY (แสดงประวัติขั้นตอนและเหตุผล)         -->
-  <!-- ============================================================ -->
+  <!-- MODAL: TIMELINE DISPLAY -->
   <div id="timelineModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
@@ -562,15 +790,8 @@
       </div>
 
       <div class="p-6 space-y-4">
-        <div id="timelineApplicantHeader" class="pb-3 border-b border-slate-100 text-xs">
-          <!-- Applicant Details -->
-        </div>
-
-        <!-- Vertical Timeline List -->
-        <div id="timelineStepsList" class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 text-xs">
-          <!-- Dynamically populated -->
-        </div>
-
+        <div id="timelineApplicantHeader" class="pb-3 border-b border-slate-100 text-xs"></div>
+        <div id="timelineStepsList" class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 text-xs"></div>
         <div class="pt-3 border-t border-slate-100 flex justify-end">
           <button type="button" onclick="closeTimelineModal()" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition cursor-pointer">
             ปิดหน้าต่าง
@@ -580,9 +801,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- MODAL: POST / EDIT ANNOUNCEMENT (กำหนดปีการศึกษาได้)          -->
-  <!-- ============================================================ -->
+  <!-- MODAL: POST / EDIT ANNOUNCEMENT -->
   <div id="announceModalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
       <div class="bg-blue-900 text-white px-6 py-3.5 flex justify-between items-center">
@@ -670,7 +889,7 @@
     </div>
   </div>
 
-  <!-- Modal: Add / Edit Recipient Form -->
+  <!-- MODAL: ADD / EDIT RECIPIENT -->
   <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
       <div class="bg-blue-900 text-white px-6 py-3.5 flex justify-between items-center">
@@ -746,17 +965,17 @@
     </div>
   </div>
 
-  <!-- LOGIN MODAL DIALOG -->
-  <div id="loginModal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
+  <!-- LOGIN MODAL DIALOG (ข้อ 4: นำส่วน Quick Test Roles ออกแล้ว) -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white p-6 text-center">
         <div class="w-14 h-14 bg-white/10 rounded-2xl border border-white/20 flex items-center justify-center mx-auto mb-3 shadow-inner">
           <svg class="w-8 h-8 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
           </svg>
         </div>
-        <h2 class="text-lg font-bold">เข้าสู่ระบบทุนการศึกษา</h2>
-        <p class="text-xs text-blue-200 mt-1">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
+        <h2 class="text-base font-bold">เข้าสู่ระบบทุนการศึกษา</h2>
+        <p class="text-xs text-blue-200 mt-0.5">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
       </div>
 
       <form onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4 text-xs">
@@ -778,25 +997,9 @@
           เข้าสู่ระบบ
         </button>
 
-        <div class="pt-4 border-t border-slate-100">
-          <p class="text-[11px] font-bold text-slate-500 mb-2 text-center uppercase tracking-wider">
-            ⚡ เข้าสู่ระบบด่วนสำหรับทดสอบ (Quick Test Roles)
-          </p>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="quickLogin('admin')" class="p-2 border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-blue-900 rounded-lg font-semibold text-center transition cursor-pointer">
-              👨‍💼 ระดับ Admin
-              <span class="block text-[10px] text-blue-600 font-normal">admin / admin123</span>
-            </button>
-            <button type="button" onclick="quickLogin('supervisor')" class="p-2 border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-900 rounded-lg font-semibold text-center transition cursor-pointer">
-              👔 หัวหน้างาน
-              <span class="block text-[10px] text-emerald-600 font-normal">head / head123</span>
-            </button>
-            <button type="button" onclick="quickLogin('student')" class="p-2 border border-amber-200 bg-amber-50/70 hover:bg-amber-100 text-amber-900 rounded-lg font-semibold text-center transition cursor-pointer">
-              🎓 นักเรียน/นศ.
-              <span class="block text-[10px] text-amber-700 font-normal">6720101001 ทั้งคู่</span>
-            </button>
-          </div>
-        </div>
+        <p class="text-[11px] text-center text-slate-400 pt-2">
+          * สำหรับนักเรียน นักศึกษา ให้ใช้รหัสนักศึกษาเป็นทั้ง Username และ Password
+        </p>
       </form>
     </div>
   </div>
@@ -806,12 +1009,29 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- JAVASCRIPT APPLICATION CORE (AUTH, WORKFLOW & DATA ENGINE)   -->
+  <!-- JAVASCRIPT APPLICATION CORE                                  -->
   <!-- ============================================================ -->
   <script>
     // -------------------------------------------------------------
-    // Initial Datasets
+    // Initial Datasets & Officials Data (ข้อ 1)
     // -------------------------------------------------------------
+    const INITIAL_OFFICIALS = {
+      directorName: 'นายชาตรี เริงชัยภูมิ',
+      directorRole: 'ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์',
+      guidanceName: 'นายเอกราช เขียวทอง',
+      guidanceRole: 'หัวหน้างานครูที่ปรึกษาและการแนะแนว',
+      adminName: 'นายวัชรพงศ์ โสภา',
+      adminRole: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)',
+      deptHeads: {
+        'ช่างยนต์': 'นายสุรชัย มั่นคง',
+        'ช่างไฟฟ้ากำลัง': 'นายประสิทธิ์ ศรีสวัสดิ์',
+        'เทคโนโลยีสารสนเทศ': 'นางสาววราภรณ์ เจริญผล',
+        'การบัญชี': 'นางดวงใจ มีทรัพย์',
+        'การตลาด': 'นางสาวศศิธร สดใส',
+        'ช่างเชื่อมโลหะ': 'นายสมบัติ ช่างเหล็ก'
+      }
+    };
+
     const INITIAL_USERS = [
       { username: 'admin', password: 'admin123', role: 'admin', name: 'นายวัชรพงศ์ โสภา', title: 'ผู้ดูแลระบบงานทุนการศึกษา (Admin)' },
       { username: 'head', password: 'head123', role: 'supervisor', name: 'นายเอกราช เขียวทอง', title: 'หัวหน้างานครูที่ปรึกษาและการแนะแนว' },
@@ -871,28 +1091,6 @@
           { title: 'ตรวจสอบคุณสมบัติและเอกสาร', by: 'งานแนะแนวและทุนการศึกษา', date: '23 ต.ค. 2567 14:30', note: 'ตรวจสอบผลการเรียน GPA 3.65 และหนังสือรับรองรายได้ผ่านเกณฑ์' },
           { title: 'ผลการพิจารณา: อนุมัติทุนการศึกษา', by: 'คณะกรรมการพิจารณาทุน (นายวัชรพงศ์ โสภา)', date: '23 ต.ค. 2567 16:45', note: 'อนุมัติทุนการศึกษาเครือซิเมนต์ไทย (SCG) จำนวน 6,000 บาท' }
         ]
-      },
-      { 
-        id: 'APP-6702',
-        year: '2567',
-        studentId: '6720101003',
-        studentName: 'นายณัฐพล เจริญผล',
-        level: 'ปวช.',
-        major: 'ช่างไฟฟ้ากำลัง',
-        gpa: '2.40',
-        phone: '083-456-7890',
-        scholarshipName: 'ทุนพัฒนาช่างเทคนิค ธนาคารออมสิน',
-        sponsor: 'ธนาคารออมสิน',
-        amount: 5000,
-        type: 'external',
-        reason: 'ต้องการเงินทุนแบ่งเบาภาระครอบครัว',
-        docs: ['สำเนาบัตรประจำตัวประชาชน'],
-        status: 'รอดำเนินการ',
-        appliedAt: '2026-10-23',
-        timeline: [
-          { title: 'ยื่นใบสมัครขอรับทุน', by: 'ผู้สมัคร (นายณัฐพล เจริญผล)', date: '23 ต.ค. 2567 11:20', note: 'ส่งใบสมัครในระบบ' },
-          { title: 'ตรวจสอบคุณสมบัติเบื้องต้น', by: 'หัวหน้างานครูที่ปรึกษา', date: '23 ต.ค. 2567 15:10', note: 'รอการพิจารณาคุณสมบัติ GPA (เกณฑ์กำหนด 3.00)' }
-        ]
       }
     ];
 
@@ -903,12 +1101,13 @@
       try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
     }
 
-    let users = getStorage('v4_users', INITIAL_USERS);
-    let funds = getStorage('v4_funds', INITIAL_SCHOLARSHIPS);
-    let recv = getStorage('v4_recipients', INITIAL_RECIPIENTS);
-    let announcements = getStorage('v4_announces', INITIAL_ANNOUNCEMENTS);
-    let applications = getStorage('v4_applications', INITIAL_APPLICATIONS);
-    let currentUser = getStorage('v4_current_user', null);
+    let officials = getStorage('v5_officials', INITIAL_OFFICIALS);
+    let users = getStorage('v5_users', INITIAL_USERS);
+    let funds = getStorage('v5_funds', INITIAL_SCHOLARSHIPS);
+    let recv = getStorage('v5_recipients', INITIAL_RECIPIENTS);
+    let announcements = getStorage('v5_announces', INITIAL_ANNOUNCEMENTS);
+    let applications = getStorage('v5_applications', INITIAL_APPLICATIONS);
+    let currentUser = getStorage('v5_current_user', null);
 
     const $ = id => document.getElementById(id);
     const baht = n => Number(n || 0).toLocaleString('th-TH');
@@ -921,7 +1120,7 @@
     let c1, c2, cExtSponsors, cExtMajors;
 
     // -------------------------------------------------------------
-    // Authentication System
+    // Authentication System (ข้อ 4: ไม่แสดง quick test)
     // -------------------------------------------------------------
     function handleLoginSubmit(e) {
       e.preventDefault();
@@ -944,12 +1143,12 @@
           phone: '08X-XXX-XXXX'
         };
         users.push(foundUser);
-        setStorage('v4_users', users);
+        setStorage('v5_users', users);
       }
 
       if (foundUser) {
         currentUser = foundUser;
-        setStorage('v4_current_user', currentUser);
+        setStorage('v5_current_user', currentUser);
         $('loginModal').classList.add('hidden');
         applyUserPermissions();
         renderOverviewDashboard();
@@ -959,24 +1158,10 @@
       }
     }
 
-    function quickLogin(role) {
-      if (role === 'admin') {
-        $('loginUsername').value = 'admin';
-        $('loginPassword').value = 'admin123';
-      } else if (role === 'supervisor') {
-        $('loginUsername').value = 'head';
-        $('loginPassword').value = 'head123';
-      } else if (role === 'student') {
-        $('loginUsername').value = '6720101001';
-        $('loginPassword').value = '6720101001';
-      }
-      handleLoginSubmit(new Event('submit'));
-    }
-
     function logout() {
       if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
         currentUser = null;
-        localStorage.removeItem('v4_current_user');
+        localStorage.removeItem('v5_current_user');
         $('loginUsername').value = '';
         $('loginPassword').value = '';
         $('loginModal').classList.remove('hidden');
@@ -1043,16 +1228,18 @@
     // Tab Switching
     // -------------------------------------------------------------
     function switchTab(tabId) {
-      const tabs = ['overview', 'external', 'announcements', 'apply', 'manage'];
+      const tabs = ['overview', 'external', 'announcements', 'apply', 'manage', 'settings'];
       tabs.forEach(t => {
         const btn = $('tab-' + t);
         const content = $('content-' + t);
-        if (t === tabId) {
-          btn.className = 'tab-btn tab-active px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
-          content.classList.remove('hidden');
-        } else {
-          btn.className = 'tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
-          content.classList.add('hidden');
+        if (btn && content) {
+          if (t === tabId) {
+            btn.className = 'tab-btn tab-active px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
+            content.classList.remove('hidden');
+          } else {
+            btn.className = 'tab-btn tab-inactive px-3 py-1.5 rounded-md transition whitespace-nowrap cursor-pointer flex items-center gap-1.5';
+            content.classList.add('hidden');
+          }
         }
       });
 
@@ -1063,6 +1250,10 @@
       if (tabId === 'manage') {
         renderApplicationsTable();
         renderConfirmedRecipientsTable();
+      }
+      if (tabId === 'settings') {
+        renderOfficialsSettings();
+        renderStudentAccountsTable();
       }
     }
 
@@ -1286,7 +1477,7 @@
     }
 
     // -------------------------------------------------------------
-    // Tab 3: Announcements (กำหนดปีได้, แก้ไข, ลบ, เพิ่มได้ทั้ง Admin และหัวหน้างาน)
+    // Tab 3: Announcements
     // -------------------------------------------------------------
     function renderAnnouncements() {
       const { anns } = getYearData();
@@ -1419,7 +1610,6 @@
         if (idx !== -1) announcements[idx] = annData;
       } else {
         announcements.unshift(annData);
-        // เพิ่มเข้ากองทุนอัตโนมัติ
         funds.push({
           id: Date.now(),
           scholarshipName: annData.title,
@@ -1428,10 +1618,10 @@
           type: annData.type,
           sponsor: annData.sponsor
         });
-        setStorage('v4_funds', funds);
+        setStorage('v5_funds', funds);
       }
 
-      setStorage('v4_announces', announcements);
+      setStorage('v5_announces', announcements);
       closeAnnounceModal();
       initYears();
       $('year').value = annData.year;
@@ -1450,7 +1640,7 @@
       if (!ann) return;
       if (confirm(`คุณต้องการลบประกาศทุน "${ann.title}" ใช่หรือไม่?`)) {
         announcements = announcements.filter(a => a.id !== id);
-        setStorage('v4_announces', announcements);
+        setStorage('v5_announces', announcements);
         renderAnnouncements();
       }
     }
@@ -1545,9 +1735,9 @@
       };
 
       applications.unshift(newApp);
-      setStorage('v4_applications', applications);
+      setStorage('v5_applications', applications);
 
-      alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบขั้นตอนและไทม์ไลน์ได้ในเมนู "รายการคำขอ & ไทม์ไลน์พิจารณา"`);
+      alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบขั้นตอนและไทม์ไลน์ได้ในเมนู "รายการคำขอ & ไทม์ไลน์"`);
       
       switchTab('manage');
     }
@@ -1585,19 +1775,14 @@
               }">${esc(a.status)}</span>
             </td>
             <td class="p-3 text-center space-x-1 whitespace-nowrap">
-              <!-- Timeline Button -->
               <button onclick="viewTimeline('${a.id}')" title="ดูไทม์ไลน์กระบวนการพิจารณา" 
                 class="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded text-[11px] font-medium cursor-pointer transition">
                 ⏱️ ไทม์ไลน์
               </button>
-
-              <!-- Print Form Button -->
               <button onclick="printStudentApplication('${a.id}')" title="พิมพ์ใบสมัคร A4 พร้อมลายเซ็น 4 ฝ่าย" 
                 class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 rounded text-[11px] font-medium cursor-pointer transition">
                 🖨️ พิมพ์
               </button>
-
-              <!-- Staff Decision Button -->
               ${isStaff ? `
                 <button onclick="openDecisionModal('${a.id}')" title="พิจารณาอนุมัติ / ไม่อนุมัติ พร้อมระบุเหตุผล"
                   class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-300 rounded text-[11px] font-bold cursor-pointer transition">
@@ -1609,7 +1794,6 @@
         `).join('');
     }
 
-    // Decision Modal Controls
     const REASON_PRESETS = {
       approved: [
         'คุณสมบัติครบถ้วน ผลการเรียนยอดเยี่ยมและขาดแคลนทุนทรัพย์',
@@ -1643,7 +1827,6 @@
         </div>
       `;
 
-      // Set default choice
       document.querySelector('input[name="decisionChoice"][value="approved"]').checked = true;
       toggleReasonPresets();
       $('decisionModal').classList.remove('hidden');
@@ -1688,7 +1871,6 @@
           note: reason
         });
 
-        // Add to confirmed recipients if not exists
         const exists = recv.some(r => r.studentId === app.studentId && r.scholarshipName === app.scholarshipName);
         if (!exists) {
           recv.push({
@@ -1702,7 +1884,7 @@
             year: app.year,
             type: app.type
           });
-          setStorage('v4_recipients', recv);
+          setStorage('v5_recipients', recv);
         }
       } else {
         app.status = 'ไม่อนุมัติ';
@@ -1714,12 +1896,11 @@
           note: `เหตุผล: ${reason}`
         });
 
-        // Remove from confirmed if previously approved
         recv = recv.filter(r => !(r.studentId === app.studentId && r.scholarshipName === app.scholarshipName));
-        setStorage('v4_recipients', recv);
+        setStorage('v5_recipients', recv);
       }
 
-      setStorage('v4_applications', applications);
+      setStorage('v5_applications', applications);
       closeDecisionModal();
       renderApplicationsTable();
       renderConfirmedRecipientsTable();
@@ -1727,7 +1908,6 @@
       alert(`บันทึกผลการพิจารณา "${app.status}" เรียบร้อยแล้ว!`);
     }
 
-    // Timeline Modal Controls
     function viewTimeline(appId) {
       const app = applications.find(a => a.id === appId);
       if (!app) return;
@@ -1749,7 +1929,7 @@
         { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${app.studentName})`, date: app.appliedAt, note: 'ยื่นคำขอรับทุนการศึกษาในระบบ' }
       ];
 
-      $('timelineStepsList').innerHTML = timeline.map((t, idx) => {
+      $('timelineStepsList').innerHTML = timeline.map(t => {
         const isApproved = t.title.includes('อนุมัติทุน');
         const isRejected = t.title.includes('ไม่อนุมัติ');
         const dotBg = isApproved ? 'bg-emerald-500 ring-4 ring-emerald-100' : isRejected ? 'bg-rose-500 ring-4 ring-rose-100' : 'bg-blue-600 ring-4 ring-blue-100';
@@ -1821,7 +2001,149 @@
     }
 
     // -------------------------------------------------------------
-    // Print Application Form (PDF A4 พร้อมบล็อกลายเซ็น 4 ฝ่าย)
+    // Tab 6: Admin Settings (ข้อ 1: บุคลากร & ข้อ 2: นำเข้านักเรียน)
+    // -------------------------------------------------------------
+    function renderOfficialsSettings() {
+      $('officDirectorName').value = officials.directorName || '';
+      $('officDirectorRole').value = officials.directorRole || '';
+      $('officGuidanceName').value = officials.guidanceName || '';
+      $('officGuidanceRole').value = officials.guidanceRole || '';
+      $('officAdminName').value = officials.adminName || '';
+      $('officAdminRole').value = officials.adminRole || '';
+
+      const deptHeads = officials.deptHeads || {};
+      ['ช่างยนต์', 'ช่างไฟฟ้ากำลัง', 'เทคโนโลยีสารสนเทศ', 'การบัญชี', 'การตลาด', 'ช่างเชื่อมโลหะ'].forEach(dept => {
+        const el = $('deptHead_' + dept);
+        if (el) el.value = deptHeads[dept] || '';
+      });
+    }
+
+    function saveOfficials() {
+      officials.directorName = $('officDirectorName').value.trim();
+      officials.directorRole = $('officDirectorRole').value.trim();
+      officials.guidanceName = $('officGuidanceName').value.trim();
+      officials.guidanceRole = $('officGuidanceRole').value.trim();
+      officials.adminName = $('officAdminName').value.trim();
+      officials.adminRole = $('officAdminRole').value.trim();
+
+      if (!officials.deptHeads) officials.deptHeads = {};
+      ['ช่างยนต์', 'ช่างไฟฟ้ากำลัง', 'เทคโนโลยีสารสนเทศ', 'การบัญชี', 'การตลาด', 'ช่างเชื่อมโลหะ'].forEach(dept => {
+        const el = $('deptHead_' + dept);
+        if (el) officials.deptHeads[dept] = el.value.trim();
+      });
+
+      setStorage('v5_officials', officials);
+      alert('บันทึกข้อมูลรายชื่อบุคลากรผู้ลงนามเรียบร้อยแล้ว!\nข้อมูลจะแสดงในเอกสารใบสมัครและรายงานสรุปโดยอัตโนมัติ');
+    }
+
+    function renderStudentAccountsTable() {
+      const studentUsers = users.filter(u => u.role === 'student');
+      $('totalStudentsCount').innerText = studentUsers.length;
+
+      $('studentAccountsTableBody').innerHTML = studentUsers.length === 0
+        ? `<tr><td colspan="6" class="p-4 text-center text-slate-400">ยังไม่มีรายชื่อนักศึกษาในระบบ</td></tr>`
+        : studentUsers.map((s, i) => `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-2 text-center text-slate-400">${i + 1}</td>
+            <td class="p-2 font-mono font-bold text-blue-900">${esc(s.username)}</td>
+            <td class="p-2 font-medium text-slate-800">${esc(s.name)}</td>
+            <td class="p-2 text-slate-600">${esc(s.level || 'ปวช.')} ${esc(s.major || '-')}</td>
+            <td class="p-2 text-center font-bold text-slate-700">${esc(s.gpa || '-')}</td>
+            <td class="p-2 text-center">
+              <button onclick="deleteStudentAccount('${s.username}')" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 rounded text-[10px] cursor-pointer">
+                ลบ
+              </button>
+            </td>
+          </tr>
+        `).join('');
+    }
+
+    function handleAddSingleStudent(e) {
+      e.preventDefault();
+      const sid = $('newStdId').value.trim();
+      const sname = $('newStdName').value.trim();
+
+      const exists = users.some(u => u.username === sid);
+      if (exists) {
+        alert('รหัสนักศึกษานี้มีอยู่ในระบบแล้ว!');
+        return;
+      }
+
+      const newStudent = {
+        username: sid,
+        password: sid, // รหัสกับ Pass เป็นรหัสนักศึกษาทั้ง 2 ส่วน
+        role: 'student',
+        name: sname,
+        level: $('newStdLevel').value,
+        major: $('newStdMajor').value,
+        gpa: $('newStdGpa').value.trim() || '3.50',
+        phone: $('newStdPhone').value.trim() || '08X-XXX-XXXX'
+      };
+
+      users.push(newStudent);
+      setStorage('v5_users', users);
+      renderStudentAccountsTable();
+      alert(`บันทึกข้อมูลนักเรียน "${sname}" เรียบร้อยแล้ว!\nสามารถใช้ User และ Pass: ${sid} เข้าสู่ระบบได้ทันที`);
+      $('newStdId').value = '';
+      $('newStdName').value = '';
+    }
+
+    function handleBatchImportStudents() {
+      const text = $('batchStudentText').value.trim();
+      if (!text) {
+        alert('กรุณาวางข้อมูลนักเรียนก่อนกดนำเข้า');
+        return;
+      }
+
+      const lines = text.split('\n');
+      let count = 0;
+
+      lines.forEach(line => {
+        const parts = line.split(/[,;\t]/).map(p => p.trim());
+        if (parts.length >= 2 && parts[0]) {
+          const sid = parts[0];
+          const sname = parts[1];
+          const slevel = parts[2] || 'ปวช.';
+          const smajor = parts[3] || 'ช่างยนต์';
+          const sgpa = parts[4] || '3.50';
+
+          const idx = users.findIndex(u => u.username === sid);
+          const studentObj = {
+            username: sid,
+            password: sid,
+            role: 'student',
+            name: sname,
+            level: slevel,
+            major: smajor,
+            gpa: sgpa,
+            phone: '08X-XXX-XXXX'
+          };
+
+          if (idx !== -1) {
+            users[idx] = studentObj;
+          } else {
+            users.push(studentObj);
+          }
+          count++;
+        }
+      });
+
+      setStorage('v5_users', users);
+      renderStudentAccountsTable();
+      $('batchStudentText').value = '';
+      alert(`นำเข้าข้อมูลนักเรียน/นักศึกษาสำเร็จจำนวน ${count} รายการ!\nรหัสผ่านของทุกคนตั้งค่าเป็นรหัสนักศึกษาโดยอัตโนมัติ`);
+    }
+
+    function deleteStudentAccount(username) {
+      if (confirm(`คุณต้องการลบบัญชีนักเรียนรหัส ${username} ใช่หรือไม่?`)) {
+        users = users.filter(u => u.username !== username);
+        setStorage('v5_users', users);
+        renderStudentAccountsTable();
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Print Application Form (PDF A4 พร้อมบล็อกลายเซ็น 4 ฝ่ายจากฐานข้อมูลบุคลากร)
     // -------------------------------------------------------------
     function printStudentApplication(appId) {
       const app = applications.find(a => a.id === appId) || {
@@ -1839,6 +2161,10 @@
         reason: 'ครอบครัวมีฐานะยากจน บิดามารดามีรายได้ไม่แน่นอน มีความตั้งใจเรียนดีเพื่อนำความรู้ไปประกอบวิชาชีพช่างยนต์',
         docs: ['สำเนาบัตรประจำตัวประชาชน', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว']
       };
+
+      const deptHeadName = officials.deptHeads?.[app.major] || '............................................................';
+      const guidanceName = officials.guidanceName || 'นายเอกราช เขียวทอง';
+      const directorName = officials.directorName || 'นายชาตรี เริงชัยภูมิ';
 
       const w = window.open('', '_blank');
       w.document.write(`
@@ -1910,7 +2236,7 @@
             </ul>
           </div>
 
-          <!-- ลายเซ็น 4 ตำแหน่ง -->
+          <!-- ลายเซ็น 4 ตำแหน่ง ดึงจากฐานข้อมูลบุคลากร -->
           <div class="signatures">
             <div class="sign-box">
               <p style="margin: 0 0 6px 0; font-weight: bold;">(1) ผู้ขอรับทุนการศึกษา</p>
@@ -1926,7 +2252,7 @@
               <p>[ &nbsp; ] เห็นสมควรให้ได้รับทุน &nbsp; [ &nbsp; ] ไม่เห็นสมควร</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
-              <p style="margin: 2px 0;">(............................................................)</p>
+              <p style="margin: 2px 0;">(${esc(deptHeadName)})</p>
               <p style="margin: 0;">หัวหน้าแผนกวิชา${esc(app.major)}</p>
             </div>
 
@@ -1935,7 +2261,7 @@
               <p>ได้ตรวจสอบคุณสมบัติตามเกณฑ์เรียบร้อยแล้ว</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
-              <p style="margin: 2px 0;">(นายเอกราช เขียวทอง)</p>
+              <p style="margin: 2px 0;">(${esc(guidanceName)})</p>
               <p style="margin: 0;">หัวหน้างานครูที่ปรึกษาและการแนะแนว</p>
             </div>
 
@@ -1944,7 +2270,7 @@
               <p>[ &nbsp; ] อนุมัติ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ &nbsp; ] ไม่อนุมัติ</p>
               <div class="sign-space"></div>
               <p style="margin: 0;">ลงชื่อ ............................................................</p>
-              <p style="margin: 2px 0;">(นายชาตรี เริงชัยภูมิ)</p>
+              <p style="margin: 2px 0;">(${esc(directorName)})</p>
               <p style="margin: 0;">ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</p>
             </div>
           </div>
@@ -1957,10 +2283,80 @@
     }
 
     // -------------------------------------------------------------
-    // Full Dashboard Print (A4 PDF 2 หน้า)
+    // Print Reports (ข้อ 3: พิมพ์รายงานในแต่ละส่วน พร้อมรายชื่อ & แผนกวิชา)
     // -------------------------------------------------------------
-    function printReport() {
+    function printReport(type = 'overview') {
       const { y, rows, fs } = getYearData();
+      const guidanceName = officials.guidanceName || 'นายเอกราช เขียวทอง';
+
+      if (type === 'external') {
+        const extRows = rows.filter(r => r.type === 'external');
+        const extTotal = extRows.reduce((s, r) => s + Number(r.amount || 0), 0);
+        const bySponsor = sumBy(extRows, 'sponsor');
+
+        const w = window.open('', '_blank');
+        w.document.write(`
+          <!DOCTYPE html>
+          <html lang="th">
+          <head>
+            <meta charset="UTF-8">
+            <title>รายงานสรุปทุนการศึกษาจากหน่วยงานภายนอก - ปีการศึกษา ${esc(y)}</title>
+            <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+            <style>
+              @page { size: A4 portrait; margin: 18mm 15mm 18mm 20mm; }
+              body { font-family: 'Sarabun', sans-serif; font-size: 13pt; line-height: 1.5; color: #111; }
+              h2 { font-size: 17pt; font-weight: bold; text-align: center; margin: 0; }
+              h3 { font-size: 15pt; font-weight: bold; text-align: center; margin: 4px 0 16px 0; }
+              .rpt { width: 100%; border-collapse: collapse; margin: 10px 0 18px 0; }
+              .rpt th, .rpt td { border: 1px solid #444; padding: 5px 8px; font-size: 12pt; }
+              .rpt th { background-color: #f1f5f9; text-align: center; }
+              .rpt td.n { text-align: right; }
+            </style>
+          </head>
+          <body>
+            <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+            <h3>รายงานสรุปการจัดสรรทุนการศึกษาจากหน่วยงานภายนอก ประจำปีการศึกษา ${esc(y)}</h3>
+            <p style="text-indent: 2.5cm">วิทยาลัยได้รับการสนับสนุนทุนการศึกษาจากสถานประกอบการ บริษัท และมูลนิธิภายนอก รวมเป็นเงินทั้งสิ้น ${baht(extTotal)} บาท ให้แก่ผู้เรียนจำนวน ${extRows.length} คน ดังนี้</p>
+            
+            <h4 style="margin: 12px 0 6px 0;">1. สรุปยอดเงินตามองค์กรผู้สนับสนุน</h4>
+            <table class="rpt">
+              <tr><th>ที่</th><th>หน่วยงาน / บริษัท / มูลนิธิ</th><th>จำนวนเงินรวม (บาท)</th></tr>
+              ${Object.keys(bySponsor).map((k, i) => `<tr><td style="text-align:center">${i + 1}</td><td>${esc(k)}</td><td class="n">${baht(bySponsor[k])}</td></tr>`).join('')}
+              <tr style="font-weight:bold; background:#fafafa;"><th colspan="2">รวมทั้งสิ้น</th><th class="n">${baht(extTotal)}</th></tr>
+            </table>
+
+            <h4 style="margin: 16px 0 6px 0;">2. รายชื่อนักเรียน นักศึกษาที่ได้รับทุนสนับสนุนภายนอก (แยกตามแผนกวิชา)</h4>
+            <table class="rpt">
+              <tr><th>ที่</th><th>รหัสนักศึกษา</th><th>ชื่อ-สกุล</th><th>แผนกวิชา</th><th>ทุนที่ได้รับ</th><th>หน่วยงานผู้สนับสนุน</th><th>บาท</th></tr>
+              ${extRows.map((r, i) => `
+                <tr>
+                  <td style="text-align:center">${i + 1}</td>
+                  <td style="font-family: monospace;">${esc(r.studentId)}</td>
+                  <td>${esc(r.studentName)}</td>
+                  <td>${esc(r.level)} ${esc(r.major)}</td>
+                  <td>${esc(r.scholarshipName)}</td>
+                  <td>${esc(r.sponsor)}</td>
+                  <td class="n">${baht(r.amount)}</td>
+                </tr>
+              `).join('')}
+            </table>
+
+            <div style="margin-top: 35px; display: flex; justify-content: flex-end;">
+              <div style="text-align: center; width: 280px; font-size: 12.5pt;">
+                <p style="margin-bottom: 45px;">ลงชื่อ .......................................................</p>
+                <p style="margin: 0;">(${esc(guidanceName)})</p>
+                <p style="margin: 0;">หัวหน้างานแนะแนวและทุนการศึกษา</p>
+              </div>
+            </div>
+            <script>window.onload = function() { window.focus(); window.print(); };<\/script>
+          </body>
+          </html>
+        `);
+        w.document.close();
+        return;
+      }
+
+      // Default: Overview 2 Pages Report
       const total = rows.reduce((s, r) => s + Number(r.amount || 0), 0);
       const byFundN = groupCount(rows, 'scholarshipName'), byFundA = sumBy(rows, 'scholarshipName');
       const majors = groupCount(rows, 'major'), mAmt = sumBy(rows, 'major');
@@ -2012,7 +2408,7 @@
             <div style="margin-top: 35px; display: flex; justify-content: flex-end;">
               <div style="text-align: center; width: 280px; font-size: 12.5pt;">
                 <p style="margin-bottom: 45px;">ลงชื่อ .......................................................</p>
-                <p style="margin: 0;">(นายวัชรพงศ์ โสภา)</p>
+                <p style="margin: 0;">(${esc(guidanceName)})</p>
                 <p style="margin: 0;">หัวหน้างานแนะแนวและทุนการศึกษา</p>
               </div>
             </div>
@@ -2020,9 +2416,9 @@
 
           <section class="page">
             <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
-            <h3>ภาคผนวก: รายนามผู้ได้รับจัดสรรทุนการศึกษา ปีการศึกษา ${esc(y)}</h3>
+            <h3>ภาคผนวก: รายนามผู้ได้รับจัดสรรทุนการศึกษา ปีการศึกษา ${esc(y)} (แสดงแผนกวิชา)</h3>
             <table class="rpt">
-              <tr><th>ที่</th><th>รหัส</th><th>ชื่อ-สกุล</th><th>ระดับ/แผนก</th><th>ทุนที่ได้รับ</th><th>แหล่งทุน</th><th>บาท</th></tr>
+              <tr><th>ที่</th><th>รหัส</th><th>ชื่อ-สกุล</th><th>แผนกวิชา</th><th>ทุนที่ได้รับ</th><th>แหล่งทุน</th><th>บาท</th></tr>
               ${rows.map((r, i) => `
                 <tr>
                   <td style="text-align:center">${i + 1}</td>
@@ -2036,6 +2432,71 @@
               `).join('')}
             </table>
           </section>
+          <script>window.onload = function() { window.focus(); window.print(); };<\/script>
+        </body>
+        </html>
+      `);
+      w.document.close();
+    }
+
+    // พิมพ์รายงานเจาะจงเฉพาะแผนกวิชา
+    function printReportByDept(deptName) {
+      const { y, rows } = getYearData();
+      const deptRows = rows.filter(r => r.major === deptName);
+      const deptTotal = deptRows.reduce((s, r) => s + Number(r.amount || 0), 0);
+      const deptHead = officials.deptHeads?.[deptName] || '............................................................';
+
+      const w = window.open('', '_blank');
+      w.document.write(`
+        <!DOCTYPE html>
+        <html lang="th">
+        <head>
+          <meta charset="UTF-8">
+          <title>รายงานสรุปการจัดสรรทุน - แผนกวิชา${esc(deptName)}</title>
+          <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @page { size: A4 portrait; margin: 18mm 15mm 18mm 20mm; }
+            body { font-family: 'Sarabun', sans-serif; font-size: 13pt; line-height: 1.5; color: #111; }
+            h2 { font-size: 17pt; font-weight: bold; text-align: center; margin: 0; }
+            h3 { font-size: 15pt; font-weight: bold; text-align: center; margin: 4px 0 16px 0; }
+            .rpt { width: 100%; border-collapse: collapse; margin: 12px 0 20px 0; }
+            .rpt th, .rpt td { border: 1px solid #444; padding: 6px 8px; font-size: 12pt; }
+            .rpt th { background-color: #f1f5f9; text-align: center; }
+            .rpt td.n { text-align: right; }
+          </style>
+        </head>
+        <body>
+          <h2>วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</h2>
+          <h3>รายงานสรุปผลการจัดสรรทุนการศึกษา แผนกวิชา${esc(deptName)} ประจำปีการศึกษา ${esc(y)}</h3>
+          <p style="text-indent: 2.5cm">สรุปรายชื่อนักเรียน นักศึกษาแผนกวิชา${esc(deptName)} ที่ได้รับการพิจารณาจัดสรรทุนการศึกษา รวมเป็นเงินทั้งสิ้น ${baht(deptTotal)} บาท จำนวนผู้ได้รับทุน ${deptRows.length} คน รายละเอียดดังนี้</p>
+
+          <table class="rpt">
+            <tr><th>ที่</th><th>รหัสนักศึกษา</th><th>ชื่อ-สกุล</th><th>ระดับชั้น</th><th>ทุนที่ได้รับ</th><th>แหล่งทุน</th><th>จำนวนเงิน (บาท)</th></tr>
+            ${deptRows.length === 0 ? `<tr><td colspan="7" style="text-align:center; padding:15px;">ไม่มีข้อมูลผู้รับทุนในแผนกวิชานี้</td></tr>` : 
+              deptRows.map((r, i) => `
+                <tr>
+                  <td style="text-align:center">${i + 1}</td>
+                  <td style="font-family: monospace;">${esc(r.studentId)}</td>
+                  <td>${esc(r.studentName)}</td>
+                  <td>${esc(r.level)}</td>
+                  <td>${esc(r.scholarshipName)}</td>
+                  <td>${esc(r.sponsor || 'วิทยาลัย')}</td>
+                  <td class="n">${baht(r.amount)}</td>
+                </tr>
+              `).join('')}
+            <tr style="font-weight:bold; background:#fafafa;">
+              <th colspan="6" style="text-align:center">รวมเงินจัดสรรทุนแผนกวิชา${esc(deptName)}</th>
+              <th class="n">${baht(deptTotal)}</th>
+            </tr>
+          </table>
+
+          <div style="margin-top: 40px; display: flex; justify-content: flex-end;">
+            <div style="text-align: center; width: 280px; font-size: 12.5pt;">
+              <p style="margin-bottom: 45px;">ลงชื่อ .......................................................</p>
+              <p style="margin: 0;">(${esc(deptHead)})</p>
+              <p style="margin: 0;">หัวหน้าแผนกวิชา${esc(deptName)}</p>
+            </div>
+          </div>
           <script>window.onload = function() { window.focus(); window.print(); };<\/script>
         </body>
         </html>
@@ -2095,7 +2556,7 @@
         recv.push(newRec);
       }
 
-      setStorage('v4_recipients', recv);
+      setStorage('v5_recipients', recv);
       closeModal();
       initYears();
       renderOverviewDashboard();
@@ -2107,7 +2568,7 @@
       if (idx < 0 || idx >= recv.length) return;
       if (confirm(`คุณต้องการลบข้อมูลผู้รับทุนของ "${recv[idx].studentName}" ใช่หรือไม่?`)) {
         recv.splice(idx, 1);
-        setStorage('v4_recipients', recv);
+        setStorage('v5_recipients', recv);
         renderOverviewDashboard();
         renderConfirmedRecipientsTable();
       }
@@ -2115,11 +2576,13 @@
 
     function resetData() {
       if (confirm('คุณต้องการคืนค่าข้อมูลเริ่มต้นของระบบทั้งหมดใช่หรือไม่?')) {
-        localStorage.removeItem('v4_users');
-        localStorage.removeItem('v4_funds');
-        localStorage.removeItem('v4_recipients');
-        localStorage.removeItem('v4_announces');
-        localStorage.removeItem('v4_applications');
+        localStorage.removeItem('v5_officials');
+        localStorage.removeItem('v5_users');
+        localStorage.removeItem('v5_funds');
+        localStorage.removeItem('v5_recipients');
+        localStorage.removeItem('v5_announces');
+        localStorage.removeItem('v5_applications');
+        officials = { ...INITIAL_OFFICIALS };
         users = [...INITIAL_USERS];
         funds = [...INITIAL_SCHOLARSHIPS];
         recv = [...INITIAL_RECIPIENTS];
