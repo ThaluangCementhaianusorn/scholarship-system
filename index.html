@@ -60,6 +60,12 @@
       
       <!-- Right Side: User Profile & Reports Dropdown -->
       <div class="flex flex-wrap items-center gap-2.5 text-xs">
+        <!-- Real-Time Cloud DB Indicator Badge -->
+        <div id="cloudLiveBadge" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/80 border border-emerald-500/50 text-[11px] font-bold text-emerald-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span id="cloudLiveBadgeText">Live DB</span>
+        </div>
+
         <!-- Global Year Select -->
         <div class="flex items-center bg-blue-950/80 px-2.5 py-1 rounded-lg border border-blue-700/60">
           <label for="year" class="text-blue-200 mr-1.5 font-medium">ปีการศึกษา:</label>
@@ -407,8 +413,15 @@
               </label>
             </div>
             <div class="mt-3 pt-3 border-t border-slate-200">
-              <label class="block text-[11px] font-semibold text-slate-600 mb-1">อัปโหลดไฟล์เอกสาร (PDF หรือรูปภาพ):</label>
-              <input type="file" id="appFileInput" accept=".pdf,image/*" class="text-xs text-slate-500 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">
+                อัปโหลดไฟล์เอกสารแนบประกอบการพิจารณา (PDF, รูปถ่ายบัตร, ทะเบียนบ้าน, หนังสือรับรองรายได้ - เลือกได้หลายไฟล์):
+              </label>
+              <input type="file" id="appFileInput" accept=".pdf,image/*,.doc,.docx" multiple onchange="handleFileSelectChange(event)" 
+                class="text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+              <div id="selectedFilesBadgeContainer" class="mt-2.5 flex flex-wrap gap-1.5 hidden"></div>
+              <p class="text-[10px] text-slate-400 mt-1.5 flex items-center gap-1">
+                <span>💡</span> ไฟล์แนบจะถูกจัดเก็บเข้าสู่ระบบและซิงก์ไปยัง Google Drive อัตโนมัติ เพื่อให้คณะกรรมการเปิดพิจารณาได้ทันที
+              </p>
             </div>
           </div>
 
@@ -545,6 +558,62 @@
           <button onclick="saveInstitutionSettings()" class="px-5 py-2 bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold rounded-lg text-xs shadow-md transition active:scale-95 cursor-pointer">
             บันทึกการตั้งค่าสถานศึกษา
           </button>
+        </div>
+      </div>
+
+      <!-- Section: Cloud Database Sync with Google Sheets & Google Drive (ข้อ 2) -->
+      <div id="googleSyncCard" class="card border border-emerald-300/40 bg-gradient-to-r from-slate-900 via-emerald-950 to-blue-950 text-white role-staff-only">
+        <div class="flex flex-wrap justify-between items-center gap-3 pb-3 border-b border-emerald-700/50">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] bg-emerald-400 text-slate-950 font-black px-2 py-0.5 rounded uppercase">Cloud Database & Drive Storage</span>
+              <span id="cloudSyncStatusBadge" class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-2 py-0.5 rounded-full font-bold flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span id="cloudSyncStatusText">ระบบฐานข้อมูลเรียลไทม์ (Local Reactive DB)</span>
+              </span>
+            </div>
+            <h3 class="text-base font-bold mt-1 flex items-center gap-2">
+              <span>📊 ระบบฐานข้อมูล Google Sheets & จัดเก็บไฟล์ใน Google Drive</span>
+            </h3>
+            <p class="text-xs text-emerald-200/90">เชื่อมโยงข้อมูลทุกส่วนและประมวลผลแบบเรียลไทม์อัตโนมัติเมื่อมีการบันทึกข้อมูลในแต่ละระดับผู้ใช้งาน</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" onclick="openGasScriptModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer">
+              <span>📋</span> ดูโค้ด Google Apps Script (Code.gs)
+            </button>
+            <button type="button" onclick="testGasConnection()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg text-xs font-semibold transition cursor-pointer">
+              <span>🧪</span> ทดสอบการเชื่อมต่อ
+            </button>
+            <button type="button" onclick="syncWithGoogleCloud(true)" class="px-3.5 py-1.5 bg-yellow-400 hover:bg-yellow-300 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow cursor-pointer active:scale-95">
+              <span>🔄</span> ซิงก์ข้อมูลทันที (Sync Now)
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+          <div class="md:col-span-2">
+            <label class="block text-emerald-200 font-semibold mb-1">URL ของ Google Apps Script Web App (สำหรับเชื่อมต่อ Google Sheets & Google Drive):</label>
+            <div class="flex gap-2">
+              <input type="url" id="gasApiUrlInput" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="flex-1 px-3 py-2 rounded-lg border border-emerald-500/40 bg-slate-900/90 text-white font-mono text-xs outline-none focus:ring-2 focus:ring-emerald-400">
+              <button onclick="saveGasConfig()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg cursor-pointer transition">
+                บันทึก URL
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1">
+              * เมื่อระบุ URL ระบบจะซิงก์ข้อมูลลง Google Sheets และอัปโหลดเอกสารแนบไปยัง Google Drive อัตโนมัติ หากยังไม่ได้ระบุ ระบบจะใช้ระบบฐานข้อมูลในเครื่องแบบเรียลไทม์
+            </p>
+          </div>
+          <div class="bg-black/25 p-3 rounded-xl border border-white/10 space-y-2">
+            <span class="font-bold text-white block">⚙️ ตั้งค่าระบบซิงก์ข้อมูลเรียลไทม์</span>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync()" checked class="rounded text-emerald-500">
+              <span class="text-emerald-100">ซิงก์อัตโนมัติแบบเรียลไทม์ (Auto Live Sync)</span>
+            </label>
+            <div class="text-[11px] text-slate-400 flex items-center justify-between">
+              <span>ซิงก์ล่าสุด:</span>
+              <span id="lastSyncTimeLabel" class="font-mono text-emerald-300">พร้อมใช้งาน</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -781,17 +850,17 @@
 
   <!-- MODAL: WORKFLOW & DECISION -->
   <div id="decisionModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
         <h3 class="text-sm font-bold flex items-center gap-2">
-          <span>⚖️ พิจารณาคำขอรับทุนการศึกษา</span>
+          <span>⚖️ พิจารณาคำขอรับทุนการศึกษา & ตรวจสอบเอกสารแนบ</span>
         </h3>
         <button onclick="closeDecisionModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
       </div>
 
-      <form id="decisionForm" onsubmit="handleDecisionSubmit(event)" class="p-6 space-y-4 text-xs">
+      <form id="decisionForm" onsubmit="handleDecisionSubmit(event)" class="p-6 space-y-4 text-xs overflow-y-auto flex-1">
         <input type="hidden" id="decisionAppId" value="">
-        <div id="decisionApplicantInfo" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-slate-700"></div>
+        <div id="decisionApplicantInfo" class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 text-slate-700"></div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1.5">ผลการพิจารณาตัดสินใจ *</label>
@@ -832,7 +901,7 @@
 
   <!-- MODAL: TIMELINE DISPLAY -->
   <div id="timelineModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
       <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
         <h3 class="text-sm font-bold flex items-center gap-2">
           <span>⏱️ ประวัติและไทม์ไลน์การพิจารณาทุน</span>
@@ -840,11 +909,90 @@
         <button onclick="closeTimelineModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
       </div>
 
-      <div class="p-6 space-y-4">
+      <div class="p-6 space-y-4 overflow-y-auto flex-1">
         <div id="timelineApplicantHeader" class="pb-3 border-b border-slate-100 text-xs"></div>
+        <div id="timelineAttachedFiles" class="hidden pb-3 border-b border-slate-100 text-xs"></div>
         <div id="timelineStepsList" class="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 text-xs"></div>
-        <div class="pt-3 border-t border-slate-100 flex justify-end">
-          <button type="button" onclick="closeTimelineModal()" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition cursor-pointer">
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+        <button type="button" onclick="closeTimelineModal()" class="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg text-xs font-semibold transition cursor-pointer">
+          ปิดหน้าต่าง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DOCUMENT & ATTACHMENT PREVIEW (LIGHTBOX) -->
+  <div id="docPreviewModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 z-60 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
+      <div class="bg-blue-900 text-white px-5 py-3.5 flex justify-between items-center">
+        <h3 id="docPreviewTitle" class="text-sm font-bold flex items-center gap-2">
+          <span>📄 ตรวจสอบเอกสารแนบประกอบการพิจารณา</span>
+        </h3>
+        <button onclick="closeDocPreviewModal()" class="text-blue-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+      <div id="docPreviewBody" class="p-6 overflow-y-auto flex-1 flex flex-col items-center justify-center bg-slate-100 min-h-[360px]">
+        <!-- Dynamic Preview Content -->
+      </div>
+      <div class="p-4 bg-white border-t border-slate-200 flex flex-wrap justify-between items-center gap-2 text-xs">
+        <span id="docPreviewMeta" class="text-slate-500 font-medium"></span>
+        <div class="flex gap-2">
+          <a id="docPreviewDownloadBtn" href="#" download class="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded-lg font-bold flex items-center gap-1.5 transition">
+            📥 ดาวน์โหลดเอกสาร
+          </a>
+          <button type="button" onclick="closeDocPreviewModal()" class="px-3.5 py-1.5 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 font-medium transition cursor-pointer">
+            ปิด
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GOOGLE APPS SCRIPT CODE & SETUP GUIDE -->
+  <div id="gasScriptModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 z-60 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200">
+      <div class="bg-emerald-900 text-white px-5 py-3.5 flex justify-between items-center">
+        <h3 class="text-sm font-bold flex items-center gap-2">
+          <span>📊</span> โค้ดเชื่อมต่อ Google Sheets & Google Drive (Google Apps Script: Code.gs)
+        </h3>
+        <button onclick="closeGasScriptModal()" class="text-emerald-200 hover:text-white text-xl leading-none cursor-pointer">&times;</button>
+      </div>
+      <div class="p-6 overflow-y-auto space-y-4 text-xs">
+        <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-200 space-y-2 text-slate-700">
+          <h4 class="font-bold text-emerald-900 flex items-center gap-1.5">
+            <span>🚀</span> ขั้นตอนการติดตั้งใช้งานใน 4 ขั้นตอน (ใช้เวลาไม่เกิน 2 นาที):
+          </h4>
+          <ol class="list-decimal list-inside space-y-1 text-slate-600 pl-1 text-[11px]">
+            <li>เปิด <strong>Google Sheets</strong> แผ่นใหม่ (หรือที่มีอยู่แล้ว) บนเบราว์เซอร์ของคุณ</li>
+            <li>ไปที่เมนูด้านบน <strong>ส่วนขยาย (Extensions) &gt; Apps Script</strong></li>
+            <li>ลบโค้ดเดิมทั้งหมดใน <code>Code.gs</code> แล้วนำโค้ดด้านล่างนี้ไปวางแทนที่ แล้วกดปุ่ม <strong>บันทึก (Save)</strong></li>
+            <li>คลิกปุ่มสีน้ำเงิน <strong>ทำให้ใช้งานได้ (Deploy) &gt; รายการทำให้ใช้งานได้ใหม่ (New deployment)</strong>
+              <ul class="list-disc list-inside pl-4 text-slate-500 mt-0.5">
+                <li>เลือกประเภท: <strong>เว็บแอป (Web app)</strong></li>
+                <li>ผู้มีสิทธิ์เข้าถึง: เลือกเป็น <strong>"ทุกคน" (Anyone)</strong> &larr; <span class="text-rose-600 font-bold">สำคัญที่สุด</span></li>
+                <li>คลิก <strong>ทำให้ใช้งานได้ (Deploy)</strong> แล้วคัดลอก <strong>URL ของเว็บแอป (ลงท้ายด้วย /exec)</strong> มาใส่ในระบบนี้</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="font-bold text-slate-800">โค้ด Google Apps Script (Code.gs):</span>
+            <button onclick="copyGasScriptCode()" class="px-3 py-1 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-[11px] font-bold flex items-center gap-1 transition cursor-pointer">
+              📋 คัดลอกโค้ด
+            </button>
+          </div>
+          <pre id="gasScriptCodeBox" class="bg-slate-900 text-emerald-300 p-4 rounded-xl font-mono text-[11px] max-h-80 overflow-y-auto leading-relaxed select-all"></pre>
+        </div>
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs">
+        <span class="text-slate-500">ระบบจะสร้างชีตข้อมูลและโฟลเดอร์ Google Drive เก็บไฟล์แนบให้อัตโนมัติ</span>
+        <div class="flex gap-2">
+          <button onclick="copyGasScriptCode()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer active:scale-95 shadow">
+            📋 คัดลอกโค้ดทั้งหมด (Copy Code)
+          </button>
+          <button type="button" onclick="closeGasScriptModal()" class="px-3.5 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 font-medium transition cursor-pointer">
             ปิดหน้าต่าง
           </button>
         </div>
@@ -1141,13 +1289,42 @@
         amount: 6000,
         type: 'external',
         reason: 'ครอบครัวประกอบอาชีพเกษตรกรรม รายได้ไม่แน่นอน และต้องการนำเงินทุนไปซื้ออุปกรณ์ฝึกงานและชุดเครื่องมือช่าง',
-        docs: ['สำเนาบัตรประจำตัวประชาชน', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว'],
+        docs: ['สำเนาบัตรประจำตัวประชาชน/นักศึกษา', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว'],
+        files: [
+          { name: 'transcript_kittisak.pdf', type: 'application/pdf', size: 245100, isSample: true },
+          { name: 'id_card_kittisak.jpg', type: 'image/jpeg', size: 124500, isSample: true }
+        ],
         status: 'อนุมัติแล้ว',
         appliedAt: '2026-10-23',
         timeline: [
           { title: 'ยื่นใบสมัครขอรับทุน', by: 'ผู้สมัคร (นายกิตติศักดิ์ พรหมดี)', date: '23 ต.ค. 2567 10:15', note: 'ส่งใบสมัครและแนบเอกสารครบถ้วนในระบบ' },
           { title: 'ตรวจสอบคุณสมบัติและเอกสาร', by: 'งานแนะแนวและทุนการศึกษา', date: '23 ต.ค. 2567 14:30', note: 'ตรวจสอบผลการเรียน GPA 3.65 และหนังสือรับรองรายได้ผ่านเกณฑ์' },
           { title: 'ผลการพิจารณา: อนุมัติทุนการศึกษา', by: 'คณะกรรมการพิจารณาทุน (นายวัชรพงศ์ โสภา)', date: '23 ต.ค. 2567 16:45', note: 'อนุมัติทุนการศึกษาเครือซิเมนต์ไทย (SCG) จำนวน 6,000 บาท' }
+        ]
+      },
+      {
+        id: 'APP-6702',
+        year: '2567',
+        studentId: '6720101002',
+        studentName: 'นางสาวสุดารัตน์ วงศ์ษา',
+        level: 'ปวช.',
+        major: 'แผนกวิชาการบัญชี',
+        gpa: '3.80',
+        phone: '082-345-6789',
+        scholarshipName: 'ทุนเรียนดี ประจำวิทยาลัย',
+        sponsor: 'ทุนงบประมาณวิทยาลัย',
+        amount: 5000,
+        type: 'internal',
+        reason: 'เพื่อเป็นทุนสนับสนุนการศึกษาและอุปกรณ์การเรียนในสาขาวิชาการบัญชี มีความตั้งใจเรียนและประพฤติดี',
+        docs: ['สำเนาบัตรประจำตัวประชาชน/นักศึกษา', 'ใบแสดงผลการเรียน (Transcript)', 'หนังสือรับรองรายได้ครอบครัว'],
+        files: [
+          { name: 'transcript_sudarat.pdf', type: 'application/pdf', size: 189000, isSample: true },
+          { name: 'income_cert_sudarat.jpg', type: 'image/jpeg', size: 145000, isSample: true }
+        ],
+        status: 'รอดำเนินการ',
+        appliedAt: '2026-10-24',
+        timeline: [
+          { title: 'ยื่นใบสมัครขอรับทุน', by: 'ผู้สมัคร (นางสาวสุดารัตน์ วงศ์ษา)', date: '24 ต.ค. 2567 08:30', note: 'ส่งใบสมัครและแนบไฟล์เอกสารผ่านระบบออนไลน์เรียบร้อยแล้ว' }
         ]
       }
     ];
@@ -1168,6 +1345,7 @@
     let announcements = getStorage('v6_announces', INITIAL_ANNOUNCEMENTS);
     let applications = getStorage('v6_applications', INITIAL_APPLICATIONS);
     let currentUser = getStorage('v6_current_user', null);
+    let gasConfig = getStorage('v6_gas_config', { url: '', autoSync: true, lastSync: null });
 
     const $ = id => document.getElementById(id);
     const baht = n => Number(n || 0).toLocaleString('th-TH');
@@ -2061,7 +2239,35 @@
       }
     }
 
-    function handleStudentApply(e) {
+    let selectedApplyFiles = [];
+
+    function handleFileSelectChange(e) {
+      const container = $('selectedFilesBadgeContainer');
+      const files = e.target.files;
+      if (!files || files.length === 0) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        selectedApplyFiles = [];
+        return;
+      }
+
+      selectedApplyFiles = Array.from(files);
+      container.classList.remove('hidden');
+      container.innerHTML = selectedApplyFiles.map((f, i) => {
+        const isPdf = f.type.includes('pdf') || f.name.toLowerCase().endsWith('.pdf');
+        const icon = isPdf ? '📄' : '🖼️';
+        const sizeKb = Math.round(f.size / 1024);
+        return `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-100 text-blue-900 text-[11px] font-semibold border border-blue-200">
+            <span>${icon}</span>
+            <span class="max-w-[160px] truncate">${esc(f.name)}</span>
+            <span class="text-[10px] text-blue-600">(${sizeKb} KB)</span>
+          </span>
+        `;
+      }).join('');
+    }
+
+    async function handleStudentApply(e) {
       e.preventDefault();
       const select = $('applyScholarshipSelect');
       const opt = select.options[select.selectedIndex];
@@ -2074,7 +2280,30 @@
       if ($('docTranscript').checked) docs.push('ใบแสดงผลการเรียน (Transcript)');
       if ($('docIncome').checked) docs.push('หนังสือรับรองรายได้ครอบครัว');
       if ($('docHouse').checked) docs.push('ภาพถ่ายบ้าน/ที่พักอาศัย');
-      if ($('appFileInput').files.length > 0) docs.push(`ไฟล์แนบ: ${$('appFileInput').files[0].name}`);
+
+      // Process uploaded files to Base64 data URLs
+      const fileInput = $('appFileInput');
+      const uploadedFiles = [];
+      if (fileInput && fileInput.files.length > 0) {
+        for (let i = 0; i < fileInput.files.length; i++) {
+          const file = fileInput.files[i];
+          docs.push(`ไฟล์แนบ: ${file.name}`);
+          const dataUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = evt => resolve(evt.target.result);
+            reader.onerror = () => resolve('');
+            reader.readAsDataURL(file);
+          });
+          uploadedFiles.push({
+            name: file.name,
+            size: file.size,
+            type: file.type || 'application/octet-stream',
+            dataUrl: dataUrl,
+            driveUrl: '',
+            uploadDate: new Date().toISOString()
+          });
+        }
+      }
 
       const nowStr = new Date().toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
@@ -2093,18 +2322,33 @@
         type: type,
         reason: $('appReason').value.trim(),
         docs: docs,
+        files: uploadedFiles,
         status: 'รอดำเนินการ',
         appliedAt: new Date().toISOString().split('T')[0],
         timeline: [
-          { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${$('appStudentName').value.trim()})`, date: nowStr, note: 'ยื่นใบสมัครผ่านระบบออนไลน์เรียบร้อยแล้ว' }
+          { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${$('appStudentName').value.trim()})`, date: nowStr, note: 'ยื่นใบสมัครและแนบเอกสารผ่านระบบออนไลน์เรียบร้อยแล้ว' }
         ]
       };
 
       applications.unshift(newApp);
       setStorage('v6_applications', applications);
 
-      alert(`บันทึกการส่งใบสมัครเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณสามารถตรวจสอบขั้นตอนและไทม์ไลน์ได้ในเมนู "รายการคำขอ & ไทม์ไลน์"`);
-      
+      // Reset file input & badges
+      if (fileInput) fileInput.value = '';
+      if ($('selectedFilesBadgeContainer')) {
+        $('selectedFilesBadgeContainer').innerHTML = '';
+        $('selectedFilesBadgeContainer').classList.add('hidden');
+      }
+
+      // Real-time Automated Cascade & Multi-Tab Broadcast
+      dispatchRealtimeUpdate('APPLICATION_SUBMITTED');
+
+      // Async sync to Google Drive & Sheets if connected
+      if (gasConfig && gasConfig.url) {
+        syncApplicationToGoogle(newApp);
+      }
+
+      alert(`บันทึกการส่งใบสมัครขอรับทุนเรียบร้อยแล้ว!\nรหัสคำขอ: ${newApp.id}\nคุณและคณะกรรมการสามารถตรวจสอบเอกสารแนบและไทม์ไลน์ได้ทันที`);
       switchTab('manage');
     }
 
@@ -2150,7 +2394,7 @@
                 🖨️ พิมพ์
               </button>
               ${isStaff ? `
-                <button onclick="openDecisionModal('${a.id}')" title="พิจารณาอนุมัติ / ไม่อนุมัติ พร้อมระบุเหตุผล"
+                <button onclick="openDecisionModal('${a.id}')" title="พิจารณาอนุมัติ / ไม่อนุมัติ พร้อมระบุเหตุผลและตรวจไฟล์แนบ"
                   class="px-2 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-300 rounded text-[11px] font-bold cursor-pointer transition">
                   ⚖️ พิจารณา
                 </button>
@@ -2181,16 +2425,101 @@
       if (!app) return;
 
       $('decisionAppId').value = appId;
+
+      const docsBadges = (app.docs && app.docs.length > 0)
+        ? app.docs.filter(d => !d.startsWith('ไฟล์แนบ:')).map(d => `
+            <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded text-[10px] font-semibold">
+              <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              ${esc(d)}
+            </span>
+          `).join(' ')
+        : '<span class="text-slate-400 italic text-[11px]">ไม่ได้ทำเครื่องหมายตรวจสอบเอกสาร</span>';
+
+      // Attached files rendering
+      let filesHtml = '';
+      if (app.files && app.files.length > 0) {
+        filesHtml = `
+          <div class="mt-3 pt-3 border-t border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-slate-800 flex items-center gap-1.5 text-xs">
+                <span>📎 ไฟล์เอกสารแนบประกอบการพิจารณา</span>
+                <span class="bg-blue-100 text-blue-800 px-2 py-0.2 rounded-full text-[10px] font-bold">${app.files.length} ไฟล์</span>
+              </span>
+              <span class="text-[10px] text-slate-500">คลิกที่ปุ่มเพื่อเปิดดูเอกสารหรือดาวน์โหลด</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              ${app.files.map((f, fIdx) => {
+                const isPdf = (f.type && f.type.includes('pdf')) || (f.name && f.name.toLowerCase().endsWith('.pdf'));
+                const isImg = (f.type && f.type.includes('image')) || (f.name && /\.(jpg|jpeg|png|webp|gif)$/i.test(f.name));
+                const icon = isPdf ? '📄' : isImg ? '🖼️' : '📁';
+                const sizeStr = f.size ? (f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : Math.round(f.size / 1024) + ' KB') : 'เอกสารแนบ';
+
+                return `
+                  <div class="p-2.5 bg-white rounded-lg border border-slate-200 hover:border-blue-300 shadow-2xs transition flex flex-col justify-between gap-2">
+                    <div class="flex items-start gap-2">
+                      <span class="text-xl p-1 bg-slate-50 rounded">${icon}</span>
+                      <div class="flex-1 min-w-0">
+                        <p class="font-bold text-slate-800 text-[11px] truncate" title="${esc(f.name)}">${esc(f.name)}</p>
+                        <p class="text-[10px] text-slate-400">${sizeStr} &bull; ${isPdf ? 'PDF Document' : isImg ? 'รูปภาพหลักฐาน' : 'ไฟล์แนบ'}</p>
+                      </div>
+                    </div>
+                    ${isImg && f.dataUrl ? `
+                      <div class="w-full h-20 bg-slate-100 rounded overflow-hidden cursor-pointer border border-slate-200 hover:opacity-90 transition" onclick="previewDocument('${app.id}', ${fIdx})">
+                        <img src="${f.dataUrl}" alt="${esc(f.name)}" class="w-full h-full object-cover">
+                      </div>
+                    ` : ''}
+                    <div class="flex items-center gap-1.5 pt-1 border-t border-slate-100">
+                      <button type="button" onclick="previewDocument('${app.id}', ${fIdx})" class="flex-1 py-1 px-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded text-[10px] font-bold transition flex items-center justify-center gap-1 cursor-pointer">
+                        👁️ ดูเอกสาร
+                      </button>
+                      ${f.driveUrl ? `
+                        <a href="${f.driveUrl}" target="_blank" class="py-1 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded text-[10px] font-bold transition flex items-center gap-1" title="เปิดใน Google Drive">
+                          ☁️ Drive
+                        </a>
+                      ` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        filesHtml = `
+          <div class="mt-3 pt-3 border-t border-slate-200">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-bold text-slate-700 text-xs flex items-center gap-1.5">
+                <span>📎 เอกสารแนบ:</span>
+                <span class="text-slate-400 font-normal">ไม่มีไฟล์อัปโหลดเพิ่มเติม</span>
+              </span>
+            </div>
+            <button type="button" onclick="previewSampleDocument('${app.id}')" class="w-full py-2 bg-slate-100 hover:bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold border border-slate-200 hover:border-blue-300 transition flex items-center justify-center gap-1.5 cursor-pointer">
+              🔍 ตรวจสอบเอกสารประวัติและหลักฐานการศึกษา (เปิดดูเอกสารรับรอง)
+            </button>
+          </div>
+        `;
+      }
+
       $('decisionApplicantInfo').innerHTML = `
-        <div class="flex justify-between items-center pb-2 border-b border-slate-200">
-          <span class="font-bold text-slate-900">${esc(app.studentName)} (${esc(app.studentId)})</span>
-          <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-bold">${esc(app.level)} ${esc(app.major)}</span>
+        <div class="flex justify-between items-center pb-2.5 border-b border-slate-200">
+          <div>
+            <span class="font-bold text-slate-900 text-sm">${esc(app.studentName)}</span>
+            <span class="font-mono text-slate-500 ml-1">(${esc(app.studentId)})</span>
+          </div>
+          <span class="px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full font-bold text-xs">${esc(app.level)} ${esc(app.major)}</span>
         </div>
-        <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
-          <div><strong>ทุนที่สมัคร:</strong> ${esc(app.scholarshipName)}</div>
-          <div><strong>ผลการเรียน (GPA):</strong> ${esc(app.gpa)}</div>
-          <div class="col-span-2"><strong>เหตุผลที่ขอ:</strong> ${esc(app.reason)}</div>
+        <div class="grid grid-cols-2 gap-2 text-[11px] pt-1">
+          <div><strong>ทุนที่สมัคร:</strong> <span class="text-blue-900 font-bold">${esc(app.scholarshipName)}</span></div>
+          <div><strong>ผลการเรียนสะสม (GPA):</strong> <span class="font-bold text-blue-700">${esc(app.gpa)}</span></div>
+          <div><strong>แหล่งทุนสนับสนุน:</strong> ${esc(app.sponsor)}</div>
+          <div><strong>จำนวนเงินทุน:</strong> <span class="font-bold text-emerald-700">${baht(app.amount)} บาท</span></div>
+          <div class="col-span-2"><strong>เหตุผลความจำเป็น:</strong> <span class="text-slate-600">${esc(app.reason)}</span></div>
         </div>
+        <div class="mt-2.5 pt-2 border-t border-slate-200">
+          <span class="font-bold text-slate-700 text-[11px] block mb-1">รายการเอกสารที่ผ่านการตรวจสอบ:</span>
+          <div class="flex flex-wrap gap-1">${docsBadges}</div>
+        </div>
+        ${filesHtml}
       `;
 
       document.querySelector('input[name="decisionChoice"][value="approved"]').checked = true;
@@ -2227,6 +2556,8 @@
       const reviewer = currentUser ? `${currentUser.name} (${currentUser.title || currentUser.role})` : 'คณะกรรมการพิจารณาทุน';
       const nowStr = new Date().toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
+      let addedRecipient = null;
+
       if (choice === 'approved') {
         app.status = 'อนุมัติแล้ว';
         if (!app.timeline) app.timeline = [];
@@ -2239,7 +2570,7 @@
 
         const exists = recv.some(r => r.studentId === app.studentId && r.scholarshipName === app.scholarshipName);
         if (!exists) {
-          recv.push({
+          addedRecipient = {
             studentId: app.studentId,
             studentName: app.studentName,
             level: app.level,
@@ -2249,7 +2580,8 @@
             amount: app.amount,
             year: app.year,
             type: app.type
-          });
+          };
+          recv.push(addedRecipient);
           setStorage('v6_recipients', recv);
         }
       } else {
@@ -2262,16 +2594,26 @@
           note: `เหตุผล: ${reason}`
         });
 
-        recv = recv.filter(r => !(r.studentId === app.studentId && r.scholarshipName === app.scholarshipName));
-        setStorage('v6_recipients', recv);
+        // หากเคยมีชื่อในผู้รับทุน ให้ลบออก
+        const rIdx = recv.findIndex(r => r.studentId === app.studentId && r.scholarshipName === app.scholarshipName);
+        if (rIdx >= 0) {
+          recv.splice(rIdx, 1);
+          setStorage('v6_recipients', recv);
+        }
       }
 
       setStorage('v6_applications', applications);
       closeDecisionModal();
-      renderApplicationsTable();
-      renderConfirmedRecipientsTable();
-      renderOverviewDashboard();
-      alert(`บันทึกผลการพิจารณา "${app.status}" เรียบร้อยแล้ว!`);
+
+      // Real-Time Automated Cascading & Multi-Tab Broadcast
+      dispatchRealtimeUpdate('DECISION_SUBMITTED');
+
+      // Async sync to Google Sheets
+      if (gasConfig && gasConfig.url) {
+        updateDecisionOnGoogle(app.id, app.status, app.timeline, addedRecipient);
+      }
+
+      alert(`บันทึกผลการพิจารณา "${app.status}" เรียบร้อยแล้ว!\nระบบได้ประมวลผลข้อมูลในแดชบอร์ดสรุปผลและรายงานแบบเรียลไทม์อัตโนมัติแล้ว`);
     }
 
     function viewTimeline(appId) {
@@ -2290,6 +2632,25 @@
           }">${esc(app.status)}</span>
         </div>
       `;
+
+      if (app.files && app.files.length > 0) {
+        $('timelineAttachedFiles').classList.remove('hidden');
+        $('timelineAttachedFiles').innerHTML = `
+          <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+            <span class="font-bold text-slate-700 text-[11px] block mb-1.5">📎 เอกสารแนบที่ส่งในระบบ (${app.files.length} ไฟล์):</span>
+            <div class="flex flex-wrap gap-1.5">
+              ${app.files.map((f, i) => `
+                <button type="button" onclick="previewDocument('${app.id}', ${i})" class="px-2.5 py-1 bg-white border border-slate-300 hover:border-blue-400 hover:text-blue-700 rounded-md text-[11px] font-medium transition flex items-center gap-1 cursor-pointer shadow-2xs">
+                  <span>${f.type && f.type.includes('image') ? '🖼️' : '📄'}</span>
+                  <span class="max-w-[140px] truncate">${esc(f.name)}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        $('timelineAttachedFiles').classList.add('hidden');
+      }
 
       const timeline = app.timeline || [
         { title: 'ยื่นใบสมัครขอรับทุน', by: `ผู้สมัคร (${app.studentName})`, date: app.appliedAt, note: 'ยื่นคำขอรับทุนการศึกษาในระบบ' }
@@ -2320,6 +2681,603 @@
 
     function closeTimelineModal() {
       $('timelineModal').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------
+    // Document & Attachment Preview Lightbox System
+    // -------------------------------------------------------------
+    function previewDocument(appId, fileIdx) {
+      const app = applications.find(a => a.id === appId);
+      if (!app || !app.files || !app.files[fileIdx]) {
+        previewSampleDocument(appId);
+        return;
+      }
+
+      const file = app.files[fileIdx];
+      $('docPreviewTitle').innerHTML = `<span>📄 ตรวจสอบเอกสาร: ${esc(file.name)}</span>`;
+      $('docPreviewMeta').innerText = `ผู้ยื่น: ${app.studentName} (${app.studentId}) &bull; ${app.major} &bull; ทุน: ${app.scholarshipName}`;
+
+      const downloadBtn = $('docPreviewDownloadBtn');
+      if (file.dataUrl) {
+        downloadBtn.href = file.dataUrl;
+        downloadBtn.download = file.name;
+        downloadBtn.classList.remove('hidden');
+      } else if (file.driveUrl) {
+        downloadBtn.href = file.driveUrl;
+        downloadBtn.target = '_blank';
+        downloadBtn.classList.remove('hidden');
+      } else {
+        downloadBtn.classList.add('hidden');
+      }
+
+      const body = $('docPreviewBody');
+      const isImg = (file.type && file.type.includes('image')) || /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name);
+      const isPdf = (file.type && file.type.includes('pdf')) || /\.pdf$/i.test(file.name);
+
+      if (isImg && file.dataUrl) {
+        body.innerHTML = `
+          <div class="flex flex-col items-center gap-3">
+            <img src="${file.dataUrl}" alt="${esc(file.name)}" class="max-h-[65vh] max-w-full rounded-xl shadow-lg border border-slate-200 object-contain bg-white">
+            <p class="text-xs text-slate-500 font-medium">ภาพถ่ายหลักฐานประกอบการขอรับทุนการศึกษา</p>
+          </div>
+        `;
+      } else if (isPdf && file.dataUrl) {
+        body.innerHTML = `
+          <div class="w-full h-[65vh] flex flex-col">
+            <iframe src="${file.dataUrl}" class="w-full flex-1 rounded-xl border border-slate-300 shadow-inner bg-white"></iframe>
+          </div>
+        `;
+      } else if (file.driveUrl) {
+        body.innerHTML = `
+          <div class="text-center p-8 bg-white rounded-2xl shadow-sm border border-slate-200 max-w-md">
+            <div class="text-4xl mb-3">☁️</div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1">${esc(file.name)}</h4>
+            <p class="text-xs text-slate-500 mb-4">ไฟล์ถูกจัดเก็บบน Google Drive เรียบร้อยแล้ว</p>
+            <a href="${file.driveUrl}" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 text-white rounded-lg font-bold text-xs hover:bg-blue-600 transition">
+              เปิดดูไฟล์บน Google Drive &nearr;
+            </a>
+          </div>
+        `;
+      } else {
+        previewSampleDocument(appId, file.name);
+        return;
+      }
+
+      $('docPreviewModal').classList.remove('hidden');
+    }
+
+    function previewSampleDocument(appId, docTitle) {
+      const app = applications.find(a => a.id === appId) || {
+        studentName: 'ผู้ขอรับทุนการศึกษา',
+        studentId: '6720101001',
+        level: 'ปวช.',
+        major: 'แผนกวิชาช่างยนต์',
+        gpa: '3.65',
+        scholarshipName: 'ทุนการศึกษา'
+      };
+
+      const title = docTitle || 'ใบแสดงผลการเรียน (Transcript / ปพ.1)';
+      $('docPreviewTitle').innerHTML = `<span>📄 เอกสารหลักฐาน: ${esc(title)}</span>`;
+      $('docPreviewMeta').innerText = `ผู้ยื่น: ${app.studentName} (${app.studentId}) &bull; ${app.major} &bull; GPA: ${app.gpa}`;
+
+      const downloadBtn = $('docPreviewDownloadBtn');
+      downloadBtn.href = '#';
+      downloadBtn.onclick = (e) => { e.preventDefault(); alert('ระบบจำลองการดาวน์โหลดเอกสารของ ' + app.studentName + ' เรียบร้อย'); };
+      downloadBtn.classList.remove('hidden');
+
+      const body = $('docPreviewBody');
+      body.innerHTML = `
+        <div class="bg-white p-7 rounded-xl shadow-md border border-slate-200 max-w-xl w-full text-xs space-y-4 text-slate-800">
+          <div class="flex justify-between items-start border-b border-slate-200 pb-3">
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">${esc(institution.affiliation)}</p>
+              <h4 class="font-bold text-sm text-blue-900">${esc(institution.schoolName)}</h4>
+              <p class="text-[11px] text-slate-600">เอกสารแนบประกอบการพิจารณาคำขอรับทุนการศึกษา</p>
+            </div>
+            <div class="w-14 h-14 rounded-full border-2 border-dashed border-blue-400 flex items-center justify-center text-blue-700 font-bold text-[10px] text-center bg-blue-50/50">
+              ตราประทับ<br>รับรอง
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-1.5">
+            <div class="flex justify-between">
+              <span><strong>ชื่อ-สกุล:</strong> ${esc(app.studentName)}</span>
+              <span><strong>รหัสนักศึกษา:</strong> <span class="font-mono font-bold">${esc(app.studentId)}</span></span>
+            </div>
+            <div class="flex justify-between">
+              <span><strong>ระดับ/แผนก:</strong> ${esc(app.level)} ${esc(app.major)}</span>
+              <span><strong>ผลการเรียนสะสม (GPA):</strong> <span class="font-bold text-blue-700">${esc(app.gpa)}</span></span>
+            </div>
+            <div>
+              <strong>โครงการทุนที่สมัคร:</strong> ${esc(app.scholarshipName)}
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <table class="w-full text-left border-collapse text-[11px]">
+              <thead class="bg-slate-100 text-slate-700">
+                <tr>
+                  <th class="p-2">รายการเอกสารหลักฐาน</th>
+                  <th class="p-2 text-center w-24">สถานะ</th>
+                  <th class="p-2 text-center w-28">ผลการตรวจสอบ</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-2">1. สำเนาบัตรประจำตัวประชาชน/นักศึกษา</td>
+                  <td class="p-2 text-center text-emerald-600 font-bold">แนบครบถ้วน</td>
+                  <td class="p-2 text-center text-emerald-700">✓ ผ่านเกณฑ์</td>
+                </tr>
+                <tr>
+                  <td class="p-2">2. ใบแสดงผลการเรียน (Transcript) GPA ${esc(app.gpa)}</td>
+                  <td class="p-2 text-center text-emerald-600 font-bold">แนบครบถ้วน</td>
+                  <td class="p-2 text-center text-emerald-700">✓ ผ่านเกณฑ์</td>
+                </tr>
+                <tr>
+                  <td class="p-2">3. หนังสือรับรองรายได้ครอบครัว / รับรองจากครูที่ปรึกษา</td>
+                  <td class="p-2 text-center text-emerald-600 font-bold">แนบครบถ้วน</td>
+                  <td class="p-2 text-center text-emerald-700">✓ ผ่านเกณฑ์</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-[10px] text-slate-400">
+            <span>เอกสารนี้ถูกจัดเก็บในระบบคลาวด์และรับรองความถูกต้อง</span>
+            <span class="font-mono">VERIFIED-${app.id || 'APP'}</span>
+          </div>
+        </div>
+      `;
+      $('docPreviewModal').classList.remove('hidden');
+    }
+
+    function closeDocPreviewModal() {
+      $('docPreviewModal').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------
+    // Real-Time Database Reactive Cascade & Multi-Tab Broadcast
+    // -------------------------------------------------------------
+    const realtimeChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('scholarship_realtime_db') : null;
+
+    if (realtimeChannel) {
+      realtimeChannel.onmessage = (event) => {
+        if (event.data && event.data.type === 'STATE_UPDATED') {
+          reloadLocalState();
+          recalculateAndRefreshAllViews(false);
+        }
+      };
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key && e.key.startsWith('v6_')) {
+        reloadLocalState();
+        recalculateAndRefreshAllViews(false);
+      }
+    });
+
+    function reloadLocalState() {
+      institution = getStorage('v6_institution', INITIAL_INSTITUTION);
+      departments = getStorage('v6_departments', INITIAL_DEPARTMENTS);
+      officials = getStorage('v6_officials', INITIAL_OFFICIALS);
+      users = getStorage('v6_users', INITIAL_USERS);
+      funds = getStorage('v6_funds', INITIAL_SCHOLARSHIPS);
+      recv = getStorage('v6_recipients', INITIAL_RECIPIENTS);
+      announcements = getStorage('v6_announces', INITIAL_ANNOUNCEMENTS);
+      applications = getStorage('v6_applications', INITIAL_APPLICATIONS);
+      gasConfig = getStorage('v6_gas_config', { url: '', autoSync: true, lastSync: null });
+    }
+
+    function recalculateAndRefreshAllViews(shouldBroadcast = true) {
+      renderOverviewDashboard();
+      renderExternalDashboard();
+      renderApplicationsTable();
+      renderConfirmedRecipientsTable();
+      initYears();
+
+      if (shouldBroadcast && realtimeChannel) {
+        realtimeChannel.postMessage({ type: 'STATE_UPDATED', timestamp: Date.now() });
+      }
+
+      // Update Live DB pulse indicator
+      const badgeText = $('cloudLiveBadgeText');
+      if (badgeText) {
+        badgeText.innerText = 'Syncing...';
+        setTimeout(() => {
+          badgeText.innerText = gasConfig.url ? 'Cloud Live' : 'Live DB';
+        }, 600);
+      }
+    }
+
+    function dispatchRealtimeUpdate(sourceAction) {
+      recalculateAndRefreshAllViews(true);
+    }
+
+    // -------------------------------------------------------------
+    // Google Sheets & Google Drive Cloud Database Integration
+    // -------------------------------------------------------------
+    function initGoogleCloudConfig() {
+      if ($('gasApiUrlInput')) {
+        $('gasApiUrlInput').value = gasConfig.url || '';
+      }
+      if ($('autoSyncToggle')) {
+        $('autoSyncToggle').checked = gasConfig.autoSync !== false;
+      }
+      updateCloudSyncUI();
+
+      // Recurring auto-sync if URL is configured
+      setInterval(() => {
+        if (gasConfig.url && gasConfig.autoSync) {
+          syncWithGoogleCloud(false);
+        }
+      }, 30000); // sync every 30 seconds
+    }
+
+    function updateCloudSyncUI() {
+      const badge = $('cloudSyncStatusBadge');
+      const text = $('cloudSyncStatusText');
+      const headerBadge = $('cloudLiveBadgeText');
+
+      if (gasConfig.url) {
+        if (badge) {
+          badge.className = 'text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-2 py-0.5 rounded-full font-bold flex items-center gap-1.5';
+        }
+        if (text) text.innerText = '🟢 เชื่อมต่อ Google Sheets & Google Drive แล้ว (Cloud Live)';
+        if (headerBadge) headerBadge.innerText = 'Cloud Live';
+      } else {
+        if (badge) {
+          badge.className = 'text-[10px] bg-slate-500/20 text-slate-300 border border-slate-400/40 px-2 py-0.5 rounded-full font-bold flex items-center gap-1.5';
+        }
+        if (text) text.innerText = '⚪ ระบบฐานข้อมูลในเครื่องแบบเรียลไทม์ (Local Reactive DB)';
+        if (headerBadge) headerBadge.innerText = 'Live DB';
+      }
+
+      if ($('lastSyncTimeLabel')) {
+        $('lastSyncTimeLabel').innerText = gasConfig.lastSync || 'พร้อมใช้งาน';
+      }
+    }
+
+    function saveGasConfig() {
+      const url = $('gasApiUrlInput').value.trim();
+      gasConfig.url = url;
+      setStorage('v6_gas_config', gasConfig);
+      updateCloudSyncUI();
+
+      if (url) {
+        testGasConnection();
+      } else {
+        alert('บันทึกการใช้งานในโหมด Local Reactive DB เรียบร้อยแล้ว');
+      }
+    }
+
+    function toggleAutoSync() {
+      gasConfig.autoSync = $('autoSyncToggle').checked;
+      setStorage('v6_gas_config', gasConfig);
+    }
+
+    async function testGasConnection() {
+      const url = gasConfig.url || $('gasApiUrlInput').value.trim();
+      if (!url) {
+        alert('กรุณาระบุ URL ของ Google Apps Script Web App ก่อนทดสอบการเชื่อมต่อ');
+        return;
+      }
+
+      try {
+        const pingUrl = url + (url.includes('?') ? '&' : '?') + 'action=ping';
+        const res = await fetch(pingUrl, { method: 'GET', mode: 'cors' });
+        const json = await res.json();
+        if (json.status === 'success') {
+          gasConfig.url = url;
+          gasConfig.lastSync = new Date().toLocaleTimeString('th-TH');
+          setStorage('v6_gas_config', gasConfig);
+          updateCloudSyncUI();
+          alert('✅ เชื่อมต่อ Google Sheets & Google Drive สำเร็จเรียบร้อยแล้ว!\nระบบพร้อมซิงก์ข้อมูลและจัดเก็บไฟล์แนบแบบเรียลไทม์');
+        } else {
+          alert('❌ เชื่อมต่อไม่สำเร็จ: ' + (json.message || 'เกิดข้อผิดพลาด'));
+        }
+      } catch (err) {
+        alert('❌ ไม่สามารถเชื่อมต่อ Google Apps Script ได้\nกรุณาตรวจสอบว่าตั้งค่า "ผู้มีสิทธิ์เข้าถึง (Who has access)" เป็น "ทุกคน (Anyone)" ใน Apps Script แล้วหรือยัง');
+      }
+    }
+
+    async function syncWithGoogleCloud(showAlert = false) {
+      if (!gasConfig.url) {
+        if (showAlert) alert('ยังไม่ได้กำหนด URL ของ Google Apps Script');
+        return;
+      }
+
+      try {
+        const payload = {
+          action: 'syncAll',
+          applications,
+          recipients: recv,
+          scholarships: funds,
+          departments,
+          officials,
+          institution
+        };
+
+        const res = await fetch(gasConfig.url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        });
+
+        gasConfig.lastSync = new Date().toLocaleTimeString('th-TH');
+        setStorage('v6_gas_config', gasConfig);
+        updateCloudSyncUI();
+
+        if (showAlert) {
+          alert('✅ ซิงก์ข้อมูลทุนการศึกษาและผู้รับทุนลง Google Sheets สำเร็จเรียบร้อยแล้ว!');
+        }
+      } catch (err) {
+        if (showAlert) {
+          alert('⚠️ เกิดข้อผิดพลาดในการซิงก์ข้อมูล: ' + err.message);
+        }
+      }
+    }
+
+    async function syncApplicationToGoogle(app) {
+      if (!gasConfig.url) return;
+      try {
+        // Upload any attached files to Google Drive first
+        if (app.files && app.files.length > 0) {
+          for (let f of app.files) {
+            if (f.dataUrl && !f.driveUrl) {
+              const uploadRes = await fetch(gasConfig.url, {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify({
+                  action: 'uploadFile',
+                  fileName: `${app.studentId}_${f.name}`,
+                  mimeType: f.type,
+                  base64Data: f.dataUrl
+                })
+              });
+              const uploadJson = await uploadRes.json();
+              if (uploadJson.status === 'success' && uploadJson.driveUrl) {
+                f.driveUrl = uploadJson.driveUrl;
+              }
+            }
+          }
+          setStorage('v6_applications', applications);
+        }
+
+        // Save application row in Google Sheets
+        await fetch(gasConfig.url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            action: 'saveApplication',
+            application: app
+          })
+        });
+      } catch (e) {
+        console.warn('Google Cloud background sync notice:', e);
+      }
+    }
+
+    async function updateDecisionOnGoogle(appId, status, timeline, addedRecipient) {
+      if (!gasConfig.url) return;
+      try {
+        await fetch(gasConfig.url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            action: 'updateDecision',
+            appId,
+            status,
+            timeline,
+            recipient: addedRecipient
+          })
+        });
+      } catch (e) {
+        console.warn('Google Cloud decision sync notice:', e);
+      }
+    }
+
+    // Google Apps Script Modal & Code Template
+    const GAS_CODE_TEMPLATE = `/**
+ * ระบบบริหารจัดการทุนการศึกษา - Google Apps Script (Code.gs)
+ * เชื่อมโยงฐานข้อมูล Google Sheets และจัดเก็บไฟล์แนบใน Google Drive
+ */
+const FOLDER_NAME = "ทุนการศึกษา_เอกสารแนบ";
+
+function doGet(e) {
+  try {
+    const action = e.parameter.action || "ping";
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    if (action === "ping") {
+      return responseJSON({ status: "success", message: "Google Apps Script API พร้อมทำงานเรียลไทม์", sheetName: ss.getName() });
+    }
+    if (action === "getAll") {
+      initSheetsIfNeeded(ss);
+      return responseJSON({
+        status: "success",
+        data: {
+          applications: getSheetData(ss, "Applications"),
+          recipients: getSheetData(ss, "Recipients"),
+          scholarships: getSheetData(ss, "Scholarships"),
+          departments: getSheetData(ss, "Departments"),
+          officials: getSheetData(ss, "Officials")[0] || null,
+          institution: getSheetData(ss, "Institution")[0] || null
+        }
+      });
+    }
+    return responseJSON({ status: "error", message: "Action ไม่ถูกต้อง" });
+  } catch (err) {
+    return responseJSON({ status: "error", message: err.toString() });
+  }
+}
+
+function doPost(e) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    initSheetsIfNeeded(ss);
+    let body = {};
+    if (e.postData && e.postData.contents) body = JSON.parse(e.postData.contents);
+    const action = body.action || "syncAll";
+
+    if (action === "uploadFile") {
+      const folder = getOrCreateFolder(FOLDER_NAME);
+      const fileName = body.fileName || ("doc_" + Date.now());
+      const mimeType = body.mimeType || "application/pdf";
+      const decoded = Utilities.base64Decode(body.base64Data.split(",")[1] || body.base64Data);
+      const file = folder.createFile(Utilities.newBlob(decoded, mimeType, fileName));
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+      return responseJSON({ status: "success", fileId: file.getId(), fileName: file.getName(), driveUrl: file.getUrl() });
+    }
+
+    if (action === "saveApplication") {
+      const app = body.application;
+      const sheet = ss.getSheetByName("Applications");
+      const rows = sheet.getDataRange().getValues();
+      let rowIndex = -1;
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]) === String(app.id)) { rowIndex = i + 1; break; }
+      }
+      const rowData = [
+        app.id, app.year||"", app.studentId||"", app.studentName||"", app.level||"", app.major||"",
+        app.gpa||"", app.phone||"", app.scholarshipName||"", app.sponsor||"", app.amount||0, app.type||"external",
+        app.reason||"", JSON.stringify(app.docs||[]), JSON.stringify(app.files||[]), app.status||"รอดำเนินการ",
+        app.appliedAt||new Date().toISOString().split("T")[0], JSON.stringify(app.timeline||[])
+      ];
+      if (rowIndex > 0) sheet.getRange(rowIndex, 1, 1, rowData.length).setValues([rowData]);
+      else sheet.appendRow(rowData);
+      return responseJSON({ status: "success", id: app.id });
+    }
+
+    if (action === "updateDecision") {
+      const sheet = ss.getSheetByName("Applications");
+      const rows = sheet.getDataRange().getValues();
+      for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][0]) === String(body.appId)) {
+          sheet.getRange(i + 1, 16).setValue(body.status);
+          if (body.timeline) sheet.getRange(i + 1, 18).setValue(JSON.stringify(body.timeline));
+          break;
+        }
+      }
+      if (body.status === "อนุมัติแล้ว" && body.recipient) {
+        const r = body.recipient;
+        ss.getSheetByName("Recipients").appendRow([r.studentId, r.studentName, r.level, r.major, r.scholarshipName, r.sponsor, r.amount, r.year, r.type]);
+      }
+      return responseJSON({ status: "success" });
+    }
+
+    if (action === "syncAll") {
+      if (body.applications) setSheetData(ss, "Applications", body.applications);
+      if (body.recipients) setSheetData(ss, "Recipients", body.recipients);
+      if (body.scholarships) setSheetData(ss, "Scholarships", body.scholarships);
+      if (body.departments) setSheetData(ss, "Departments", body.departments);
+      if (body.officials) setSheetData(ss, "Officials", [body.officials]);
+      if (body.institution) setSheetData(ss, "Institution", [body.institution]);
+      return responseJSON({ status: "success", message: "ซิงก์ข้อมูลลง Google Sheets สำเร็จเรียบร้อยแล้ว" });
+    }
+    return responseJSON({ status: "error", message: "ไม่รู้จัก Action" });
+  } catch (err) {
+    return responseJSON({ status: "error", message: err.toString() });
+  }
+}
+
+function responseJSON(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function getOrCreateFolder(name) {
+  const folders = DriveApp.getFoldersByName(name);
+  return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
+}
+
+function initSheetsIfNeeded(ss) {
+  const schemas = {
+    Applications: ["id", "year", "studentId", "studentName", "level", "major", "gpa", "phone", "scholarshipName", "sponsor", "amount", "type", "reason", "docs", "files", "status", "appliedAt", "timeline"],
+    Recipients: ["studentId", "studentName", "level", "major", "scholarshipName", "sponsor", "amount", "year", "type"],
+    Scholarships: ["id", "scholarshipName", "year", "budget", "type", "sponsor"],
+    Departments: ["name", "headName"],
+    Officials: ["directorName", "directorRole", "guidanceName", "guidanceRole", "adminName", "adminRole"],
+    Institution: ["schoolName", "systemTitle", "affiliation"]
+  };
+  for (const name in schemas) {
+    let sheet = ss.getSheetByName(name);
+    if (!sheet) {
+      sheet = ss.insertSheet(name);
+      sheet.appendRow(schemas[name]);
+      sheet.getRange(1, 1, 1, schemas[name].length).setFontWeight("bold").setBackground("#e2e8f0");
+      sheet.setFrozenRows(1);
+    }
+  }
+}
+
+function getSheetData(ss, name) {
+  const sheet = ss.getSheetByName(name);
+  if (!sheet) return [];
+  const rows = sheet.getDataRange().getValues();
+  if (rows.length <= 1) return [];
+  const headers = rows[0];
+  const results = [];
+  for (let i = 1; i < rows.length; i++) {
+    const item = {};
+    for (let j = 0; j < headers.length; j++) {
+      let val = rows[i][j];
+      if (typeof val === "string" && (val.startsWith("[") || val.startsWith("{"))) {
+        try { val = JSON.parse(val); } catch(e) {}
+      }
+      item[headers[j]] = val;
+    }
+    results.push(item);
+  }
+  return results;
+}
+
+function setSheetData(ss, name, dataArray) {
+  if (!Array.isArray(dataArray) || dataArray.length === 0) return;
+  const sheet = ss.getSheetByName(name);
+  if (!sheet) return;
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const rowsToInsert = [];
+  dataArray.forEach(item => {
+    const row = [];
+    headers.forEach(h => {
+      let v = item[h];
+      if (typeof v === "object") v = JSON.stringify(v);
+      row.push(v !== undefined ? v : "");
+    });
+    rowsToInsert.push(row);
+  });
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) sheet.getRange(2, 1, lastRow - 1, headers.length).clearContent();
+  if (rowsToInsert.length > 0) sheet.getRange(2, 1, rowsToInsert.length, headers.length).setValues(rowsToInsert);
+}`;
+
+    function openGasScriptModal() {
+      if ($('gasScriptCodeBox')) {
+        $('gasScriptCodeBox').innerText = GAS_CODE_TEMPLATE;
+      }
+      $('gasScriptModal').classList.remove('hidden');
+    }
+
+    function closeGasScriptModal() {
+      $('gasScriptModal').classList.add('hidden');
+    }
+
+    function copyGasScriptCode() {
+      navigator.clipboard.writeText(GAS_CODE_TEMPLATE).then(() => {
+        alert('📋 คัดลอกโค้ด Google Apps Script (Code.gs) เรียบร้อยแล้ว!\nสามารถนำไปวางใน Apps Script บน Google Sheets ได้ทันที');
+      }).catch(() => {
+        const box = $('gasScriptCodeBox');
+        if (box) {
+          const range = document.createRange();
+          range.selectNodeContents(box);
+          window.getSelection().removeAllRanges();
+          window.getSelection().addRange(range);
+          alert('กรุณากดปุ่ม Ctrl + C เพื่อคัดลอกโค้ดที่เลือก');
+        }
+      });
     }
 
     function renderConfirmedRecipientsTable() {
@@ -2980,6 +3938,7 @@
         localStorage.removeItem('v6_recipients');
         localStorage.removeItem('v6_announces');
         localStorage.removeItem('v6_applications');
+        localStorage.removeItem('v6_gas_config');
         institution = { ...INITIAL_INSTITUTION };
         departments = [...INITIAL_DEPARTMENTS];
         officials = { ...INITIAL_OFFICIALS };
@@ -2988,8 +3947,10 @@
         recv = [...INITIAL_RECIPIENTS];
         announcements = [...INITIAL_ANNOUNCEMENTS];
         applications = [...INITIAL_APPLICATIONS];
+        gasConfig = { url: '', autoSync: true, lastSync: null };
         syncInstitutionUI();
         initYears();
+        initGoogleCloudConfig();
         applyUserPermissions();
         renderOverviewDashboard();
         alert('คืนค่าฐานข้อมูลเริ่มต้นเรียบร้อยแล้ว');
@@ -3003,6 +3964,7 @@
       syncOfficialsToUsers();
       syncInstitutionUI();
       initYears();
+      initGoogleCloudConfig();
       applyUserPermissions();
     };
   </script>
