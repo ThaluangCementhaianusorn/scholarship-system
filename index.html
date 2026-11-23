@@ -5,39 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TL Scholarship Management Dashboard</title>
   <meta name="description" content="ระบบสารสนเทศเพื่อการบริหารจัดการและสรุปผลทุนการศึกษา วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์">
-  <meta name="theme-color" content="#0b6b60">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b6b60'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' fill='white' text-anchor='middle'%3ETL%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#13288f">
+  <link rel="icon" type="image/png" href="assets/img/logo-128.png">
+  <link rel="apple-touch-icon" href="assets/img/logo.png">
+  <meta property="og:image" content="assets/img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/app.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script type="module" src="assets/js/app.js"></script>
 </head>
 <body>
   <div class="app">
     <aside class="sidebar" id="sidebar">
       <a class="brand" href="#/">
-        <div class="brand-logo">TL</div>
-        <div class="brand-text"><b>TL Scholarship</b><small id="brandName">ระบบบริหารจัดการทุนการศึกษา</small></div>
+        <img class="brand-logo" src="assets/img/logo-128.png" alt="ตราวิทยาลัย">
+        <div class="brand-text"><b>TL Scholarship</b><small id="brandName">วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์</small></div>
       </a>
       <nav id="nav" class="nav" aria-label="เมนูหลัก"></nav>
       <a class="btn primary block" id="applyCta" href="#/scholarships"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> สมัครทุนออนไลน์</a>
       <div class="sidebar-foot">
         <div id="sync" class="sync"><i></i><span>กำลังเชื่อมต่อ...</span></div>
-        <button class="btn ghost block" id="adminBtn"></button>
+        <div id="userBox"></div>
       </div>
     </aside>
     <div class="scrim" id="scrim"></div>
     <div class="main">
       <header class="topbar">
         <button class="icon-btn only-mobile" id="menuBtn" aria-label="เมนู"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-        <a class="brand only-mobile" href="#/"><div class="brand-logo sm">TL</div><b>TL Scholarship</b></a>
+        <a class="brand only-mobile" href="#/"><img class="brand-logo sm" src="assets/img/logo-128.png" alt=""><b>TL Scholarship</b></a>
         <span class="spacer"></span>
         <button class="icon-btn" id="themeBtn" aria-label="สลับโหมดสี"></button>
       </header>
       <main id="view" class="view"><div class="loading"><div class="spinner"></div><p>กำลังโหลดข้อมูล...</p></div></main>
-      <footer class="site-foot">© วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ · TL Scholarship Management Dashboard · ข้อมูลจัดเก็บบน GitHub</footer>
+      <footer class="site-foot">© วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ · TL Scholarship Management Dashboard</footer>
     </div>
   </div>
   <noscript>กรุณาเปิดใช้งาน JavaScript เพื่อใช้งานระบบ</noscript>
