@@ -620,10 +620,10 @@ export const account = {
   render() {
     const u = store.user;
     const me = (store.view()?.users || []).find((x) => x.id === u.id) || u;
-    const relay = store.mode === 'relay';
+    const relay = store.mode === 'relay' || !!store.session?.userId; // บัญชีจริงในระบบ (Relay หรือรหัสผ่าน)
     const dept = store.view()?.departments.find((d) => d.id === u.departmentId);
     return `<header class="page-head"><div><span class="eyebrow">${icon('user')} บัญชีผู้ใช้งาน</span><h1>${esc(u.name)}</h1><p>${esc(ROLES[u.role]?.label)}${u.position ? ` · ${esc(u.position)}` : ''}${u.division ? ` · ${esc(u.division)}` : ''}${dept ? ` · ${esc(dept.name)}` : ''}</p></div></header>
-    ${!relay ? `<div class="notice tone-info">${icon('key')}<div><b>เข้าสู่ระบบด้วย GitHub Token</b><p>บัญชีนี้เป็นผู้ดูแลระบบสูงสุด — ลายเซ็นของผู้บริหารแต่ละท่านกำหนดได้ที่ ตั้งค่า → ผู้ใช้งาน หรือให้แต่ละท่านเข้าสู่ระบบด้วยบัญชีของตนเองเพื่อลงลายมือชื่อ</p></div></div>` : ''}
+    ${!relay ? `<div class="notice tone-info">${icon('key')}<div><b>เข้าสู่ระบบด้วย GitHub Token</b><p>ตั้งรหัสผ่านให้บัญชีผู้ดูแลระบบและครูที่ปรึกษาและการแนะแนว เพื่อเข้าสู่ระบบครั้งต่อไปด้วยชื่อผู้ใช้/รหัสผ่านได้ทันที (ไม่ต้องใช้ Token)</p><a class="btn primary sm" href="#/admin/settings/users">${icon('key')} ไปตั้งรหัสผ่าน</a></div></div>` : ''}
     <div class="grid g-2">
       ${relay && u.role !== 'student' ? `<article class="card"><h3>${icon('pen')} ลายมือชื่ออิเล็กทรอนิกส์</h3>
         <p class="muted">ใช้ลงนามในขั้นตอนพิจารณาทุนและเอกสาร PDF — วาดลายเซ็นด้วยเมาส์/นิ้ว หรืออัปโหลดรูปลายเซ็นพื้นหลังโปร่งใส</p>
@@ -631,7 +631,7 @@ export const account = {
         <canvas id="sigPad" class="sig-pad"></canvas>
         <div class="btn-row"><button class="btn ghost" id="sigClear">${icon('refresh')} ล้าง</button><label class="btn ghost">${icon('upload')} อัปโหลดรูป<input type="file" id="sigFile" accept="image/png" hidden></label><button class="btn primary" id="sigSave">${icon('check')} บันทึกลายเซ็น</button></div></article>` : ''}
       ${relay ? `<form class="card" id="pwForm"><h3>${icon('key')} เปลี่ยนรหัสผ่าน</h3>
-        <div class="form-grid cols-1">${field({ name: 'old', label: 'รหัสผ่านเดิม', type: 'password', required: true })}${field({ name: 'nw', label: 'รหัสผ่านใหม่ (อย่างน้อย 6 ตัวอักษร)', type: 'password', required: true })}${field({ name: 'nw2', label: 'ยืนยันรหัสผ่านใหม่', type: 'password', required: true })}</div>
+        <div class="form-grid cols-1">${field({ name: 'old', label: 'รหัสผ่านเดิม', type: 'password', required: true })}${field({ name: 'nw', label: `รหัสผ่านใหม่ (${store.session?.userId ? 'อย่างน้อย 10 ตัว มีทั้งตัวอักษรและตัวเลข' : 'อย่างน้อย 6 ตัวอักษร'})`, type: 'password', required: true })}${field({ name: 'nw2', label: 'ยืนยันรหัสผ่านใหม่', type: 'password', required: true })}</div>
         <button class="btn primary">${icon('check')} เปลี่ยนรหัสผ่าน</button></form>
         <form class="card" id="profForm"><h3>${icon('phone')} ข้อมูลติดต่อ</h3><div class="form-grid cols-1">${field({ name: 'phone', label: 'โทรศัพท์', type: 'tel' }, me.phone)}${field({ name: 'email', label: 'อีเมล', type: 'email' }, me.email)}</div><button class="btn primary">${icon('check')} บันทึก</button></form>` : ''}
     </div>`;
