@@ -43,8 +43,8 @@
 
 /* ============ Base ============ */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; font-family: var(--font); font-size: 15px; line-height: 1.6; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+html { -webkit-text-size-adjust: 100%; font-size: 112.5%; } /* 18px: อ่านง่ายบนมือถือ/จอแนวตั้ง */
+body { margin: 0; font-family: var(--font); font-size: 1rem; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4 { margin: 0; line-height: 1.3; font-weight: 600; letter-spacing: -.005em; }
 h1 { font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
 h3 { font-size: 1.05rem; }
@@ -402,9 +402,9 @@ select { appearance: none; padding-right: 34px; background-image: url("data:imag
   .apply-side { order: -1; } .sticky { position: static; }
   .app-detail { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px), (orientation: portrait) and (max-width: 1280px) {
   .app { grid-template-columns: minmax(0, 1fr); }
-  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 284px; transform: translateX(-100%); transition: transform .22s ease; box-shadow: var(--shadow-lg); }
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: min(330px, 86vw); transform: translateX(-100%); transition: transform .22s ease; box-shadow: var(--shadow-lg); }
   .nav-open .sidebar { transform: none; }
   .nav-open .scrim { display: block; position: fixed; inset: 0; z-index: 35; background: rgba(0, 0, 0, .35); }
   .only-mobile { display: inline-flex !important; }
@@ -671,3 +671,73 @@ select { appearance: none; padding-right: 34px; background-image: url("data:imag
 
 .sch-poster .ph-logo { width: 58px; height: 58px; flex: none; object-fit: contain; transform: none !important; }
 @media (max-width: 520px) { .sch-poster .ph-logo { width: 38px; height: 38px; } }
+
+/* ============ v4: ตัวอักษรใหญ่ อ่านง่าย เน้นมือถือ / จอแนวตั้ง ============ */
+@media (min-width: 1025px) and (orientation: landscape), (min-width: 1281px) { .app { grid-template-columns: 296px minmax(0, 1fr); } }
+.topbar .brand b { white-space: nowrap; }
+.nav a { padding: 12px 14px; font-size: 1.02rem; min-height: 50px; }
+.nav a .ic { width: 22px; height: 22px; }
+.nav-label { font-size: .8rem; }
+.brand-text small { font-size: .8rem; }
+.ic { width: 20px; height: 20px; }
+.btn { min-height: 46px; font-size: 1rem; padding: 9px 18px; }
+.btn.sm { min-height: 38px; font-size: .9rem; }
+.btn.lg { min-height: 54px; font-size: 1.08rem; }
+.icon-btn { width: 44px; height: 44px; }
+input, select, textarea { font-size: 1rem; min-height: 48px; padding: 10px 14px; }
+.field label { font-size: .95rem; }
+.hint, .kpi-sub, .table th, .badge, .sync, .site-foot { font-size: .84rem; }
+.small, .card-head p, .sch-facts, .sch-sponsor, .legend, .meter-top, .notice p, .feed-item p { font-size: .92rem; }
+h3 { font-size: 1.14rem; } h4 { font-size: 1.02rem; }
+.table { font-size: .96rem; } .table td { padding-top: 12px; padding-bottom: 12px; }
+.tabs a, .subtabs a, .seg-tabs button { font-size: .95rem; min-height: 44px; }
+.chip span, .role-chip, .seg-choice span { font-size: .9rem; padding: 8px 14px; }
+.sch-card h3 { font-size: 1.16rem; }
+.prose, .dl, .checklist li, .elig li { font-size: .98rem; }
+.view { max-width: 1180px; }
+.tabbar { display: none; }
+.kpis { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.kpi { flex-direction: column; gap: 10px; }
+.kpi-value { font-size: clamp(1.35rem, 2.1vw, 1.7rem); }
+
+/* จอแนวตั้ง / มือถือ: เมนูลัดด้านล่าง เนื้อหาคอลัมน์เดียว */
+@media (max-width: 1024px), (orientation: portrait) and (max-width: 1280px) {
+  .tabbar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--surface) 94%, transparent);
+    backdrop-filter: blur(12px); border-top: 1px solid var(--line); box-shadow: 0 -6px 18px rgba(10, 20, 60, .08); }
+  .tabbar a, .tabbar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 60px;
+    border: 0; background: transparent; border-radius: 12px; color: var(--ink-2); font: inherit; font-size: .8rem; font-weight: 500;
+    text-decoration: none !important; cursor: pointer; line-height: 1.2; }
+  .tabbar .ic { width: 25px; height: 25px; }
+  .tabbar a.active { color: var(--primary); background: var(--primary-soft); font-weight: 600; }
+  .tabbar span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  #toasts { bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .sidebar { z-index: 60; } .nav-open .scrim { z-index: 55; }
+  .topbar .brand b { font-size: 1.05rem; }
+  .g-3-2, .g-2, .apply-layout, .app-detail, .detail-cols, .track-layout { grid-template-columns: minmax(0, 1fr); }
+  .apply-side { order: -1; } .sticky { position: static; }
+  #schList.cards { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .view { padding: 14px 14px 28px; gap: 16px; }
+  .modal { max-height: calc(100vh - 20px); }
+  .kpi-value { font-size: 1.4rem; }
+  .table { font-size: .94rem; }
+  .filters { gap: 8px; } .filters select { flex: 1 1 calc(50% - 8px); min-width: 0; } .filters .search { flex: 1 1 100%; }
+}
+/* มือถือ: การ์ดทุน = โปสเตอร์ + หัวข้อด้านบน, รายละเอียดเต็มความกว้างด้านล่าง */
+@media (max-width: 560px) {
+  .sch-card, .sch-card.has-poster { grid-template-columns: 118px minmax(0, 1fr); gap: 6px 14px; padding: 14px; align-items: start; }
+  .sch-card .sch-body { display: contents; }
+  .sch-card .sch-poster { grid-row: 1 / span 4; }
+  .sch-card .sch-top, .sch-card h3, .sch-card .sch-sponsor, .sch-card .sch-amount { grid-column: 2; }
+  .sch-card .sch-facts, .sch-card .sch-actions { grid-column: 1 / -1; }
+  .sch-card .sch-facts { margin-top: 8px; }
+  .sch-body .sch-actions { flex-direction: row; } .sch-body .sch-actions .btn { flex: 1; width: auto; }
+  .sch-amount b { font-size: 1.4rem; }
+}
+@media (max-width: 560px) { #topLogin .lbl-long { display: none; } }
+@media (min-width: 561px) { #topLogin .lbl-short { display: none; } }
+@media (max-width: 380px) { html { font-size: 106.25%; } .tabbar a, .tabbar button { font-size: .74rem; } }
+@media print { .tabbar { display: none !important; } body { padding-bottom: 0 !important; } }
