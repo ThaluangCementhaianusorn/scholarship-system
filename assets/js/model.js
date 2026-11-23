@@ -1,0 +1,134 @@
+// โมเดลข้อมูลและฟังก์ชันคำนวณ (ไม่พึ่ง DOM — ใช้ได้ทั้งเบราว์เซอร์และ Node)
+
+export const LEVELS = ['ปวช.', 'ปวส.'];
+export const CLASS_YEARS = { 'ปวช.': ['1', '2', '3'], 'ปวส.': ['1', '2'] };
+export const TYPES = { external: 'หน่วยงานภายนอก', internal: 'ภายในสถานศึกษา' };
+export const SPONSOR_CATEGORIES = ['มูลนิธิ', 'บริษัทเอกชน', 'ธนาคาร/รัฐวิสาหกิจ', 'หน่วยงานภาครัฐ', 'องค์กรปกครองส่วนท้องถิ่น', 'สมาคม/ชมรม', 'สถานศึกษา', 'บุคคลทั่วไป'];
+export const PREFIXES = ['นาย', 'นางสาว', 'นาง'];
+export const STATUS = {
+  submitted: { label: 'ยื่นใบสมัครแล้ว', tone: 'info', icon: 'send' },
+  reviewing: { label: 'กำลังพิจารณา', tone: 'warning', icon: 'clock' },
+  interview: { label: 'นัดสัมภาษณ์', tone: 'info', icon: 'users' },
+  waitlist: { label: 'สำรอง', tone: 'neutral', icon: 'list' },
+  approved: { label: 'อนุมัติทุน', tone: 'good', icon: 'check' },
+  rejected: { label: 'ไม่ผ่านการพิจารณา', tone: 'critical', icon: 'x' },
+};
+export const SCHOLARSHIP_STATUS = {
+  open: { label: 'เปิดรับสมัคร', tone: 'good' },
+  closed: { label: 'ปิดรับสมัคร', tone: 'neutral' },
+  draft: { label: 'ฉบับร่าง (ไม่เผยแพร่)', tone: 'warning' },
+};
+export const DEFAULT_DOCS = ['สำเนาบัตรประจำตัวประชาชน', 'สำเนาผลการเรียน (ใบแสดงผลการเรียน)', 'รูปถ่ายหน้าตรง 1 นิ้ว'];
+
+const ALPH = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+export function randomCode(n = 6) {
+  const a = new Uint8Array(n);
+  globalThis.crypto.getRandomValues(a);
+  return [...a].map((x) => ALPH[x % ALPH.length]).join('');
+}
+export const newId = (p) => `${p}_${Date.now().toString(36)}${randomCode(4).toLowerCase()}`;
+export const appCode = (year) => `TL${String(year).slice(-2)}-${randomCode(6)}`;
+
+// แฮชไม่ย้อนกลับแบบเบา ใช้จัดกลุ่มผู้รับทุนในข้อมูลสาธารณะโดยไม่เปิดเผยรหัสนักศึกษา
+export function pid(s) {
+  let h = 0x811c9dc5;
+  for (const ch of String(s)) { h ^= ch.codePointAt(0); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h.toString(36);
+}
+export function maskName(full) {
+  const parts = String(full || '').trim().split(/\s+/);
+  if (parts.length < 2) return parts[0] || '';
+  return `${parts[0]} ${[...parts[parts.length - 1]][0]}.`;
+}
+
+export function todayISO() { return new Date().toISOString().slice(0, 10); }
+export function isOpen(s, today = todayISO()) {
+  return s.status === 'open' && (!s.openDate || s.openDate <= today) && (!s.deadline || s.deadline >= today);
+}
+
+// ตรวจคุณสมบัติผู้สมัครเทียบกับเงื่อนไขทุน
+export function eligibility(s, st) {
+  const checks = [];
+  if (s.minGpa) checks.push({ label: `เกรดเฉลี่ยสะสมไม่ต่ำกว่า ${Number(s.minGpa).toFixed(2)}`, ok: st.gpa === '' || st.gpa == null ? null : Number(st.gpa) >= Number(s.minGpa) });
+  if (s.levels?.length) checks.push({ label: `ระดับชั้น ${s.levels.join(' / ')}`, ok: st.level ? s.levels.includes(st.level) : null });
+  if (s.departments?.length) checks.push({ label: 'อยู่ในแผนกวิชาที่กำหนด', ok: st.departmentId ? s.departments.includes(st.departmentId) : null });
+  if (s.maxIncome) checks.push({ label: `รายได้ครอบครัวไม่เกิน ${Number(s.maxIncome).toLocaleString('th-TH')} บาท/ปี`, ok: st.income === '' || st.income == null ? null : Number(st.income) <= Number(s.maxIncome) });
+  checks.push({ label: 'อยู่ในช่วงเวลารับสมัคร', ok: isOpen(s) });
+  return { checks, ok: checks.every((c) => c.ok !== false) };
+}
+
+export function countsByScholarship(apps = []) {
+  const m = {};
+  for (const a of apps) {
+    const c = (m[a.scholarshipId] ??= { applicants: 0, approved: 0 });
+    c.applicants++;
+    if (a.status === 'approved') c.approved++;
+  }
+  return m;
+}
+
+// สร้างชุดข้อมูลสาธารณะ (ไม่มีข้อมูลส่วนบุคคล) เพื่อเผยแพร่บนเว็บไซต์
+export function buildPublic(db, { mask = true } = {}) {
+  const counts = countsByScholarship(db.applications);
+  return {
+    meta: { updatedAt: db.meta?.updatedAt || new Date().toISOString(), schema: 1 },
+    institution: db.institution || {},
+    settings: { relayUrl: db.settings?.relayUrl || '' },
+    departments: db.departments || [],
+    sponsors: db.sponsors || [],
+    scholarships: (db.scholarships || [])
+      .filter((s) => !mask || s.status !== 'draft')
+      .map((s) => ({ ...s, applicants: counts[s.id]?.applicants || 0, approved: counts[s.id]?.approved || 0 })),
+    announcements: (db.announcements || []).filter((a) => !mask || !a.draft),
+    recipients: (db.recipients || []).map((r) => {
+      const { studentId, ...rest } = r;
+      return mask ? { ...rest, name: maskName(r.name), pid: pid(studentId) } : { ...r, pid: pid(studentId) };
+    }),
+  };
+}
+
+// ---------- สถิติ ----------
+export const sum = (arr, f = (x) => x) => arr.reduce((t, x) => t + (Number(f(x)) || 0), 0);
+export function groupBy(arr, keyFn) {
+  const m = new Map();
+  for (const x of arr) { const k = keyFn(x); if (!m.has(k)) m.set(k, []); m.get(k).push(x); }
+  return m;
+}
+export function years(view) {
+  const ys = new Set([...(view.recipients || []).map((r) => String(r.year)), ...(view.scholarships || []).map((s) => String(s.year))]);
+  return [...ys].filter(Boolean).sort().reverse();
+}
+export function stats(view, year) {
+  const rec = (view.recipients || []).filter((r) => !year || String(r.year) === String(year));
+  const sch = (view.scholarships || []).filter((s) => !year || String(s.year) === String(year));
+  const ext = rec.filter((r) => r.type === 'external');
+  const deptName = (id) => view.departments.find((d) => d.id === id)?.name || 'ไม่ระบุแผนก';
+  const sponsorName = (id) => view.sponsors.find((s) => s.id === id)?.name || 'ไม่ระบุแหล่งทุน';
+  const rank = (m, nameFn) => [...m].map(([k, v]) => ({ key: k, name: nameFn(k), count: v.length, amount: sum(v, (r) => r.amount) }))
+    .sort((a, b) => b.amount - a.amount || b.count - a.count);
+  const students = [...groupBy(rec, (r) => r.pid)].map(([k, v]) => ({
+    key: k, name: v[0].name, level: v[0].level, departmentId: v[0].departmentId,
+    count: v.length, amount: sum(v, (r) => r.amount), items: v.map((r) => r.scholarshipTitle),
+  })).sort((a, b) => b.amount - a.amount || b.count - a.count);
+  const byYear = [...groupBy(view.recipients || [], (r) => String(r.year))].sort(([a], [b]) => a.localeCompare(b))
+    .map(([y, v]) => ({ year: y, external: sum(v.filter((r) => r.type === 'external'), (r) => r.amount), internal: sum(v.filter((r) => r.type !== 'external'), (r) => r.amount), count: v.length }));
+  return {
+    rec, sch,
+    total: sum(rec, (r) => r.amount),
+    count: rec.length,
+    students: students.length,
+    extAmount: sum(ext, (r) => r.amount),
+    extCount: ext.length,
+    intAmount: sum(rec, (r) => (r.type === 'external' ? 0 : r.amount)),
+    quota: sum(sch, (s) => s.quota),
+    programs: sch.length,
+    openPrograms: sch.filter((s) => isOpen(s)).length,
+    sponsorsActive: new Set(rec.map((r) => r.sponsorId)).size,
+    byDept: rank(groupBy(rec, (r) => r.departmentId), deptName),
+    bySponsor: rank(groupBy(rec, (r) => r.sponsorId), sponsorName),
+    bySponsorExt: rank(groupBy(ext, (r) => r.sponsorId), sponsorName),
+    byLevel: LEVELS.map((l) => ({ level: l, count: rec.filter((r) => r.level === l).length, amount: sum(rec.filter((r) => r.level === l), (r) => r.amount) })),
+    topStudents: students,
+    byYear,
+  };
+}
