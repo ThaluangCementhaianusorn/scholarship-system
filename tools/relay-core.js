@@ -144,7 +144,7 @@ function op_(c, b) {
   const s = auth_(c, b.session);
   const op = b.op || {};
   const p = op.payload || {};
-  delete p.passwordHash; delete p.salt;
+  delete p.passwordHash; delete p.salt; delete p.loginKey;
   if (op.type === 'saveUser' && p.password) { if (String(p.password).length < 6) fail_('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'); p.salt = salt_(); p.passwordHash = hashPassword_(String(p.password), p.salt); delete p.password; }
   if (op.type === 'importStudents') (p.rows || []).forEach(function (r) { r.salt = salt_(); r.passwordHash = hashPassword_(String(r.password || r.username), r.salt); delete r.password; });
   const r = commit_(c, function (db) { return applyOp(db, s.user, { type: op.type, payload: p }, ctx_()); }, op.type + ' โดย ' + s.user.username);
