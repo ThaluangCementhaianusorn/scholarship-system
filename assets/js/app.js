@@ -66,6 +66,8 @@ function drawChrome(key, v) {
     : `<a class="btn ghost block" href="#/login">${icon('user')}<span>เข้าสู่ระบบ</span></a>`;
   $('#logoutBtn')?.addEventListener('click', () => { store.logout(); toast('ออกจากระบบแล้ว'); location.hash = '#/'; });
   $('#applyCta').hidden = store.isStaff;
+  const top = $('#topLogin');
+  if (top) top.hidden = !!store.session || key === 'login';
 }
 
 function drawSync() {
