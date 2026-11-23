@@ -188,6 +188,8 @@ function buildPublic(db, opts) {
       return base;
     }),
     users: mask ? undefined : (db.users || []).map((u) => safeUser(u, true)),
+    // กุญแจเข้าสู่ระบบที่เข้ารหัสด้วยรหัสผ่าน (ผู้ดูแลระบบ/งานครูที่ปรึกษาฯ) — ไม่มี token แบบเปิดเผย
+    loginKeys: (db.loginKeys || []).map((k) => ({ username: k.username, name: k.name, role: k.role, salt: k.salt, iv: k.iv, data: k.data, iter: k.iter })),
   };
 }
 
@@ -295,11 +297,27 @@ function ensureShape(db) {
   for (const k of ['departments', 'sponsors', 'scholarships', 'announcements', 'recipients', 'applications', 'users', 'academicYears']) db[k] = db[k] || [];
   if (!db.categories || !db.categories.length) db.categories = DEFAULT_CATEGORIES.map((c) => Object.assign({}, c));
   db.officials = db.officials || {};
+  db.loginKeys = db.loginKeys || [];
   db.institution = db.institution || {};
   db.settings = db.settings || {};
   db.meta = db.meta || {};
   if (!db.academicYears.length && db.institution.academicYear) db.academicYears.push({ id: 'y_' + db.institution.academicYear, year: String(db.institution.academicYear), status: 'active' });
   return db;
+}
+
+// กุญแจเข้าสู่ระบบด้วยรหัสผ่าน (เฉพาะผู้ดูแลระบบ / งานครูที่ปรึกษาและการแนะแนว)
+const KEY_ROLES_ = ['admin', 'guidance'];
+function setLoginKey(db, u, key, ctx) {
+  db.loginKeys = (db.loginKeys || []).filter((k) => k.userId !== u.id);
+  if (!key || !KEY_ROLES_.includes(u.role) || u.active === false) return;
+  if (!key.salt || !key.iv || !key.data) deny('กุญแจเข้าสู่ระบบไม่ถูกต้อง');
+  db.loginKeys.push({ userId: u.id, username: u.username, name: u.name, role: u.role, salt: str(key.salt, 64), iv: str(key.iv, 64), data: str(key.data, 4000), iter: Number(key.iter) || 600000, updatedAt: ctx.now });
+}
+function syncLoginKey(db, u) {
+  const k = (db.loginKeys || []).find((x) => x.userId === u.id);
+  if (!k) return;
+  if (!KEY_ROLES_.includes(u.role) || u.active === false) db.loginKeys = db.loginKeys.filter((x) => x.userId !== u.id);
+  else Object.assign(k, { username: u.username, name: u.name, role: u.role });
 }
 
 function syncRecipient(db, app) {
@@ -400,15 +418,22 @@ function applyOp(db, user, op, ctx) {
       const fields = { username, name: str(u.name, 120), role: u.role, position: str(u.position, 160), division: u.role === 'deputy' ? str(u.division, 80) : '', departmentId: ['depthead', 'student'].includes(u.role) ? str(u.departmentId, 40) : '', duties: str(u.duties, 1000), phone: str(u.phone, 20), email: str(u.email, 120), active: u.active !== false, level: u.role === 'student' ? str(u.level, 10) : '', classYear: u.role === 'student' ? str(u.classYear, 2) : '' };
       let target = u.id && db.users.find((x) => x.id === u.id);
       if (target) Object.assign(target, fields, { updatedAt: ctx.now });
-      else { if (!p.passwordHash) deny('กรุณากำหนดรหัสผ่าน'); target = Object.assign({ id: ctx.id('u'), createdAt: ctx.now }, fields); db.users.push(target); }
+      else {
+        if (!p.passwordHash) deny('กรุณากำหนดรหัสผ่าน');
+        const id = /^u_[a-z0-9]{4,30}$/.test(u.id || '') ? u.id : ctx.id('u');
+        target = Object.assign({ id, createdAt: ctx.now }, fields); db.users.push(target);
+      }
       if (p.passwordHash) { target.passwordHash = p.passwordHash; target.salt = p.salt; }
       if (p.signature !== undefined) target.signature = p.signature;
+      if (p.loginKey !== undefined) setLoginKey(db, target, p.loginKey, ctx);
+      syncLoginKey(db, target);
       return { id: target.id };
     }
     case 'deleteUser': {
       if (!can(user, 'admin')) deny();
       if (user && user.id === p.id) deny('ไม่สามารถลบบัญชีของตนเองได้');
       db.users = db.users.filter((x) => x.id !== p.id);
+      db.loginKeys = db.loginKeys.filter((k) => k.userId !== p.id);
       return true;
     }
     case 'importStudents': {
@@ -434,6 +459,7 @@ function applyOp(db, user, op, ctx) {
         me.signature = p.signature; me.signatureAt = ctx.now;
       }
       if (p.passwordHash) { me.passwordHash = p.passwordHash; me.salt = p.salt; }
+      if (p.loginKey !== undefined) setLoginKey(db, me, p.loginKey, ctx);
       return true;
     }
 
@@ -672,7 +698,7 @@ function op_(c, b) {
   const s = auth_(c, b.session);
   const op = b.op || {};
   const p = op.payload || {};
-  delete p.passwordHash; delete p.salt;
+  delete p.passwordHash; delete p.salt; delete p.loginKey;
   if (op.type === 'saveUser' && p.password) { if (String(p.password).length < 6) fail_('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'); p.salt = salt_(); p.passwordHash = hashPassword_(String(p.password), p.salt); delete p.password; }
   if (op.type === 'importStudents') (p.rows || []).forEach(function (r) { r.salt = salt_(); r.passwordHash = hashPassword_(String(r.password || r.username), r.salt); delete r.password; });
   const r = commit_(c, function (db) { return applyOp(db, s.user, { type: op.type, payload: p }, ctx_()); }, op.type + ' โดย ' + s.user.username);
