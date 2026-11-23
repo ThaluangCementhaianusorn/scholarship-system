@@ -37,43 +37,99 @@ function shell(tab, inner) {
 export const login = {
   title: 'เข้าสู่ระบบ', live: false,
   render() {
-    const relay = !!store.relayUrl();
+    const accounts = store.loginAccounts();
+    const ready = accounts.length > 0 || !!store.relayUrl();
+    const tokenUrl = `https://github.com/settings/personal-access-tokens/new?name=${encodeURIComponent('TL Scholarship')}&description=${encodeURIComponent('TL Scholarship web app (scholarship-db + scholarship-system)')}&target_name=${encodeURIComponent(CONFIG.owner)}&expires_in=none&contents=write`;
+    const order = { admin: 0, guidance: 1 };
     return `<div class="login-wrap"><div class="card login">
       <img class="login-logo" src="${esc(store.view()?.institution?.logo || 'assets/img/logo.png')}" alt="">
       <h1>เข้าสู่ระบบ</h1>
-      <p class="muted">ผู้ดูแลระบบ · ผู้อำนวยการ · รองผู้อำนวยการ · หัวหน้าแผนกวิชา · หัวหน้างานครูที่ปรึกษาและการแนะแนว · นักเรียน นักศึกษา</p>
-      <div class="seg-tabs"><button class="active" data-t="pw">${icon('user')} บัญชีผู้ใช้</button><button data-t="tok">${icon('key')} GitHub Token (ผู้ดูแลระบบ)</button></div>
-      <form id="pwForm" class="stack-sm">
-        ${relay ? '' : `<div class="notice tone-warning">${icon('alert')}<div><b>ยังไม่เปิดใช้ระบบบัญชีผู้ใช้</b><p>ผู้ดูแลระบบต้องติดตั้ง Relay (Google Apps Script) และตั้งค่า Relay URL ก่อน — ระหว่างนี้ผู้ดูแลระบบเข้าสู่ระบบด้วย GitHub Token ได้</p></div></div>`}
-        <div class="field"><label for="un">ชื่อผู้ใช้ / รหัสนักศึกษา</label><input id="un" autocomplete="username" required ${relay ? '' : 'disabled'}></div>
-        <div class="field"><label for="pw">รหัสผ่าน</label><input id="pw" type="password" autocomplete="current-password" required ${relay ? '' : 'disabled'}></div>
-        <button class="btn primary block lg" ${relay ? '' : 'disabled'}>${icon('user')} เข้าสู่ระบบ</button>
+      <p class="muted">${esc(store.view()?.institution?.schoolName || '')}</p>
+      ${accounts.length ? `<div class="acct-label">เลือกบัญชีเจ้าหน้าที่</div>
+        <div class="acct-list">${[...accounts].sort((a, b) => (order[a.role] ?? 9) - (order[b.role] ?? 9)).map((a) => `<button type="button" class="acct" data-user="${esc(a.username)}">
+          <span class="acct-ic ${a.role}">${icon(a.role === 'admin' ? 'shield' : 'megaphone')}</span><span class="acct-text"><b>${esc(a.name)}</b><small>${esc(ROLES[a.role]?.label || '')}</small></span>${icon('arrowRight')}</button>`).join('')}</div>
+        <div class="or"><span>หรือกรอกชื่อผู้ใช้</span></div>` : ''}
+      ${ready ? '' : `<div class="notice tone-info">${icon('key')}<div><b>ตั้งค่าครั้งแรก (ผู้ดูแลระบบทำครั้งเดียว)</b><p>เข้าสู่ระบบด้วย GitHub Token ด้านล่าง แล้วตั้งรหัสผ่านให้ผู้ดูแลระบบและครูที่ปรึกษาและการแนะแนว — ครั้งต่อไปใช้ชื่อผู้ใช้และรหัสผ่านได้ทันที</p></div></div>`}
+      <form id="pwForm" class="stack-sm" ${ready ? '' : 'hidden'}>
+        <div class="field"><label for="un">ชื่อผู้ใช้</label><input id="un" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="เช่น admin"></div>
+        <div class="field"><label for="pw">รหัสผ่าน</label><div class="pw-wrap"><input id="pw" type="password" autocomplete="current-password" required><button type="button" class="icon-btn sm" id="pwEye" aria-label="แสดงรหัสผ่าน">${icon('eye')}</button></div></div>
+        <label class="switch inline"><input type="checkbox" id="remember" checked><span>จดจำการเข้าสู่ระบบในเครื่องนี้</span></label>
+        <button class="btn primary block lg" id="pwBtn">${icon('user')} เข้าสู่ระบบ</button>
       </form>
-      <form id="tokForm" class="stack-sm" hidden>
-        <div class="field"><label for="tok">GitHub Personal Access Token</label><input id="tok" type="password" autocomplete="off" required placeholder="github_pat_..."></div>
-        <button class="btn primary block lg">${icon('key')} เข้าสู่ระบบผู้ดูแลระบบ</button>
-        <details class="howto"><summary>วิธีสร้าง Token</summary><ol>
-          <li>เข้า GitHub ด้วยบัญชีเจ้าของระบบ → <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Fine-grained tokens → Generate new token</a></li>
-          <li>Resource owner: <b>${esc(CONFIG.owner)}</b> · Repository access: <b>Only select repositories</b> → <b>${esc(CONFIG.dbRepo)}</b> และ <b>${esc(CONFIG.siteRepo)}</b></li>
-          <li>Repository permissions → <b>Contents: Read and write</b> → Generate แล้วคัดลอกมาวาง</li>
-        </ol></details>
-      </form>
+      <details class="howto token-box" ${ready ? '' : 'open'}><summary>${icon('key')} ผู้ดูแลระบบ: เข้าสู่ระบบด้วย GitHub Token (ตั้งค่าครั้งแรก / กุญแจหมดอายุ)</summary>
+        <form id="tokForm" class="stack-sm">
+          <ol>
+            <li><a href="${tokenUrl}" target="_blank" rel="noopener"><b>คลิกเพื่อสร้าง Token</b></a> (ล็อกอิน GitHub บัญชี ${esc(CONFIG.owner)})</li>
+            <li>Expiration: เลือก <b>No expiration</b> · Repository access: <b>Only select repositories</b> → <b>${esc(CONFIG.dbRepo)}</b> และ <b>${esc(CONFIG.siteRepo)}</b></li>
+            <li>ตรวจว่า Permissions → <b>Contents: Read and write</b> แล้วกด Generate token → คัดลอกมาวาง</li>
+          </ol>
+          <div class="field"><label for="tok">GitHub Token</label><input id="tok" type="password" autocomplete="off" required placeholder="github_pat_..."></div>
+          <button class="btn ${ready ? 'ghost' : 'primary'} block">${icon('key')} เข้าสู่ระบบด้วย Token</button>
+        </form>
+      </details>
     </div></div>`;
   },
   mount(el) {
-    $$('[data-t]', el).forEach((b) => (b.onclick = () => { $$('[data-t]', el).forEach((x) => x.classList.toggle('active', x === b)); $('#pwForm', el).hidden = b.dataset.t !== 'pw'; $('#tokForm', el).hidden = b.dataset.t !== 'tok'; }));
     const go = () => { location.hash = store.isStudent ? '#/my' : '#/admin'; };
-    const busy = (f, on) => { const b = $('button:not([type])', f) || $('button', f); b.disabled = on; };
+    const un = $('#un', el); const pw = $('#pw', el);
+    $$('[data-user]', el).forEach((b) => (b.onclick = () => {
+      $$('[data-user]', el).forEach((x) => x.classList.toggle('active', x === b));
+      un.value = b.dataset.user; pw.value = ''; pw.focus();
+    }));
+    $('#pwEye', el).onclick = () => { pw.type = pw.type === 'password' ? 'text' : 'password'; $('#pwEye', el).innerHTML = icon(pw.type === 'password' ? 'eye' : 'x'); pw.focus(); };
     $('#pwForm', el).onsubmit = async (e) => {
-      e.preventDefault(); busy(e.target, true);
-      try { await store.loginPassword($('#un', el).value, $('#pw', el).value); toast(`ยินดีต้อนรับ ${store.user.name}`); go(); } catch (err) { toast(err.message, 'critical'); busy(e.target, false); }
+      e.preventDefault();
+      const b = $('#pwBtn', el); b.disabled = true; b.innerHTML = `${icon('refresh', 'spin')} กำลังตรวจสอบ...`;
+      try { await store.loginPassword(un.value, pw.value, $('#remember', el).checked); toast(`ยินดีต้อนรับ ${store.user.name}`); go(); }
+      catch (err) { toast(err.message, 'critical'); b.disabled = false; b.innerHTML = `${icon('user')} เข้าสู่ระบบ`; pw.select(); }
     };
     $('#tokForm', el).onsubmit = async (e) => {
-      e.preventDefault(); busy(e.target, true);
-      try { await store.loginToken($('#tok', el).value); toast('เข้าสู่ระบบผู้ดูแลระบบสำเร็จ'); go(); } catch (err) { toast(err.message, 'critical'); busy(e.target, false); }
+      e.preventDefault();
+      const b = $('button', e.target); b.disabled = true;
+      try {
+        await store.loginToken($('#tok', el).value, $('#remember', el)?.checked !== false);
+        toast('เข้าสู่ระบบผู้ดูแลระบบสำเร็จ'); go();
+        if (!store.db.loginKeys.some((k) => k.role === 'admin')) setTimeout(() => passwordSetup(), 500);
+      } catch (err) { toast(err.message, 'critical'); b.disabled = false; }
     };
   },
 };
+
+// ตั้งรหัสผ่านเข้าสู่ระบบ (สร้างกุญแจ) ให้ผู้ดูแลระบบ / หัวหน้างานครูที่ปรึกษาและการแนะแนว
+export function passwordSetup(userId) {
+  if (store.mode !== 'github') return toast('ต้องเข้าสู่ระบบด้วย GitHub Token หรือบัญชีผู้ดูแลระบบก่อน', 'warning');
+  const candidates = db().users.filter((u) => ['admin', 'guidance'].includes(u.role) && u.active !== false);
+  const sel = userId || candidates.find((u) => u.role === 'admin' && !store.hasLoginKey(u.id))?.id || candidates[0]?.id;
+  modal({
+    title: 'ตั้งรหัสผ่านเข้าสู่ระบบ', size: 'md',
+    body: `<p class="muted">บัญชีผู้ดูแลระบบและหัวหน้างานครูที่ปรึกษาและการแนะแนว จะเข้าสู่ระบบด้วย <b>ชื่อผู้ใช้ + รหัสผ่าน</b> ได้ทันทีจากทุกเครื่อง โดยไม่ต้องใช้ Token อีก</p>
+      <form id="psForm" class="stack-sm">
+        <div class="field"><label for="psUser">บัญชี</label><select id="psUser">${candidates.map((u) => opt(u.id, `${u.name} (${u.username}) · ${ROLES[u.role].short}${store.hasLoginKey(u.id) ? ' ✓' : ''}`, sel)).join('')}</select>
+          <small class="hint">ยังไม่มีบัญชีครูที่ปรึกษาฯ? เพิ่มได้ที่ ตั้งค่าระบบ → ผู้ใช้งาน & บทบาท</small></div>
+        <div class="field"><label for="psPw">รหัสผ่านใหม่</label><input id="psPw" type="password" autocomplete="new-password" required><small class="hint">อย่างน้อย 10 ตัว มีทั้งตัวอักษรภาษาอังกฤษและตัวเลข</small></div>
+        <div class="field"><label for="psPw2">ยืนยันรหัสผ่าน</label><input id="psPw2" type="password" autocomplete="new-password" required></div>
+        <div id="psMsg" class="progress-line"></div>
+      </form>`,
+    actions: `<button class="btn ghost" data-close>ภายหลัง</button><button class="btn primary" data-save>${icon('key')} บันทึกรหัสผ่าน</button>`,
+    onMount: (m, api) => {
+      $('[data-save]', m).onclick = async (e) => {
+        const u = db().users.find((x) => x.id === $('#psUser', m).value);
+        const p1 = $('#psPw', m).value;
+        if (!u) return toast('กรุณาเลือกบัญชี', 'warning');
+        if (p1 !== $('#psPw2', m).value) return toast('รหัสผ่านไม่ตรงกัน', 'warning');
+        e.target.disabled = true; $('#psMsg', m).textContent = 'กำลังเข้ารหัส...';
+        try {
+          const loginKey = await store.makeLoginKey(u.id, p1);
+          const salt = newSalt();
+          const { passwordHash: _h, salt: _s, signature: _sig, ...fields } = u;
+          await store.op('saveUser', { user: fields, passwordHash: await hashPassword(p1, salt), salt, loginKey }, `ตั้งรหัสผ่าน ${u.username}`);
+          toast(`ตั้งรหัสผ่านแล้ว — ${u.name} เข้าสู่ระบบด้วยชื่อผู้ใช้ "${u.username}" ได้ทันที`);
+          api.close();
+        } catch (err) { toast(err.message, 'critical'); e.target.disabled = false; $('#psMsg', m).textContent = ''; }
+      };
+    },
+  });
+}
 
 // ======================= OVERVIEW =======================
 const visibleApps = () => db().applications.filter((a) => appVisible(store.user, a));
@@ -572,14 +628,16 @@ function usersView() {
   const list = db().users.filter((u) => (!uf.role || u.role === uf.role) && (!uf.q || `${u.name} ${u.username} ${u.position}`.toLowerCase().includes(uf.q.toLowerCase())))
     .sort((a, b) => Object.keys(ROLES).indexOf(a.role) - Object.keys(ROLES).indexOf(b.role) || a.name.localeCompare(b.name, 'th'));
   const counts = Object.fromEntries(Object.keys(ROLES).map((r) => [r, db().users.filter((u) => u.role === r).length]));
-  return `${store.mode === 'github' && !store.relayUrl() ? `<div class="notice tone-warning">${icon('alert')}<div><b>บัญชีผู้ใช้จะเข้าสู่ระบบได้เมื่อติดตั้ง Relay แล้ว</b><p>สร้างบัญชีและกำหนดบทบาทไว้ล่วงหน้าได้ทันที — ดูขั้นตอนที่แท็บ "ระบบ"</p></div></div>` : ''}
+  return `<div class="notice tone-info">${icon('key')}<div><b>ผู้ดูแลระบบและหัวหน้างานครูที่ปรึกษาและการแนะแนว เข้าสู่ระบบด้วยรหัสผ่านได้ทันที</b>
+    <p>กด "ตั้งรหัสผ่าน" ที่บัญชี แล้วแจ้งชื่อผู้ใช้/รหัสผ่านให้เจ้าของบัญชี${store.relayUrl() ? '' : ' — บทบาทอื่น (ผู้อำนวยการ รองฯ หัวหน้าแผนก นักศึกษา) จะเข้าสู่ระบบได้เมื่อติดตั้ง Relay (แท็บ "ระบบ")'}</p>
+    ${store.mode === 'github' ? `<button class="btn primary sm" id="pwSetup">${icon('key')} ตั้งรหัสผ่านเข้าสู่ระบบ</button>` : ''}</div></div>
   <div class="role-chips">${Object.entries(ROLES).map(([k, r]) => `<button class="role-chip ${uf.role === k ? 'active' : ''}" data-role="${k}">${esc(r.label)} <b>${counts[k]}</b></button>`).join('')}</div>
   <div class="filters"><label class="search">${icon('search')}<input id="uq" type="search" placeholder="ค้นหาชื่อ / ชื่อผู้ใช้" value="${esc(uf.q)}"></label>
     <button class="btn ghost" id="importStu">${icon('upload')} นำเข้ารายชื่อนักศึกษา</button><button class="btn primary" id="addUser">${icon('plus')} เพิ่มผู้ใช้งาน</button></div>
   <article class="card flush"><div class="table-wrap"><table class="table hover"><thead><tr><th>ชื่อ-สกุล</th><th>ชื่อผู้ใช้</th><th>บทบาท</th><th>ตำแหน่ง / หน้าที่</th><th>ลายเซ็น</th><th>สถานะ</th><th class="n">จัดการ</th></tr></thead><tbody>
   ${list.map((u) => `<tr><td><b>${esc(u.name)}</b>${u.departmentId ? `<small class="block muted">${esc(deptName(u.departmentId))}</small>` : ''}</td><td><code>${esc(u.username)}</code></td><td>${badge(ROLES[u.role]?.short, ROLES[u.role]?.tone)}${u.division ? `<small class="block muted">${esc(u.division)}</small>` : ''}</td>
     <td>${esc(u.position || '-')}${u.duties ? `<small class="block muted">${esc(u.duties.slice(0, 70))}${u.duties.length > 70 ? '…' : ''}</small>` : ''}</td><td>${u.signature ? `<img class="sig-thumb" src="${esc(u.signature)}" alt="ลายเซ็น">` : u.role === 'student' ? '' : '<span class="muted small">ยังไม่มี</span>'}</td>
-    <td>${u.active === false ? badge('ระงับ', 'critical') : badge('ใช้งาน', 'good')}</td><td class="n nowrap"><button class="icon-btn" data-uedit="${esc(u.id)}" aria-label="แก้ไข">${icon('edit')}</button><button class="icon-btn danger" data-udel="${esc(u.id)}" aria-label="ลบ">${icon('trash')}</button></td></tr>`).join('') || `<tr><td colspan="7">${empty('ยังไม่มีผู้ใช้งาน', 'users')}</td></tr>`}
+    <td>${u.active === false ? badge('ระงับ', 'critical') : badge('ใช้งาน', 'good')}${store.hasLoginKey(u.id) ? `<small class="block">${badge('เข้าระบบด้วยรหัสผ่านได้', 'info', 'key')}</small>` : ''}</td><td class="n nowrap">${['admin', 'guidance'].includes(u.role) && store.mode === 'github' ? `<button class="icon-btn" data-ukey="${esc(u.id)}" aria-label="ตั้งรหัสผ่าน" title="ตั้งรหัสผ่านเข้าสู่ระบบ">${icon('key')}</button>` : ''}<button class="icon-btn" data-uedit="${esc(u.id)}" aria-label="แก้ไข">${icon('edit')}</button><button class="icon-btn danger" data-udel="${esc(u.id)}" aria-label="ลบ">${icon('trash')}</button></td></tr>`).join('') || `<tr><td colspan="7">${empty('ยังไม่มีผู้ใช้งาน', 'users')}</td></tr>`}
   </tbody></table></div><div class="table-foot">${list.length} บัญชี</div></article>`;
 }
 function mountUsers(el) {
@@ -587,6 +645,8 @@ function mountUsers(el) {
   $('#uq', el).onchange = (e) => { uf.q = e.target.value; rerender(); };
   $('#addUser', el).onclick = () => editUser(null);
   $('#importStu', el).onclick = importStudents;
+  $('#pwSetup', el)?.addEventListener('click', () => passwordSetup());
+  $$('[data-ukey]', el).forEach((b) => (b.onclick = () => passwordSetup(b.dataset.ukey)));
   $$('[data-uedit]', el).forEach((b) => (b.onclick = () => editUser(db().users.find((u) => u.id === b.dataset.uedit))));
   $$('[data-udel]', el).forEach((b) => (b.onclick = async () => {
     const u = db().users.find((x) => x.id === b.dataset.udel);
@@ -628,7 +688,18 @@ function editUser(u) {
         if (pw && pw.length < 6) return toast('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร', 'warning');
         const payload = { user: { ...vals, id: u?.id } };
         if (signature !== undefined) payload.signature = signature;
-        if (pw) { if (store.mode === 'relay') payload.password = pw; else { payload.salt = newSalt(); payload.passwordHash = await hashPassword(pw, payload.salt); } }
+        if (pw) {
+          if (store.mode === 'relay') payload.password = pw;
+          else {
+            payload.salt = newSalt(); payload.passwordHash = await hashPassword(pw, payload.salt);
+            // ผู้ดูแลระบบ/งานครูที่ปรึกษาฯ → สร้างกุญแจให้เข้าสู่ระบบได้ทันทีโดยไม่ต้องใช้ Relay
+            if (['admin', 'guidance'].includes(vals.role)) {
+              const id = u?.id || `u_${Date.now().toString(36)}`;
+              payload.user.id = id;
+              try { payload.loginKey = await store.makeLoginKey(id, pw); } catch (err) { return toast(err.message, 'warning'); }
+            }
+          }
+        }
         if (await run('saveUser', payload, `ผู้ใช้ ${vals.username}`)) api.close();
       };
     },
