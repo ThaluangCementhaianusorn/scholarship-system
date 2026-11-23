@@ -188,7 +188,7 @@ function schCard(v, s) {
     ${s.poster ? `<button class="sch-poster" data-detail="${esc(s.id)}" aria-label="ดูโปสเตอร์"><img src="${esc(s.poster)}" alt="โปสเตอร์ ${esc(s.title)}" loading="lazy"></button>` : ''}
     <div class="sch-top">${catName(v, s.categoryId) ? badge(catName(v, s.categoryId), 'info', 'tag') : ''}${deadlineBadge(s)}</div>
     <h3>${esc(s.title)}</h3>
-    <p class="sch-sponsor">${icon('building')} ${esc(sp.name || '-')} · <span class="muted">${esc(TYPES[s.type] || '')}</span></p>
+    <p class="sch-sponsor">${icon('building')} <span>${esc(sp.name || '-')} <span class="muted">· ${esc(TYPES[s.type] || '')}</span></span></p>
     <div class="sch-amount"><b>${num(s.amount)}</b> บาท/ทุน</div>
     <ul class="sch-facts">
       <li>${icon('users')} โควตา ${num(s.quota)} ทุน · คงเหลือ ${num(quotaLeft)}</li>
