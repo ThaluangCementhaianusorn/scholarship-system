@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-23T02:00:00.000Z",
+  "updatedAt": "2026-11-23T06:42:24.951Z",
   "schema": 2
  },
  "institution": {
@@ -2603,6 +2603,17 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "ykf17"
+  }
+ ],
+ "loginKeys": [
+  {
+   "username": "admin",
+   "name": "ผู้ดูแลระบบ",
+   "role": "admin",
+   "salt": "E8w0nlofilUPtiHI68KOOA==",
+   "iv": "adLTSR+we0BR0t3f",
+   "data": "aaszFzVMiDa3X39Eok69Lkt2O8meQudaYCp3VO2n1MbrEw5ukJ2pw9UmwNEDmSlok04LniGN5cuBg8XgjHHjMR1gIWxKAdmR0ER6QnpO1k1WcKegCna4xHel6LPk9ma4qNHYYHc3AagdwF8MhWDm8u7k9d0xON+04i3RsH6bcIWB3eTmXX791NnWkeY=",
+   "iter": 600000
   }
  ]
 }
