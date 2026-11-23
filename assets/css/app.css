@@ -598,3 +598,29 @@ select { appearance: none; padding-right: 34px; background-image: url("data:imag
 .pp-qr { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; border: 2px solid #1c3fae; border-radius: 12px; padding: 10px; }
 .pp-qr img { width: 5.4cm; height: 5.4cm; } .pp-qr b { font-size: 12pt; color: #1c3fae; } .pp-qr small { font-size: 7pt; color: #555; overflow-wrap: anywhere; }
 .pp-list { margin: 0; padding-left: 20px; font-size: 10.5pt; }
+
+/* ============ login v3 ============ */
+.login { max-width: 480px; }
+.acct-label { font-size: .84rem; font-weight: 600; color: var(--ink-2); }
+.acct-list { display: flex; flex-direction: column; gap: 8px; }
+.acct { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--surface); font: inherit; color: var(--ink); text-align: left; cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s; }
+.acct:hover { border-color: var(--primary); background: var(--primary-soft); }
+.acct.active { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); background: var(--primary-soft); }
+.acct > .ic:last-child { color: var(--muted); }
+.acct-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none; background: var(--primary-soft); color: var(--primary); }
+.acct-ic.admin { background: var(--critical-bg); color: var(--critical); }
+.acct-ic.guidance { background: var(--good-bg); color: var(--good); }
+.acct-text { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.35; }
+.acct-text small { font-size: .78rem; color: var(--muted); }
+.or { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .8rem; }
+.or::before, .or::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 46px; }
+.pw-wrap .icon-btn { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); }
+.token-box { border-top: 1px solid var(--line); padding-top: 12px; }
+.token-box summary { display: flex; align-items: center; gap: 6px; }
+.token-box ol { margin: 10px 0 4px; }
+#topLogin { white-space: nowrap; }
+@media (max-width: 480px) { #topLogin { padding: 4px 10px; font-size: .8rem; } }
+
+[hidden] { display: none !important; }
