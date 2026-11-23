@@ -60,6 +60,13 @@ function drawChrome(key, v) {
   if (store.isStudent) personal = `<div class="nav-label">นักเรียน นักศึกษา</div><div class="nav-group">${link(['my', 'ใบสมัครของฉัน', 'file'])}</div>`;
   if (store.session) personal += `<div class="nav-group">${link(['account', 'บัญชีของฉัน', 'user'])}</div>`;
   $('#nav').innerHTML = `<div class="nav-group">${NAV.map(link).join('')}</div>${personal}`;
+  // แถบเมนูลัดด้านล่าง (มือถือ / จอแนวตั้ง)
+  const mine = store.isStaff ? ['admin', 'งานทุน', 'clipboard'] : store.isStudent ? ['my', 'ใบสมัคร', 'file'] : ['track', 'ติดตาม', 'search'];
+  const tabs = [['', 'หน้าแรก', 'dashboard'], ['scholarships', 'ทุน', 'award'], ['announcements', 'ประกาศ', 'megaphone'], mine];
+  const tabActive = (k) => (k === 'admin' ? key.startsWith('admin') : isActive(k));
+  $('#tabbar').innerHTML = tabs.map(([k, l, ic]) => `<a href="#/${k}" class="${tabActive(k) ? 'active' : ''}"${tabActive(k) ? ' aria-current="page"' : ''}>${icon(ic)}<span>${l}</span></a>`).join('')
+    + `<button type="button" id="tabMenu" aria-label="เมนูทั้งหมด">${icon('menu')}<span>เมนู</span></button>`;
+  $('#tabMenu').onclick = () => document.body.classList.toggle('nav-open');
   const u = store.user;
   $('#userBox').innerHTML = u
     ? `<div class="user-chip"><div class="avatar sm">${icon('user')}</div><div><b>${esc(u.name)}</b><small>${esc(ROLES[u.role]?.label || '')}</small></div><button class="icon-btn" id="logoutBtn" aria-label="ออกจากระบบ" title="ออกจากระบบ">${icon('logout')}</button></div>`
