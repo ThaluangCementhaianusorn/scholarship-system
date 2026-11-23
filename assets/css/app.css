@@ -624,3 +624,50 @@ select { appearance: none; padding-right: 34px; background-image: url("data:imag
 @media (max-width: 480px) { #topLogin { padding: 4px 10px; font-size: .8rem; } }
 
 [hidden] { display: none !important; }
+
+/* ============ portrait posters (A4) ============ */
+.sch-poster { aspect-ratio: 1 / 1.414; background: var(--surface-3); position: relative; }
+.sch-poster img { object-fit: contain; }
+.sch-card.has-poster .sch-poster { margin-bottom: 6px; border-bottom: 1px solid var(--line); }
+.detail-head.with-poster { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 22px; align-items: start; margin-bottom: 8px; }
+.detail-head .detail-poster { margin: 0; position: relative; aspect-ratio: 1 / 1.414; background: var(--surface-3); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.detail-head .detail-poster img { width: 100%; height: 100%; max-height: none; object-fit: contain; }
+.detail-poster .zoom { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 99px; background: rgba(8, 14, 40, .72); color: #fff; font-size: .78rem; white-space: nowrap; opacity: 0; transition: opacity .2s; }
+.detail-poster .zoom .ic { width: 14px; height: 14px; }
+.detail-poster:hover .zoom, .detail-poster:focus-visible .zoom { opacity: 1; }
+.detail-head .detail-stats { grid-template-columns: 1fr; }
+.ann.with-poster { grid-template-columns: 220px minmax(0, 1fr); }
+.ann-poster { aspect-ratio: 1 / 1.414; }
+.ann-poster img { width: 100%; height: 100%; object-fit: contain; }
+.img-prev { width: 110px; height: 156px; }
+.row-media img { width: 40px; height: 56px; object-fit: contain; background: var(--surface-3); }
+@media (max-width: 760px) {
+  .detail-head.with-poster { grid-template-columns: minmax(0, 1fr); }
+  .detail-head .detail-poster { max-width: 300px; width: 100%; margin: 0 auto; }
+  .detail-poster .zoom { opacity: 1; }
+}
+@media (max-width: 640px) { .ann.with-poster { grid-template-columns: minmax(0, 1fr); } .ann-poster { max-width: 300px; margin: 0 auto; width: 100%; } }
+
+/* ============ scholarship cards: portrait poster left ============ */
+#schList.cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); }
+.sch-card, .sch-card.has-poster { display: grid; grid-template-columns: 172px minmax(0, 1fr); gap: 18px; padding: 16px; overflow: visible; }
+.sch-card .sch-poster { margin: 0; width: 100%; aspect-ratio: 1 / 1.414; border-radius: 12px; overflow: hidden; align-self: start; border: 1px solid var(--line); box-shadow: 0 4px 14px rgba(15, 26, 60, .10); }
+.sch-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sch-body .sch-actions { margin-top: auto; }
+.sch-card .sch-facts li { align-items: flex-start; }
+.ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 12px; text-align: center; color: #fff;
+  background: radial-gradient(180px 140px at 80% 0%, rgba(255,255,255,.18), transparent 70%), linear-gradient(165deg, var(--hero-a) 0%, var(--hero-b) 62%, var(--accent) 140%); }
+.ph-logo { width: 58px; height: 58px; object-fit: contain; margin-bottom: 8px; filter: drop-shadow(0 4px 8px rgba(0,0,0,.25)); }
+.ph-cat { font-size: .74rem; padding: 2px 10px; border-radius: 99px; background: rgba(255,255,255,.16); line-height: 1.5; max-width: 100%; }
+.ph-amt { font-size: 1.7rem; font-weight: 700; color: #ffd75e; margin-top: 10px; line-height: 1.1; }
+.ph small { font-size: .74rem; opacity: .9; }
+.ph-year { font-size: .7rem; opacity: .75; margin-top: 10px; }
+.sch-card.is-closed .sch-poster { filter: grayscale(.6); }
+@media (max-width: 520px) {
+  .sch-card, .sch-card.has-poster { grid-template-columns: 112px minmax(0, 1fr); gap: 12px; padding: 12px; }
+  .ph-logo { width: 38px; height: 38px; } .ph-amt { font-size: 1.15rem; } .ph-cat { font-size: .64rem; } .ph-year { display: none; }
+  .sch-body .sch-actions { flex-direction: column; } .sch-body .sch-actions .btn { width: 100%; }
+}
+
+.sch-poster .ph-logo { width: 58px; height: 58px; flex: none; object-fit: contain; transform: none !important; }
+@media (max-width: 520px) { .sch-poster .ph-logo { width: 38px; height: 38px; } }
