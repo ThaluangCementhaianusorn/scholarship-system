@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-23T06:42:24.951Z",
+  "updatedAt": "2026-11-23T06:43:08.901Z",
   "schema": 2
  },
  "institution": {
@@ -833,6 +833,9 @@
    "deadline": "2026-10-31",
    "description": "ทุนสำหรับนักเรียนนักศึกษาที่มีภูมิลำเนาในจังหวัดสระบุรี",
    "categoryId": "cat_need",
+   "maxIncome": "",
+   "poster": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/posters/pos_mwswftw7c84j.jpg",
+   "updatedAt": "2026-11-23T06:43:08.901Z",
    "applicants": 0,
    "approved": 0
   }
