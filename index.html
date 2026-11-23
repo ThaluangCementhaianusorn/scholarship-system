@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>TL Scholarship Management Dashboard</title>
   <meta name="description" content="ระบบสารสนเทศเพื่อการบริหารจัดการและสรุปผลทุนการศึกษา วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์">
   <meta name="theme-color" content="#13288f">
@@ -37,13 +37,14 @@
         <button class="icon-btn only-mobile" id="menuBtn" aria-label="เมนู"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
         <a class="brand only-mobile" href="#/"><img class="brand-logo sm" src="assets/img/logo-128.png" alt=""><b>TL Scholarship</b></a>
         <span class="spacer"></span>
-        <a class="btn ghost sm" id="topLogin" href="#/login"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> เข้าสู่ระบบเจ้าหน้าที่</a>
+        <a class="btn ghost sm" id="topLogin" href="#/login"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> <span class="lbl-long">เข้าสู่ระบบเจ้าหน้าที่</span><span class="lbl-short">เข้าสู่ระบบ</span></a>
         <button class="icon-btn" id="themeBtn" aria-label="สลับโหมดสี"></button>
       </header>
       <main id="view" class="view"><div class="loading"><div class="spinner"></div><p>กำลังโหลดข้อมูล...</p></div></main>
       <footer class="site-foot">© วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์ · TL Scholarship Management Dashboard</footer>
     </div>
   </div>
+  <nav class="tabbar" id="tabbar" aria-label="เมนูลัด"></nav>
   <noscript>กรุณาเปิดใช้งาน JavaScript เพื่อใช้งานระบบ</noscript>
 </body>
 </html>
