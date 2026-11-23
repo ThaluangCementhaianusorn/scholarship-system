@@ -1,7 +1,7 @@
 {
  "meta": {
   "updatedAt": "2026-11-23T02:00:00.000Z",
-  "schema": 1
+  "schema": 2
  },
  "institution": {
   "schoolName": "วิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์",
@@ -9,13 +9,402 @@
   "subtitle": "ระบบสารสนเทศเพื่อการบริหารจัดการและสรุปผลทุนการศึกษา",
   "affiliation": "สำนักงานคณะกรรมการการอาชีวศึกษา",
   "academicYear": "2569",
-  "director": "",
-  "guidanceHead": "",
-  "contactPhone": ""
+  "logo": "",
+  "contactPhone": "",
+  "address": "ต.ตาลเดี่ยว อ.แก่งคอย จ.สระบุรี"
  },
  "settings": {
   "relayUrl": ""
  },
+ "academicYears": [
+  {
+   "id": "y_2567",
+   "year": "2567",
+   "status": "archived",
+   "startDate": "2024-05-16",
+   "endDate": "2025-03-31"
+  },
+  {
+   "id": "y_2568",
+   "year": "2568",
+   "status": "archived",
+   "startDate": "2025-05-16",
+   "endDate": "2026-03-31"
+  },
+  {
+   "id": "y_2569",
+   "year": "2569",
+   "status": "active",
+   "startDate": "2026-05-16",
+   "endDate": "2027-03-31"
+  }
+ ],
+ "officials": {
+  "2567": {
+   "director": {
+    "name": "นายวิทยา ศรีสมบูรณ์ (ตัวอย่าง)",
+    "title": "ผู้อำนวยการ",
+    "position": "ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์",
+    "duties": "พิจารณาอนุมัติทุนการศึกษาและลงนามรับรองเอกสาร"
+   },
+   "deputies": [
+    {
+     "name": "นางสุนีย์ วัฒนกุล (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "position": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "duties": "กำกับดูแลงานการเงินและการเบิกจ่ายทุน",
+     "division": "ฝ่ายบริหารทรัพยากร"
+    },
+    {
+     "name": "นายประพันธ์ ใจกล้า (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "position": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "duties": "ประสานความร่วมมือกับหน่วยงานผู้ให้ทุน",
+     "division": "ฝ่ายยุทธศาสตร์และแผนงาน"
+    },
+    {
+     "name": "นายสมเกียรติ พัฒนา (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "position": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "duties": "ให้ความเห็นการพิจารณาทุนการศึกษา",
+     "division": "ฝ่ายพัฒนากิจการนักเรียน นักศึกษา"
+    },
+    {
+     "name": "นางอรพิน เรียนดี (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "position": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "duties": "ตรวจสอบผลการเรียนผู้สมัครทุน",
+     "division": "ฝ่ายวิชาการ"
+    }
+   ],
+   "guidance": {
+    "name": "นางสาวพิมพ์ใจ แนะแนวดี (ตัวอย่าง)",
+    "title": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "position": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "duties": "ประชาสัมพันธ์ทุน ตรวจสอบเอกสาร และเสนอผลการพิจารณา"
+   },
+   "deptHeads": {
+    "d01": {
+     "name": "นายสุรศักดิ์ มั่นคง",
+     "title": "หัวหน้าแผนกวิชาเทคนิคการผลิต"
+    },
+    "d02": {
+     "name": "นายณรงค์ฤทธิ์ ทองดี",
+     "title": "หัวหน้าแผนกวิชาเทคนิคอุตสาหกรรม"
+    },
+    "d03": {
+     "name": "นายวิเชียร บริการ",
+     "title": "หัวหน้าแผนกวิชาซ่อมบำรุงเครื่องจักรกล"
+    },
+    "d04": {
+     "name": "นายประเสริฐ วงศ์ษา",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีอิเล็กทรอนิกส์"
+    },
+    "d05": {
+     "name": "นายประสิทธิ์ ศรีสวัสดิ์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "position": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "duties": ""
+    },
+    "d06": {
+     "name": "นางสาววราภรณ์ เจริญผล",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีสารสนเทศ"
+    },
+    "d07": {
+     "name": "นางดวงใจ มีทรัพย์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาการบัญชี",
+     "position": "หัวหน้าแผนกวิชาการบัญชี",
+     "duties": ""
+    },
+    "d08": {
+     "name": "นางสาวกัญญาภัทร ดีเลิศ",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีธุรกิจดิจิทัล"
+    },
+    "d09": {
+     "name": "นางสาวศศิธร สดใส",
+     "title": "หัวหน้าแผนกวิชาการตลาด"
+    },
+    "d10": {
+     "name": "นางมาริสา สายธาร",
+     "title": "หัวหน้าแผนกวิชาสามัญสัมพันธ์"
+    },
+    "d11": {
+     "name": "นายเกรียงไกร ช่างกล",
+     "title": "หัวหน้าแผนกวิชาเทคนิคพื้นฐาน"
+    },
+    "d12": {
+     "name": "นายสุรชัย มั่นคง (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาช่างยนต์",
+     "position": "หัวหน้าแผนกวิชาช่างยนต์",
+     "duties": ""
+    },
+    "d13": {
+     "name": "นายกิตติคุณ นวัตกรรม (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "position": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "duties": ""
+    },
+    "d14": {
+     "name": "นายธีรยุทธ ไซเบอร์",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีคอมพิวเตอร์"
+    },
+    "d15": {
+     "name": "นายอัครเดช พลังงานใหม่",
+     "title": "หัวหน้าแผนกวิชายานยนต์ไฟฟ้า"
+    }
+   }
+  },
+  "2568": {
+   "director": {
+    "name": "นายวิทยา ศรีสมบูรณ์ (ตัวอย่าง)",
+    "title": "ผู้อำนวยการ",
+    "position": "ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์",
+    "duties": "พิจารณาอนุมัติทุนการศึกษาและลงนามรับรองเอกสาร"
+   },
+   "deputies": [
+    {
+     "name": "นางสุนีย์ วัฒนกุล (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "position": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "duties": "กำกับดูแลงานการเงินและการเบิกจ่ายทุน",
+     "division": "ฝ่ายบริหารทรัพยากร"
+    },
+    {
+     "name": "นายประพันธ์ ใจกล้า (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "position": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "duties": "ประสานความร่วมมือกับหน่วยงานผู้ให้ทุน",
+     "division": "ฝ่ายยุทธศาสตร์และแผนงาน"
+    },
+    {
+     "name": "นายสมเกียรติ พัฒนา (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "position": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "duties": "ให้ความเห็นการพิจารณาทุนการศึกษา",
+     "division": "ฝ่ายพัฒนากิจการนักเรียน นักศึกษา"
+    },
+    {
+     "name": "นางอรพิน เรียนดี (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "position": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "duties": "ตรวจสอบผลการเรียนผู้สมัครทุน",
+     "division": "ฝ่ายวิชาการ"
+    }
+   ],
+   "guidance": {
+    "name": "นางสาวพิมพ์ใจ แนะแนวดี (ตัวอย่าง)",
+    "title": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "position": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "duties": "ประชาสัมพันธ์ทุน ตรวจสอบเอกสาร และเสนอผลการพิจารณา"
+   },
+   "deptHeads": {
+    "d01": {
+     "name": "นายสุรศักดิ์ มั่นคง",
+     "title": "หัวหน้าแผนกวิชาเทคนิคการผลิต"
+    },
+    "d02": {
+     "name": "นายณรงค์ฤทธิ์ ทองดี",
+     "title": "หัวหน้าแผนกวิชาเทคนิคอุตสาหกรรม"
+    },
+    "d03": {
+     "name": "นายวิเชียร บริการ",
+     "title": "หัวหน้าแผนกวิชาซ่อมบำรุงเครื่องจักรกล"
+    },
+    "d04": {
+     "name": "นายประเสริฐ วงศ์ษา",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีอิเล็กทรอนิกส์"
+    },
+    "d05": {
+     "name": "นายประสิทธิ์ ศรีสวัสดิ์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "position": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "duties": ""
+    },
+    "d06": {
+     "name": "นางสาววราภรณ์ เจริญผล",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีสารสนเทศ"
+    },
+    "d07": {
+     "name": "นางดวงใจ มีทรัพย์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาการบัญชี",
+     "position": "หัวหน้าแผนกวิชาการบัญชี",
+     "duties": ""
+    },
+    "d08": {
+     "name": "นางสาวกัญญาภัทร ดีเลิศ",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีธุรกิจดิจิทัล"
+    },
+    "d09": {
+     "name": "นางสาวศศิธร สดใส",
+     "title": "หัวหน้าแผนกวิชาการตลาด"
+    },
+    "d10": {
+     "name": "นางมาริสา สายธาร",
+     "title": "หัวหน้าแผนกวิชาสามัญสัมพันธ์"
+    },
+    "d11": {
+     "name": "นายเกรียงไกร ช่างกล",
+     "title": "หัวหน้าแผนกวิชาเทคนิคพื้นฐาน"
+    },
+    "d12": {
+     "name": "นายสุรชัย มั่นคง (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาช่างยนต์",
+     "position": "หัวหน้าแผนกวิชาช่างยนต์",
+     "duties": ""
+    },
+    "d13": {
+     "name": "นายกิตติคุณ นวัตกรรม (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "position": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "duties": ""
+    },
+    "d14": {
+     "name": "นายธีรยุทธ ไซเบอร์",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีคอมพิวเตอร์"
+    },
+    "d15": {
+     "name": "นายอัครเดช พลังงานใหม่",
+     "title": "หัวหน้าแผนกวิชายานยนต์ไฟฟ้า"
+    }
+   }
+  },
+  "2569": {
+   "director": {
+    "name": "นายวิทยา ศรีสมบูรณ์ (ตัวอย่าง)",
+    "title": "ผู้อำนวยการ",
+    "position": "ผู้อำนวยการวิทยาลัยเทคนิคท่าหลวงซิเมนต์ไทยอนุสรณ์",
+    "duties": "พิจารณาอนุมัติทุนการศึกษาและลงนามรับรองเอกสาร"
+   },
+   "deputies": [
+    {
+     "name": "นางสุนีย์ วัฒนกุล (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "position": "รองผู้อำนวยการฝ่ายบริหารทรัพยากร",
+     "duties": "กำกับดูแลงานการเงินและการเบิกจ่ายทุน",
+     "division": "ฝ่ายบริหารทรัพยากร"
+    },
+    {
+     "name": "นายประพันธ์ ใจกล้า (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "position": "รองผู้อำนวยการฝ่ายยุทธศาสตร์และแผนงาน",
+     "duties": "ประสานความร่วมมือกับหน่วยงานผู้ให้ทุน",
+     "division": "ฝ่ายยุทธศาสตร์และแผนงาน"
+    },
+    {
+     "name": "นายสมเกียรติ พัฒนา (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "position": "รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา",
+     "duties": "ให้ความเห็นการพิจารณาทุนการศึกษา",
+     "division": "ฝ่ายพัฒนากิจการนักเรียน นักศึกษา"
+    },
+    {
+     "name": "นางอรพิน เรียนดี (ตัวอย่าง)",
+     "title": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "position": "รองผู้อำนวยการฝ่ายวิชาการ",
+     "duties": "ตรวจสอบผลการเรียนผู้สมัครทุน",
+     "division": "ฝ่ายวิชาการ"
+    }
+   ],
+   "guidance": {
+    "name": "นางสาวพิมพ์ใจ แนะแนวดี (ตัวอย่าง)",
+    "title": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "position": "หัวหน้างานครูที่ปรึกษาและการแนะแนว",
+    "duties": "ประชาสัมพันธ์ทุน ตรวจสอบเอกสาร และเสนอผลการพิจารณา"
+   },
+   "deptHeads": {
+    "d01": {
+     "name": "นายสุรศักดิ์ มั่นคง",
+     "title": "หัวหน้าแผนกวิชาเทคนิคการผลิต"
+    },
+    "d02": {
+     "name": "นายณรงค์ฤทธิ์ ทองดี",
+     "title": "หัวหน้าแผนกวิชาเทคนิคอุตสาหกรรม"
+    },
+    "d03": {
+     "name": "นายวิเชียร บริการ",
+     "title": "หัวหน้าแผนกวิชาซ่อมบำรุงเครื่องจักรกล"
+    },
+    "d04": {
+     "name": "นายประเสริฐ วงศ์ษา",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีอิเล็กทรอนิกส์"
+    },
+    "d05": {
+     "name": "นายประสิทธิ์ ศรีสวัสดิ์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "position": "หัวหน้าแผนกวิชาไฟฟ้ากำลัง",
+     "duties": ""
+    },
+    "d06": {
+     "name": "นางสาววราภรณ์ เจริญผล",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีสารสนเทศ"
+    },
+    "d07": {
+     "name": "นางดวงใจ มีทรัพย์ (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาการบัญชี",
+     "position": "หัวหน้าแผนกวิชาการบัญชี",
+     "duties": ""
+    },
+    "d08": {
+     "name": "นางสาวกัญญาภัทร ดีเลิศ",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีธุรกิจดิจิทัล"
+    },
+    "d09": {
+     "name": "นางสาวศศิธร สดใส",
+     "title": "หัวหน้าแผนกวิชาการตลาด"
+    },
+    "d10": {
+     "name": "นางมาริสา สายธาร",
+     "title": "หัวหน้าแผนกวิชาสามัญสัมพันธ์"
+    },
+    "d11": {
+     "name": "นายเกรียงไกร ช่างกล",
+     "title": "หัวหน้าแผนกวิชาเทคนิคพื้นฐาน"
+    },
+    "d12": {
+     "name": "นายสุรชัย มั่นคง (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาช่างยนต์",
+     "position": "หัวหน้าแผนกวิชาช่างยนต์",
+     "duties": ""
+    },
+    "d13": {
+     "name": "นายกิตติคุณ นวัตกรรม (ตัวอย่าง)",
+     "title": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "position": "หัวหน้าแผนกวิชาเมคคาทรอนิกส์",
+     "duties": ""
+    },
+    "d14": {
+     "name": "นายธีรยุทธ ไซเบอร์",
+     "title": "หัวหน้าแผนกวิชาเทคโนโลยีคอมพิวเตอร์"
+    },
+    "d15": {
+     "name": "นายอัครเดช พลังงานใหม่",
+     "title": "หัวหน้าแผนกวิชายานยนต์ไฟฟ้า"
+    }
+   }
+  }
+ },
+ "categories": [
+  {
+   "id": "cat_merit",
+   "name": "ทุนเรียนดี"
+  },
+  {
+   "id": "cat_need",
+   "name": "ทุนขาดแคลนทุนทรัพย์"
+  },
+  {
+   "id": "cat_talent",
+   "name": "ทุนความสามารถพิเศษ / กิจกรรม"
+  },
+  {
+   "id": "cat_career",
+   "name": "ทุนพัฒนาวิชาชีพ / ทุนทำงาน"
+  },
+  {
+   "id": "cat_cont",
+   "name": "ทุนต่อเนื่องจนจบการศึกษา"
+  }
+ ],
  "departments": [
   {
    "id": "d01",
@@ -212,6 +601,7 @@
    "openDate": "2026-11-01",
    "deadline": "2026-12-20",
    "description": "ทุนสนับสนุนนักศึกษาสายช่างอุตสาหกรรมที่มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี",
+   "categoryId": "cat_career",
    "applicants": 3,
    "approved": 1
   },
@@ -247,6 +637,7 @@
    "openDate": "2026-11-10",
    "deadline": "2026-12-31",
    "description": "ทุนการศึกษาพร้อมโอกาสฝึกงานและพิจารณาเข้าทำงานกับบริษัทหลังสำเร็จการศึกษา",
+   "categoryId": "cat_career",
    "applicants": 2,
    "approved": 0
   },
@@ -276,6 +667,7 @@
    "deadline": "2027-01-15",
    "description": "ทุนส่งเสริมนักเรียนนักศึกษาที่มีผลการเรียนดีและขาดแคลนทุนทรัพย์",
    "maxIncome": 200000,
+   "categoryId": "cat_need",
    "applicants": 2,
    "approved": 1
   },
@@ -308,6 +700,7 @@
    "openDate": "2026-11-01",
    "deadline": "2026-12-05",
    "description": "ทุนสำหรับนักศึกษาสายบริหารธุรกิจ",
+   "categoryId": "cat_merit",
    "applicants": 1,
    "approved": 0
   },
@@ -337,6 +730,7 @@
    "openDate": "2026-11-15",
    "deadline": "2027-01-31",
    "description": "ทุนสำหรับนักศึกษาที่มีศักยภาพแต่ขาดแคลนทุนทรัพย์ ครอบคลุมค่าเล่าเรียนและค่าครองชีพ",
+   "categoryId": "cat_cont",
    "applicants": 1,
    "approved": 0
   },
@@ -379,6 +773,7 @@
    "openDate": "2026-11-01",
    "deadline": "2026-12-25",
    "description": "ทุนยกย่องนักเรียนนักศึกษาผลการเรียนดีเด่น",
+   "categoryId": "cat_merit",
    "applicants": 2,
    "approved": 1
   },
@@ -408,6 +803,7 @@
    "openDate": "2026-11-01",
    "deadline": "2027-01-10",
    "description": "ทุนช่วยเหลือนักเรียนนักศึกษาที่มีปัญหาด้านค่าใช้จ่าย",
+   "categoryId": "cat_need",
    "applicants": 2,
    "approved": 0
   },
@@ -436,6 +832,7 @@
    "openDate": "2026-09-01",
    "deadline": "2026-10-31",
    "description": "ทุนสำหรับนักเรียนนักศึกษาที่มีภูมิลำเนาในจังหวัดสระบุรี",
+   "categoryId": "cat_need",
    "applicants": 0,
    "approved": 0
   }
@@ -503,6 +900,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "v5jzpz"
   },
   {
@@ -517,6 +915,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "wuz1pb"
   },
   {
@@ -531,6 +930,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "wvh0sy"
   },
   {
@@ -545,6 +945,7 @@
    "amount": 18000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1t0n9ug"
   },
   {
@@ -559,6 +960,7 @@
    "amount": 18000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1qsnasp"
   },
   {
@@ -573,6 +975,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "eewnb"
   },
   {
@@ -587,6 +990,7 @@
    "amount": 2500,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "umz2nk"
   },
   {
@@ -601,6 +1005,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "1qihe3s"
   },
   {
@@ -615,6 +1020,7 @@
    "amount": 6000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "v5jzpz"
   },
   {
@@ -629,6 +1035,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "vqubxh"
   },
   {
@@ -643,6 +1050,7 @@
    "amount": 6000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "v5jzpz"
   },
   {
@@ -657,6 +1065,7 @@
    "amount": 18000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1p4mj4w"
   },
   {
@@ -671,6 +1080,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1sg2m5"
   },
   {
@@ -685,6 +1095,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1iggx6"
   },
   {
@@ -699,6 +1110,7 @@
    "amount": 2500,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "wkwaid"
   },
   {
@@ -713,6 +1125,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "trlz94"
   },
   {
@@ -727,6 +1140,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1y1o3nj"
   },
   {
@@ -741,6 +1155,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1yvjr8h"
   },
   {
@@ -755,6 +1170,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "v6v4jj"
   },
   {
@@ -769,6 +1185,7 @@
    "amount": 2500,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "v5jzpz"
   },
   {
@@ -783,6 +1200,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "xev3la"
   },
   {
@@ -797,6 +1215,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "wjl5ot"
   },
   {
@@ -811,6 +1230,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1pem4tv"
   },
   {
@@ -825,6 +1245,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1tkmh8e"
   },
   {
@@ -839,6 +1260,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "2cifi2"
   },
   {
@@ -853,6 +1275,7 @@
    "amount": 2000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "ykf17"
   },
   {
@@ -867,6 +1290,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1qihe3s"
   },
   {
@@ -881,6 +1305,7 @@
    "amount": 18000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "w03xei"
   },
   {
@@ -895,6 +1320,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "2cifi2"
   },
   {
@@ -909,6 +1335,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "1ybkjuj"
   },
   {
@@ -923,6 +1350,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "wvh0sy"
   },
   {
@@ -937,6 +1365,7 @@
    "amount": 2000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "1iggx6"
   },
   {
@@ -951,6 +1380,7 @@
    "amount": 18000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1qihe3s"
   },
   {
@@ -965,6 +1395,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1qsnasp"
   },
   {
@@ -979,6 +1410,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "xfd2ox"
   },
   {
@@ -993,6 +1425,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1pem4tv"
   },
   {
@@ -1007,6 +1440,7 @@
    "amount": 2500,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "x5dgzy"
   },
   {
@@ -1021,6 +1455,7 @@
    "amount": 3000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "vqxhfg"
   },
   {
@@ -1035,6 +1470,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1sg2m5"
   },
   {
@@ -1049,6 +1485,7 @@
    "amount": 5000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "watjbf"
   },
   {
@@ -1063,6 +1500,7 @@
    "amount": 10000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1tkmh8e"
   },
   {
@@ -1077,6 +1515,7 @@
    "amount": 4000,
    "year": "2567",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "v6v4jj"
   },
   {
@@ -1091,6 +1530,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "2cifi2"
   },
   {
@@ -1105,6 +1545,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1q8hset"
   },
   {
@@ -1119,6 +1560,7 @@
    "amount": 10500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1pem4tv"
   },
   {
@@ -1133,6 +1575,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "1rcpnom"
   },
   {
@@ -1147,6 +1590,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "vzlyav"
   },
   {
@@ -1161,6 +1605,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "1y1o3nj"
   },
   {
@@ -1175,6 +1620,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1uykhp9"
   },
   {
@@ -1189,6 +1635,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "vzlyav"
   },
   {
@@ -1203,6 +1650,7 @@
    "amount": 6500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1w3nqar"
   },
   {
@@ -1217,6 +1665,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1sg2m5"
   },
   {
@@ -1231,6 +1680,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "1sg2m5"
   },
   {
@@ -1245,6 +1695,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "u1lky3"
   },
   {
@@ -1259,6 +1710,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "2cifi2"
   },
   {
@@ -1273,6 +1725,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "4iggb"
   },
   {
@@ -1287,6 +1740,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "wuz1pb"
   },
   {
@@ -1301,6 +1755,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "1rwlpkl"
   },
   {
@@ -1315,6 +1770,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "v5jzpz"
   },
   {
@@ -1329,6 +1785,7 @@
    "amount": 6500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1uykhp9"
   },
   {
@@ -1343,6 +1800,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1qihe3s"
   },
   {
@@ -1357,6 +1815,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "1rcpnom"
   },
   {
@@ -1371,6 +1830,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "2mi171"
   },
   {
@@ -1385,6 +1845,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "watjbf"
   },
   {
@@ -1399,6 +1860,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "xoupa9"
   },
   {
@@ -1413,6 +1875,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1q8hset"
   },
   {
@@ -1427,6 +1890,7 @@
    "amount": 6500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "ohnu9"
   },
   {
@@ -1441,6 +1905,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1iggx6"
   },
   {
@@ -1455,6 +1920,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1iggx6"
   },
   {
@@ -1469,6 +1935,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "uboc51"
   },
   {
@@ -1483,6 +1950,7 @@
    "amount": 6500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1qsnasp"
   },
   {
@@ -1497,6 +1965,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "ye419"
   },
   {
@@ -1511,6 +1980,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "1r2jqzp"
   },
   {
@@ -1525,6 +1995,7 @@
    "amount": 10500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1okk68z"
   },
   {
@@ -1539,6 +2010,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "wvh0sy"
   },
   {
@@ -1553,6 +2025,7 @@
    "amount": 10500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "v5jzpz"
   },
   {
@@ -1567,6 +2040,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1qsnasp"
   },
   {
@@ -1581,6 +2055,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1p4mj4w"
   },
   {
@@ -1595,6 +2070,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "tsx42o"
   },
   {
@@ -1609,6 +2085,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "u2wprn"
   },
   {
@@ -1623,6 +2100,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "vrim12"
   },
   {
@@ -1637,6 +2115,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "u2wprn"
   },
   {
@@ -1651,6 +2130,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "1w3nqar"
   },
   {
@@ -1665,6 +2145,7 @@
    "amount": 19000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "u1lky3"
   },
   {
@@ -1679,6 +2160,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "trlz94"
   },
   {
@@ -1693,6 +2175,7 @@
    "amount": 2000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "w0txmg"
   },
   {
@@ -1707,6 +2190,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "vqubxh"
   },
   {
@@ -1721,6 +2205,7 @@
    "amount": 2500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "4iggb"
   },
   {
@@ -1735,6 +2220,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "wjl5ot"
   },
   {
@@ -1749,6 +2235,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "vhfuu4"
   },
   {
@@ -1763,6 +2250,7 @@
    "amount": 3000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "vhfuu4"
   },
   {
@@ -1777,6 +2265,7 @@
    "amount": 5500,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "ykf17"
   },
   {
@@ -1791,6 +2280,7 @@
    "amount": 4000,
    "year": "2568",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1q8hset"
   },
   {
@@ -1805,6 +2295,7 @@
    "amount": 4500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "2cifi2"
   },
   {
@@ -1819,6 +2310,7 @@
    "amount": 4500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "umz2nk"
   },
   {
@@ -1833,6 +2325,7 @@
    "amount": 5500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "2mi171"
   },
   {
@@ -1847,6 +2340,7 @@
    "amount": 4500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "v5jzpz"
   },
   {
@@ -1861,6 +2355,7 @@
    "amount": 3500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "yjemys"
   },
   {
@@ -1875,6 +2370,7 @@
    "amount": 6500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "vqxhfg"
   },
   {
@@ -1889,6 +2385,7 @@
    "amount": 3500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "vrim12"
   },
   {
@@ -1903,6 +2400,7 @@
    "amount": 5500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "tsx42o"
   },
   {
@@ -1917,6 +2415,7 @@
    "amount": 3000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "18gv87"
   },
   {
@@ -1931,6 +2430,7 @@
    "amount": 20000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_cont",
    "pid": "1pylc7t"
   },
   {
@@ -1945,6 +2445,7 @@
    "amount": 4500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "1okk68z"
   },
   {
@@ -1959,6 +2460,7 @@
    "amount": 11000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "1tkmh8e"
   },
   {
@@ -1973,6 +2475,7 @@
    "amount": 5500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "vzlyav"
   },
   {
@@ -1987,6 +2490,7 @@
    "amount": 6500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "watjbf"
   },
   {
@@ -2001,6 +2505,7 @@
    "amount": 4500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "vzlyav"
   },
   {
@@ -2015,6 +2520,7 @@
    "amount": 3500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "x5dgzy"
   },
   {
@@ -2029,6 +2535,7 @@
    "amount": 5500,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "tsx42o"
   },
   {
@@ -2043,6 +2550,7 @@
    "amount": 2000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_talent",
    "pid": "vrim12"
   },
   {
@@ -2059,6 +2567,7 @@
    "amount": 8000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_career",
    "pid": "u2wprn"
   },
   {
@@ -2075,6 +2584,7 @@
    "amount": 5000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_need",
    "pid": "vfmqwx"
   },
   {
@@ -2091,6 +2601,7 @@
    "amount": 3000,
    "year": "2569",
    "sample": true,
+   "categoryId": "cat_merit",
    "pid": "ykf17"
   }
  ]
