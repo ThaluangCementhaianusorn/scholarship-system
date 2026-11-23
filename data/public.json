@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-23T06:44:22.242Z",
+  "updatedAt": "2026-11-23T06:45:59.055Z",
   "schema": 2
  },
  "institution": {
@@ -9,7 +9,7 @@
   "subtitle": "ระบบสารสนเทศเพื่อการบริหารจัดการและสรุปผลทุนการศึกษา",
   "affiliation": "สำนักงานคณะกรรมการการอาชีวศึกษา",
   "academicYear": "2569",
-  "logo": "",
+  "logo": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/logo/log_mwswjhn26wt2.png",
   "contactPhone": "",
   "address": "ต.ตาลเดี่ยว อ.แก่งคอย จ.สระบุรี"
  },
