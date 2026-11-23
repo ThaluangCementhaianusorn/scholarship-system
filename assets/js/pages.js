@@ -184,8 +184,13 @@ export const scholarships = {
 function schCard(v, s) {
   const sp = sponsor(v, s.sponsorId);
   const quotaLeft = Math.max(0, (Number(s.quota) || 0) - (s.approved || 0));
-  return `<article class="card sch-card ${isOpen(s) ? '' : 'is-closed'} ${s.poster ? 'has-poster' : ''}">
-    ${s.poster ? `<button class="sch-poster" data-detail="${esc(s.id)}" aria-label="ดูโปสเตอร์"><img src="${esc(s.poster)}" alt="โปสเตอร์ ${esc(s.title)}" loading="lazy"></button>` : ''}
+  // โปสเตอร์แนวตั้ง (A4) ด้านซ้าย — ถ้าไม่มีโปสเตอร์ใช้ภาพแทนที่ออกแบบจากข้อมูลทุน
+  const poster = s.poster
+    ? `<img src="${esc(s.poster)}" alt="โปสเตอร์ ${esc(s.title)}" loading="lazy">`
+    : `<div class="ph"><img class="ph-logo" src="${esc(v.institution?.logo || 'assets/img/logo-128.png')}" alt=""><span class="ph-cat">${esc(catName(v, s.categoryId) || 'ทุนการศึกษา')}</span><b class="ph-amt">${num(s.amount)}</b><small>บาท / ทุน</small><span class="ph-year">ปีการศึกษา ${esc(s.year)}</span></div>`;
+  return `<article class="card sch-card ${isOpen(s) ? '' : 'is-closed'}">
+    <button class="sch-poster" data-detail="${esc(s.id)}" aria-label="ดูรายละเอียดและโปสเตอร์ ${esc(s.title)}">${poster}</button>
+    <div class="sch-body">
     <div class="sch-top">${catName(v, s.categoryId) ? badge(catName(v, s.categoryId), 'info', 'tag') : ''}${deadlineBadge(s)}</div>
     <h3>${esc(s.title)}</h3>
     <p class="sch-sponsor">${icon('building')} <span>${esc(sp.name || '-')} <span class="muted">· ${esc(TYPES[s.type] || '')}</span></span></p>
@@ -199,6 +204,7 @@ function schCard(v, s) {
       <button class="btn ghost" data-detail="${esc(s.id)}">${icon('eye')} รายละเอียด</button>
       ${isOpen(s) ? `<a class="btn primary" href="#/apply/${esc(s.id)}">${icon('send')} สมัครทุนนี้</a>` : ''}
     </div>
+    </div>
   </article>`;
 }
 
@@ -211,11 +217,15 @@ export function schDetail(v, id) {
   modal({
     title: s.title, size: 'lg',
     body: `<div class="detail">
-      ${s.poster ? `<a class="detail-poster" href="${esc(s.poster)}" target="_blank" rel="noopener"><img src="${esc(s.poster)}" alt="โปสเตอร์ประชาสัมพันธ์"></a>` : ''}
+      <div class="detail-head ${s.poster ? 'with-poster' : ''}">
+      ${s.poster ? `<a class="detail-poster" href="${esc(s.poster)}" target="_blank" rel="noopener" title="เปิดโปสเตอร์ขนาดเต็ม"><img src="${esc(s.poster)}" alt="โปสเตอร์ประชาสัมพันธ์"><span class="zoom">${icon('eye')} ดูขนาดเต็ม</span></a>` : ''}
+      <div>
       <div class="detail-badges">${catName(v, s.categoryId) ? badge(catName(v, s.categoryId), 'info', 'tag') : ''}${badge(TYPES[s.type], 'neutral')}${deadlineBadge(s)}${badge(`ปีการศึกษา ${s.year}`, 'neutral')}</div>
       <div class="detail-stats"><div><span>จำนวนเงิน</span><b>${baht(s.amount)}</b></div><div><span>จำนวนทุน</span><b>${num(s.quota)} ทุน</b></div><div><span>รับสมัคร</span><b>${thDate(s.openDate)} – ${thDate(s.deadline)}</b></div></div>
+      ${s.poster ? `<p>${esc(s.description || '')}</p>` : ''}
+      </div></div>
       <div class="detail-cols"><div>
-        <p>${esc(s.description || '')}</p>
+        ${s.poster ? '' : `<p>${esc(s.description || '')}</p>`}
         <h4>หน่วยงานผู้ให้ทุน</h4><p>${esc(sp.name || '-')} ${sp.website ? `· <a href="${esc(sp.website)}" target="_blank" rel="noopener">เว็บไซต์</a>` : ''}</p>
         <h4>คุณสมบัติผู้สมัคร</h4>
         <ul class="checklist">
