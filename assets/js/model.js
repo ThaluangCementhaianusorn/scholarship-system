@@ -162,6 +162,8 @@ export function buildPublic(db, opts) {
       return base;
     }),
     users: mask ? undefined : (db.users || []).map((u) => safeUser(u, true)),
+    // กุญแจเข้าสู่ระบบที่เข้ารหัสด้วยรหัสผ่าน (ผู้ดูแลระบบ/งานครูที่ปรึกษาฯ) — ไม่มี token แบบเปิดเผย
+    loginKeys: (db.loginKeys || []).map((k) => ({ username: k.username, name: k.name, role: k.role, salt: k.salt, iv: k.iv, data: k.data, iter: k.iter })),
   };
 }
 
