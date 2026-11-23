@@ -1,14 +1,17 @@
 import { CONFIG } from './config.js';
 import { GitHub, b64FromText, b64FromBytes } from './github.js';
-import { buildPublic, newId, appCode } from './model.js';
+import { buildPublic, newId, appCode, safeUser } from './model.js';
 import { applyOp, can as canDo, ensureShape } from './ops.js';
+import { sealKey, openKey, passwordProblem, KEY_ROLES } from './auth.js';
 
 const LS_SESSION = 'tl_session_v2';
+// persist=true → จดจำในเครื่อง (localStorage) / false → จนกว่าจะปิดเบราว์เซอร์ (sessionStorage)
 const ls = {
-  get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch { return null; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
-  del(k) { try { localStorage.removeItem(k); } catch {} },
+  get(k) { for (const s of ['localStorage', 'sessionStorage']) { try { const v = window[s].getItem(k); if (v) return JSON.parse(v); } catch {} } return null; },
+  set(k, v, persist = true) { try { window[persist ? 'localStorage' : 'sessionStorage'].setItem(k, JSON.stringify(v)); window[persist ? 'sessionStorage' : 'localStorage'].removeItem(k); } catch {} },
+  del(k) { for (const s of ['localStorage', 'sessionStorage']) { try { window[s].removeItem(k); } catch {} } },
 };
+const saveSession = (s) => ls.set(LS_SESSION, s, s.persist !== false);
 const publicKey = (p) => JSON.stringify({ ...p, meta: { ...p.meta, updatedAt: '' } });
 const GH_ADMIN = { id: 'gh-admin', username: 'github-admin', name: 'ผู้ดูแลระบบ', role: 'admin', position: 'ผู้ดูแลระบบ', active: true };
 
@@ -105,13 +108,20 @@ export const store = {
       if (r.notModified) return false;
       if (r.missing) throw new Error(`ไม่พบไฟล์ ${CONFIG.dbPath} ใน repo ${CONFIG.dbRepo}`);
       Object.assign(this, { db: ensureShape(r.data), dbSha: r.sha, dbEtag: r.etag });
+      // เข้าสู่ระบบด้วยรหัสผ่าน (กุญแจ) → ใช้สิทธิ์ตามบทบาทของบัญชีจริง
+      if (this.session.userId) {
+        const u = this.db.users.find((x) => x.id === this.session.userId);
+        if (!u || u.active === false || !KEY_ROLES.includes(u.role)) { this.logout(); throw new Error('บัญชีนี้ถูกระงับหรือไม่มีสิทธิ์แล้ว'); }
+        this.session.user = safeUser(u);
+        saveSession(this.session);
+      }
       return true;
     }
     if (this.mode === 'relay') {
       const before = this.db?.meta?.updatedAt || this.mine?.length;
       const r = await this.relay({ action: 'getDb', session: this.session.session });
       this.lastSync = new Date();
-      if (r.user) { this.session.user = r.user; ls.set(LS_SESSION, this.session); }
+      if (r.user) { this.session.user = r.user; saveSession(this.session); }
       if (this.user.role === 'student') { this.mine = r.data.mine; this.db = null; await this.loadPublic(); return true; }
       this.db = ensureShape(r.data);
       return force || before !== this.db.meta?.updatedAt;
@@ -119,14 +129,14 @@ export const store = {
     return false;
   },
 
-  async loginToken(token) {
+  async loginToken(token, persist = true) {
     const prev = this.session;
-    this.session = { mode: 'github', token: token.trim(), user: GH_ADMIN };
+    this.session = { mode: 'github', token: token.trim(), user: GH_ADMIN, persist };
     try {
       const repo = await this.gh().repo(CONFIG.dbRepo);
       if (!repo.permissions?.push) throw new Error('Token นี้ไม่มีสิทธิ์เขียนฐานข้อมูล (ต้องการ Contents: Read and write)');
       await this.loadPrivate(true);
-      ls.set(LS_SESSION, this.session);
+      saveSession(this.session);
       this.emit('auth');
     } catch (e) {
       this.session = prev;
@@ -136,13 +146,42 @@ export const store = {
     }
   },
 
-  async loginPassword(username, password) {
-    const r = await this.relay({ action: 'login', username: username.trim().toLowerCase(), password });
-    this.session = { mode: 'relay', session: r.session, user: r.user };
+  // บัญชีที่เข้าสู่ระบบด้วยรหัสผ่านได้โดยไม่ต้องใช้ Relay
+  loginAccounts() { return this.pub?.loginKeys || []; },
+
+  async loginPassword(username, password, persist = true) {
+    const uname = username.trim().toLowerCase();
+    await this.loadPublic().catch(() => {});
+    const k = this.loginAccounts().find((x) => x.username === uname);
+    if (k) {
+      let payload;
+      try { payload = await openKey(k, password); } catch { throw new Error('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'); }
+      this.session = { mode: 'github', token: payload.token, userId: payload.userId, user: { id: payload.userId, username: uname, name: k.name, role: k.role }, persist };
+      try { await this.loadPrivate(true); } catch (e) {
+        this.session = null;
+        if (e.status === 401 || e.status === 403 || e.status === 404) throw new Error('กุญแจเข้าสู่ระบบหมดอายุ (GitHub Token ถูกเปลี่ยนหรือหมดอายุ) — ให้ผู้ดูแลระบบเข้าสู่ระบบด้วย Token ใหม่ แล้วตั้งรหัสผ่านให้บัญชีนี้อีกครั้ง');
+        throw e;
+      }
+      saveSession(this.session);
+      this.emit('auth');
+      return;
+    }
+    if (!this.relayUrl()) throw new Error('ไม่พบบัญชีนี้ หรือบัญชีนี้ยังไม่ได้ตั้งรหัสผ่าน — ติดต่อผู้ดูแลระบบ');
+    const r = await this.relay({ action: 'login', username: uname, password });
+    this.session = { mode: 'relay', session: r.session, user: r.user, persist };
     try { await this.loadPrivate(true); } catch (e) { this.session = null; throw e; }
-    ls.set(LS_SESSION, this.session);
+    saveSession(this.session);
     this.emit('auth');
   },
+
+  // สร้างกุญแจเข้าสู่ระบบ (ต้องเข้าสู่ระบบแบบ GitHub อยู่ เพื่อใช้ token ปัจจุบัน)
+  async makeLoginKey(userId, password) {
+    if (this.mode !== 'github' || !this.session.token) throw new Error('ต้องเข้าสู่ระบบด้วย GitHub Token หรือบัญชีผู้ดูแลระบบก่อน');
+    const problem = passwordProblem(password);
+    if (problem) throw new Error(problem);
+    return sealKey({ token: this.session.token, userId }, password);
+  },
+  hasLoginKey(userId) { return (this.db?.loginKeys || []).some((k) => k.userId === userId); },
 
   logout(silent) {
     ls.del(LS_SESSION);
@@ -292,6 +331,14 @@ export const store = {
   },
 
   async changePassword(oldPw, newPw) {
+    if (this.mode === 'github' && this.session.userId) {
+      const k = this.db.loginKeys.find((x) => x.userId === this.session.userId);
+      try { await openKey(k, oldPw); } catch { throw new Error('รหัสผ่านเดิมไม่ถูกต้อง'); }
+      const loginKey = await this.makeLoginKey(this.session.userId, newPw);
+      const salt = newSalt();
+      await this.op('myProfile', { passwordHash: await hashPassword(newPw, salt), salt, loginKey }, 'เปลี่ยนรหัสผ่าน');
+      return;
+    }
     if (this.mode !== 'relay') throw new Error('ใช้ได้เฉพาะบัญชีผู้ใช้');
     await this.relay({ action: 'changePassword', session: this.session.session, oldPassword: oldPw, newPassword: newPw });
   },
