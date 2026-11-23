@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-23T06:45:59.055Z",
+  "updatedAt": "2026-11-23T06:48:17.500Z",
   "schema": 2
  },
  "institution": {
@@ -14,7 +14,7 @@
   "address": "ต.ตาลเดี่ยว อ.แก่งคอย จ.สระบุรี"
  },
  "settings": {
-  "relayUrl": ""
+  "relayUrl": "https://script.google.com/macros/s/AKfycbyVUM4Izj10Mqv5-cm5pKnf5wvUdoaeJ5D1dIi6ALHFyfHucBnWbtoDRVQkujPtQDyr/exec"
  },
  "academicYears": [
   {
