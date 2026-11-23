@@ -65,6 +65,13 @@ const P = {
   paperclip: '<path d="m21.4 11-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/>',
   database: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/>',
   arrowRight: '<path d="M5 12h14M12 5l7 7-7 7"/>',
+  image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',
+  qr: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/>',
+  pen: '<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  tag: '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/>',
+  clipboard: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
 };
 export const icon = (name, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[name] || ''}</svg>`;
 
@@ -132,6 +139,7 @@ export function field(f, v) {
     case 'lines': input = `<textarea id="${id}" name="${f.name}" rows="${f.rows || 4}" ${ph}>${esc((v || []).join('\n'))}</textarea>`; break;
     case 'select': input = `<select id="${id}" name="${f.name}" ${req}>${f.empty !== undefined ? `<option value="">${esc(f.empty)}</option>` : ''}${f.options.map((o) => `<option value="${esc(o.value)}" ${String(o.value) === String(v ?? '') ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}</select>`; break;
     case 'chips': input = `<div class="chips" id="${id}">${f.options.map((o) => `<label class="chip"><input type="checkbox" name="${f.name}" value="${esc(o.value)}" ${(v || []).includes(o.value) ? 'checked' : ''}><span>${esc(o.label)}</span></label>`).join('')}</div>`; break;
+    case 'image': input = `<div class="img-field"><input type="hidden" name="${f.name}" value="${esc(v)}"><div class="img-prev">${v ? `<img src="${esc(v)}" alt="">` : icon('image')}</div><div class="img-actions"><label class="btn ghost sm">${icon('upload')} เลือกรูปภาพ<input type="file" accept="image/png,image/jpeg,image/webp" hidden></label><button type="button" class="btn ghost sm" data-clear ${v ? '' : 'hidden'}>${icon('trash')} ลบรูป</button><small class="hint">${esc(f.hint || 'JPG/PNG ระบบจะย่อขนาดให้อัตโนมัติ')}</small></div></div>`; f = { ...f, hint: '' }; break;
     case 'checkbox': input = `<label class="switch"><input type="checkbox" id="${id}" name="${f.name}" ${v ? 'checked' : ''}><span>${esc(f.text || '')}</span></label>`; break;
     default: input = `<input id="${id}" name="${f.name}" type="${f.type || 'text'}" value="${esc(v)}" ${req} ${ph} ${f.step ? `step="${f.step}"` : ''} ${f.min !== undefined ? `min="${f.min}"` : ''} ${f.max !== undefined ? `max="${f.max}"` : ''} ${f.pattern ? `pattern="${f.pattern}"` : ''} ${f.inputmode ? `inputmode="${f.inputmode}"` : ''}>`;
   }
@@ -148,6 +156,61 @@ export function readForm(form, fields) {
     else out[f.name] = form.elements[f.name].value.trim();
   }
   return out;
+}
+
+// ผูกช่องอัปโหลดรูปภาพในฟอร์ม: uploader(file) => Promise<url>
+export function bindImageFields(root, uploader) {
+  $$('.img-field', root).forEach((box) => {
+    const hidden = $('input[type=hidden]', box); const file = $('input[type=file]', box); const prev = $('.img-prev', box); const clr = $('[data-clear]', box);
+    file.onchange = async () => {
+      const f = file.files[0]; if (!f) return;
+      prev.innerHTML = `<div class="spinner sm"></div>`;
+      try { const url = await uploader(f); hidden.value = url; prev.innerHTML = `<img src="${esc(url)}" alt="">`; clr.hidden = false; toast('อัปโหลดรูปภาพแล้ว'); }
+      catch (e) { prev.innerHTML = hidden.value ? `<img src="${esc(hidden.value)}" alt="">` : icon('image'); toast(e.message, 'critical'); }
+      file.value = '';
+    };
+    clr.onclick = () => { hidden.value = ''; prev.innerHTML = icon('image'); clr.hidden = true; };
+  });
+}
+
+// QR Code → data URL (ใช้ไลบรารี qrcodejs)
+export function qrDataUrl(text, size = 240) {
+  if (!window.QRCode) return '';
+  const div = document.createElement('div');
+  new window.QRCode(div, { text, width: size, height: size, colorDark: '#0b1530', colorLight: '#ffffff', correctLevel: window.QRCode.CorrectLevel.M });
+  const c = div.querySelector('canvas');
+  return c ? c.toDataURL('image/png') : (div.querySelector('img')?.src || '');
+}
+export const applyUrl = (id) => `${location.origin}${location.pathname}#/apply/${id}`;
+
+// แผ่นลงลายมือชื่อ (signature pad)
+export function signaturePad(canvas) {
+  const ctx = canvas.getContext('2d');
+  const ratio = Math.max(1, window.devicePixelRatio || 1);
+  const fit = () => { const r = canvas.getBoundingClientRect(); canvas.width = r.width * ratio; canvas.height = r.height * ratio; ctx.scale(ratio, ratio); ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#0b1f6b'; };
+  fit();
+  let drawing = false; let dirty = false; let last = null;
+  const pos = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  canvas.addEventListener('pointerdown', (e) => { drawing = true; last = pos(e); canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointermove', (e) => { if (!drawing) return; const p = pos(e); ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke(); last = p; dirty = true; });
+  const end = () => { drawing = false; };
+  canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', end);
+  return {
+    clear() { ctx.clearRect(0, 0, canvas.width, canvas.height); dirty = false; },
+    isEmpty: () => !dirty,
+    // ตัดขอบว่างให้พอดีลายเซ็น
+    toDataURL() {
+      const { width: w, height: h } = canvas; const d = ctx.getImageData(0, 0, w, h).data;
+      let x0 = w, y0 = h, x1 = 0, y1 = 0;
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3]) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y; }
+      if (x1 <= x0) return '';
+      const pad = 8 * ratio; x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(w, x1 + pad); y1 = Math.min(h, y1 + pad);
+      const k = Math.min(1, 600 / (x1 - x0));
+      const out = Object.assign(document.createElement('canvas'), { width: Math.round((x1 - x0) * k), height: Math.round((y1 - y0) * k) });
+      out.getContext('2d').drawImage(canvas, x0, y0, x1 - x0, y1 - y0, 0, 0, out.width, out.height);
+      return out.toDataURL('image/png');
+    },
+  };
 }
 
 export function empty(text, ic = 'search') {
