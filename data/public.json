@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:39:33.146Z",
+  "updatedAt": "2026-11-24T09:42:17.006Z",
   "schema": 2
  },
  "institution": {
@@ -2027,21 +2027,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "tsx42o"
-  },
-  {
-   "id": "rec_2569_17",
-   "name": "นายธีรภัทร ท.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "vrim12"
   }
  ],
  "loginKeys": [
