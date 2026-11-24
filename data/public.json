@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:35:00.883Z",
+  "updatedAt": "2026-11-24T09:35:18.334Z",
   "schema": 2
  },
  "institution": {
@@ -2117,21 +2117,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "vzlyav"
-  },
-  {
-   "id": "rec_2569_15",
-   "name": "นายวรวุฒิ เ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "x5dgzy"
   },
   {
    "id": "rec_2569_16",
