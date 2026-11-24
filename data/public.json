@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:58:18.309Z",
+  "updatedAt": "2026-11-24T08:59:16.398Z",
   "schema": 2
  },
  "institution": {
@@ -2610,23 +2610,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "u2wprn"
-  },
-  {
-   "id": "rec_app_s6",
-   "appId": "app_s6",
-   "name": "นางสาวกมลวรรณ ม.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d09",
-   "scholarshipId": "sch_gsb69",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "vfmqwx"
   },
   {
    "id": "rec_app_s9",
