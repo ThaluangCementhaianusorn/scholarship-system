@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:46:47.594Z",
+  "updatedAt": "2026-11-24T08:47:40.701Z",
   "schema": 2
  },
  "institution": {
@@ -2685,6 +2685,15 @@
    "salt": "E8w0nlofilUPtiHI68KOOA==",
    "iv": "adLTSR+we0BR0t3f",
    "data": "aaszFzVMiDa3X39Eok69Lkt2O8meQudaYCp3VO2n1MbrEw5ukJ2pw9UmwNEDmSlok04LniGN5cuBg8XgjHHjMR1gIWxKAdmR0ER6QnpO1k1WcKegCna4xHel6LPk9ma4qNHYYHc3AagdwF8MhWDm8u7k9d0xON+04i3RsH6bcIWB3eTmXX791NnWkeY=",
+   "iter": 600000
+  },
+  {
+   "username": "guidance",
+   "name": "นางสาวกัญญาภัค ไชยเพชร",
+   "role": "guidance",
+   "salt": "WETK0px0H2IdNjaxa1rLWg==",
+   "iv": "DSeisaq6hPSD0P1u",
+   "data": "LeIopDeQcsxORqPJoV38AJUuV2r9mbdubK+j3f7lcLp5ugrYpQ5e3+cUJmvEMmrDz4gEgU317z025n/1bkpQNEq+LH5axUI+jRGvCflwe3U8wdjfNZHaewE9Ag5B1Go3bYd6Dpk7MA/5aRZj0V0jalUi47ckf3492zZR9x2ZRw+c1TUVvwHp8DU=",
    "iter": 600000
   }
  ]
