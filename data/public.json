@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:05:56.586Z",
+  "updatedAt": "2026-11-24T09:06:18.850Z",
   "schema": 2
  },
  "institution": {
@@ -735,7 +735,7 @@
    "description": "ทุนส่งเสริมนักเรียนนักศึกษาที่มีผลการเรียนดีและขาดแคลนทุนทรัพย์",
    "maxIncome": 200000,
    "categoryId": "cat_need",
-   "applicants": 1,
+   "applicants": 0,
    "approved": 0
   },
   {
