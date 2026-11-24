@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:16:39.478Z",
+  "updatedAt": "2026-11-24T09:18:03.480Z",
   "schema": 2
  },
  "institution": {
@@ -2027,21 +2027,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1q8hset"
-  },
-  {
-   "id": "rec_2569_0",
-   "name": "นางสาวปิยะนุช บ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "2cifi2"
   },
   {
    "id": "rec_2569_1",
