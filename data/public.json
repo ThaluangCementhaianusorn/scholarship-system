@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:05:17.019Z",
+  "updatedAt": "2026-11-24T09:05:33.871Z",
   "schema": 2
  },
  "institution": {
@@ -705,7 +705,7 @@
    "deadline": "2026-12-31",
    "description": "ทุนการศึกษาพร้อมโอกาสฝึกงานและพิจารณาเข้าทำงานกับบริษัทหลังสำเร็จการศึกษา",
    "categoryId": "cat_career",
-   "applicants": 2,
+   "applicants": 1,
    "approved": 0
   },
   {
