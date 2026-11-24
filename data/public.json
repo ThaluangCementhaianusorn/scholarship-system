@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:06:51.591Z",
+  "updatedAt": "2026-11-24T09:07:01.967Z",
   "schema": 2
  },
  "institution": {
@@ -874,7 +874,7 @@
    "deadline": "2027-01-10",
    "description": "ทุนช่วยเหลือนักเรียนนักศึกษาที่มีปัญหาด้านค่าใช้จ่าย",
    "categoryId": "cat_need",
-   "applicants": 2,
+   "applicants": 1,
    "approved": 0
   }
  ],
