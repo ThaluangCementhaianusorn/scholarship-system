@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:08:05.702Z",
+  "updatedAt": "2026-11-24T09:08:19.698Z",
   "schema": 2
  },
  "institution": {
@@ -771,36 +771,6 @@
    "maxIncome": "",
    "poster": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/posters/pos_mwswhf448dvz.jpg",
    "updatedAt": "2026-11-23T06:44:22.242Z",
-   "applicants": 0,
-   "approved": 0
-  },
-  {
-   "status": "open",
-   "levels": [
-    "ปวส."
-   ],
-   "departments": [],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว",
-    "หนังสือรับรองรายได้ครอบครัว"
-   ],
-   "sample": true,
-   "id": "sch_eef69",
-   "title": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "year": "2569",
-   "amount": 20000,
-   "quota": 3,
-   "minGpa": 2.5,
-   "maxIncome": 120000,
-   "openDate": "2026-11-15",
-   "deadline": "2027-01-31",
-   "description": "ทุนสำหรับนักศึกษาที่มีศักยภาพแต่ขาดแคลนทุนทรัพย์ ครอบคลุมค่าเล่าเรียนและค่าครองชีพ",
-   "categoryId": "cat_cont",
    "applicants": 0,
    "approved": 0
   },
