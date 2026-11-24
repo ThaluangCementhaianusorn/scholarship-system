@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:43:01.568Z",
+  "updatedAt": "2026-11-24T12:43:39.469Z",
   "schema": 2
  },
  "institution": {
@@ -1457,21 +1457,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "vhfuu4"
-  },
-  {
-   "id": "rec_2568_49",
-   "name": "นางสาวปิยะนุช ท.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d04",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "ykf17"
   },
   {
    "id": "rec_2568_50",
