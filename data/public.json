@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:59:30.496Z",
+  "updatedAt": "2026-11-24T08:59:36.572Z",
   "schema": 2
  },
  "institution": {
@@ -2580,23 +2580,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "u2wprn"
-  },
-  {
-   "id": "rec_app_s9",
-   "appId": "app_s9",
-   "name": "นางสาวปิยะนุช ท.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d04",
-   "scholarshipId": "sch_col69",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "ykf17"
   }
  ],
  "loginKeys": [
