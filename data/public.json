@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:09:43.868Z",
+  "updatedAt": "2026-11-24T10:09:52.131Z",
   "schema": 2
  },
  "institution": {
@@ -857,21 +857,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "xev3la"
-  },
-  {
-   "id": "rec_2567_21",
-   "name": "นายวีรพงษ์ เ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d03",
-   "scholarshipTitle": "ทุนพนักงานอนาคต ปูนซิเมนต์ไทย (ท่าหลวง)",
-   "sponsorId": "sp_tlc",
-   "type": "external",
-   "amount": 10000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "wjl5ot"
   },
   {
    "id": "rec_2567_22",
