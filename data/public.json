@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:56:16.933Z",
+  "updatedAt": "2026-11-24T08:58:18.309Z",
   "schema": 2
  },
  "institution": {
@@ -875,38 +875,6 @@
    "description": "ทุนช่วยเหลือนักเรียนนักศึกษาที่มีปัญหาด้านค่าใช้จ่าย",
    "categoryId": "cat_need",
    "applicants": 2,
-   "approved": 0
-  },
-  {
-   "status": "closed",
-   "levels": [
-    "ปวช.",
-    "ปวส."
-   ],
-   "departments": [],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว"
-   ],
-   "sample": true,
-   "id": "sch_pao69",
-   "title": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "year": "2569",
-   "amount": 4000,
-   "quota": 10,
-   "minGpa": 2.5,
-   "openDate": "2026-09-01",
-   "deadline": "2026-10-31",
-   "description": "ทุนสำหรับนักเรียนนักศึกษาที่มีภูมิลำเนาในจังหวัดสระบุรี",
-   "categoryId": "cat_need",
-   "maxIncome": "",
-   "poster": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/posters/pos_mwswftw7c84j.jpg",
-   "updatedAt": "2026-11-23T06:43:08.901Z",
-   "applicants": 0,
    "approved": 0
   }
  ],
