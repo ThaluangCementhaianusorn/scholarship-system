@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:59:24.149Z",
+  "updatedAt": "2026-11-24T08:59:30.496Z",
   "schema": 2
  },
  "institution": {
@@ -2503,21 +2503,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "vzlyav"
-  },
-  {
-   "id": "rec_2569_13",
-   "name": "นางสาวนันทิดา ท.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "watjbf"
   },
   {
    "id": "rec_2569_14",
