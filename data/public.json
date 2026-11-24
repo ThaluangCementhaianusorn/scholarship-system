@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:42:39.257Z",
+  "updatedAt": "2026-11-24T09:44:26.867Z",
   "schema": 2
  },
  "institution": {
@@ -1937,21 +1937,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1q8hset"
-  },
-  {
-   "id": "rec_2569_2",
-   "name": "นายปฐมพงษ์ พ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "2mi171"
   },
   {
    "id": "rec_2569_4",
