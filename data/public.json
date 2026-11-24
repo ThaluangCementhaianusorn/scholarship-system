@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:18:03.480Z",
+  "updatedAt": "2026-11-24T09:18:19.750Z",
   "schema": 2
  },
  "institution": {
@@ -2147,21 +2147,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1pylc7t"
-  },
-  {
-   "id": "rec_2569_10",
-   "name": "นางสาวมัลลิกา ร.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d13",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1okk68z"
   },
   {
    "id": "rec_2569_11",
