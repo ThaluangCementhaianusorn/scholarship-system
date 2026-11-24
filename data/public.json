@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:35:18.334Z",
+  "updatedAt": "2026-11-24T09:35:35.480Z",
   "schema": 2
  },
  "institution": {
@@ -737,21 +737,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "umz2nk"
-  },
-  {
-   "id": "rec_2567_7",
-   "name": "นายอนุชา ว.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "1qihe3s"
   },
   {
    "id": "rec_2567_8",
