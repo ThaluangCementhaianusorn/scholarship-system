@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:38:22.999Z",
+  "updatedAt": "2026-11-24T09:38:38.526Z",
   "schema": 2
  },
  "institution": {
@@ -1952,21 +1952,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1q8hset"
-  },
-  {
-   "id": "rec_2569_1",
-   "name": "นายณัฐพล เ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "umz2nk"
   },
   {
    "id": "rec_2569_2",
