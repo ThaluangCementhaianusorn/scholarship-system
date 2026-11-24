@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:05:08.830Z",
+  "updatedAt": "2026-11-24T09:05:17.019Z",
   "schema": 2
  },
  "institution": {
@@ -669,7 +669,7 @@
    "deadline": "2026-12-20",
    "description": "ทุนสนับสนุนนักศึกษาสายช่างอุตสาหกรรมที่มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี",
    "categoryId": "cat_career",
-   "applicants": 1,
+   "applicants": 0,
    "approved": 0
   },
   {
