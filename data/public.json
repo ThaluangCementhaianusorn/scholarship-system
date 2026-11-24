@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:08:41.715Z",
+  "updatedAt": "2026-11-24T09:08:54.562Z",
   "schema": 2
  },
  "institution": {
@@ -631,36 +631,6 @@
   }
  ],
  "scholarships": [
-  {
-   "status": "open",
-   "levels": [
-    "ปวช.",
-    "ปวส."
-   ],
-   "departments": [],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว"
-   ],
-   "sample": true,
-   "id": "sch_gsb69",
-   "title": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "year": "2569",
-   "amount": 5000,
-   "quota": 8,
-   "minGpa": 2.5,
-   "openDate": "2026-11-01",
-   "deadline": "2027-01-15",
-   "description": "ทุนส่งเสริมนักเรียนนักศึกษาที่มีผลการเรียนดีและขาดแคลนทุนทรัพย์",
-   "maxIncome": 200000,
-   "categoryId": "cat_need",
-   "applicants": 0,
-   "approved": 0
-  },
   {
    "status": "open",
    "levels": [
