@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:43:39.469Z",
+  "updatedAt": "2026-11-24T12:44:01.120Z",
   "schema": 2
  },
  "institution": {
@@ -992,21 +992,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1tkmh8e"
-  },
-  {
-   "id": "rec_2568_0",
-   "name": "นางสาวปิยะนุช บ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "2cifi2"
   },
   {
    "id": "rec_2568_2",
