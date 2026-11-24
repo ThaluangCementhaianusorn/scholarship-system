@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:32:19.515Z",
+  "updatedAt": "2026-11-24T12:33:10.838Z",
   "schema": 2
  },
  "institution": {
@@ -1547,21 +1547,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wjl5ot"
-  },
-  {
-   "id": "rec_2568_47",
-   "name": "นางสาวสุภาวดี ท.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "vhfuu4"
   },
   {
    "id": "rec_2568_48",
