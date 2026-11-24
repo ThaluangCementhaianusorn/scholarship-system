@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:08:54.562Z",
+  "updatedAt": "2026-11-24T09:09:01.004Z",
   "schema": 2
  },
  "institution": {
@@ -664,49 +664,6 @@
    "maxIncome": "",
    "poster": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/posters/pos_mwswhf448dvz.jpg",
    "updatedAt": "2026-11-23T06:44:22.242Z",
-   "applicants": 0,
-   "approved": 0
-  },
-  {
-   "status": "open",
-   "levels": [
-    "ปวช.",
-    "ปวส."
-   ],
-   "departments": [
-    "d01",
-    "d02",
-    "d03",
-    "d04",
-    "d05",
-    "d06",
-    "d07",
-    "d08",
-    "d09",
-    "d12",
-    "d13",
-    "d14",
-    "d15"
-   ],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว"
-   ],
-   "sample": true,
-   "id": "sch_col69",
-   "title": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "year": "2569",
-   "amount": 3000,
-   "quota": 15,
-   "minGpa": 3.25,
-   "openDate": "2026-11-01",
-   "deadline": "2026-12-25",
-   "description": "ทุนยกย่องนักเรียนนักศึกษาผลการเรียนดีเด่น",
-   "categoryId": "cat_merit",
    "applicants": 0,
    "approved": 0
   }
