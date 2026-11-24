@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:06:30.171Z",
+  "updatedAt": "2026-11-24T09:06:43.389Z",
   "schema": 2
  },
  "institution": {
@@ -844,8 +844,8 @@
    "deadline": "2026-12-25",
    "description": "ทุนยกย่องนักเรียนนักศึกษาผลการเรียนดีเด่น",
    "categoryId": "cat_merit",
-   "applicants": 2,
-   "approved": 1
+   "applicants": 1,
+   "approved": 0
   },
   {
    "status": "open",
