@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:33:10.838Z",
+  "updatedAt": "2026-11-24T12:34:57.454Z",
   "schema": 2
  },
  "institution": {
@@ -1397,21 +1397,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "wvh0sy"
-  },
-  {
-   "id": "rec_2568_34",
-   "name": "นางสาวชลธิชา ใ.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d02",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1qsnasp"
   },
   {
    "id": "rec_2568_35",
