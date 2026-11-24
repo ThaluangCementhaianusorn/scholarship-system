@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:35:25.446Z",
+  "updatedAt": "2026-11-24T12:36:41.169Z",
   "schema": 2
  },
  "institution": {
@@ -647,21 +647,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2567_1",
-   "name": "นายภานุวัฒน์ ค.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "wuz1pb"
   },
   {
    "id": "rec_2567_3",
