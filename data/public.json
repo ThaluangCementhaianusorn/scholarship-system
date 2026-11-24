@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:25:44.788Z",
+  "updatedAt": "2026-11-24T09:35:00.883Z",
   "schema": 2
  },
  "institution": {
@@ -2072,21 +2072,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "vrim12"
-  },
-  {
-   "id": "rec_2569_7",
-   "name": "นายปฐมพงษ์ บ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "tsx42o"
   },
   {
    "id": "rec_2569_8",
