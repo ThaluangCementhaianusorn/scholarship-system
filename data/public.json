@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:38:37.267Z",
+  "updatedAt": "2026-11-24T10:38:48.713Z",
   "schema": 2
  },
  "institution": {
@@ -1397,21 +1397,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "xoupa9"
-  },
-  {
-   "id": "rec_2568_23",
-   "name": "นางสาวพิมพ์ชนก ม.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 19000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "1q8hset"
   },
   {
    "id": "rec_2568_24",
