@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:09:33.680Z",
+  "updatedAt": "2026-11-24T10:09:37.919Z",
   "schema": 2
  },
  "institution": {
@@ -767,21 +767,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1p4mj4w"
-  },
-  {
-   "id": "rec_2567_12",
-   "name": "นายวรวุฒิ ศ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d06",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1sg2m5"
   },
   {
    "id": "rec_2567_13",
