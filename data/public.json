@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:35:53.208Z",
+  "updatedAt": "2026-11-24T09:36:09.351Z",
   "schema": 2
  },
  "institution": {
@@ -662,21 +662,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wuz1pb"
-  },
-  {
-   "id": "rec_2567_2",
-   "name": "นางสาวรัตนาภรณ์ ช.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d07",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "wvh0sy"
   },
   {
    "id": "rec_2567_3",
