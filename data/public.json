@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:49:49.613Z",
+  "updatedAt": "2026-11-24T12:27:39.031Z",
   "schema": 2
  },
  "institution": {
@@ -1697,21 +1697,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1q8hset"
-  },
-  {
-   "id": "rec_2569_4",
-   "name": "นายศุภชัย พ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d02",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "yjemys"
   }
  ],
  "loginKeys": [
