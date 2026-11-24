@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:09:52.131Z",
+  "updatedAt": "2026-11-24T10:09:57.101Z",
   "schema": 2
  },
  "institution": {
@@ -1007,21 +1007,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1pem4tv"
-  },
-  {
-   "id": "rec_2567_36",
-   "name": "นายวรวุฒิ เ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "x5dgzy"
   },
   {
    "id": "rec_2567_37",
