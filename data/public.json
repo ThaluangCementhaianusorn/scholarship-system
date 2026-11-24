@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:36:41.169Z",
+  "updatedAt": "2026-11-24T12:42:03.354Z",
   "schema": 2
  },
  "institution": {
@@ -919,21 +919,6 @@
    "pid": "2cifi2"
   },
   {
-   "id": "rec_2567_29",
-   "name": "นายปฐมพงษ์ เ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d06",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "1ybkjuj"
-  },
-  {
    "id": "rec_2567_30",
    "name": "นางสาวรัตนาภรณ์ ช.",
    "level": "ปวช.",
@@ -979,21 +964,6 @@
    "pid": "1qsnasp"
   },
   {
-   "id": "rec_2567_35",
-   "name": "นางสาวสุภาวดี บ.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนพนักงานอนาคต ปูนซิเมนต์ไทย (ท่าหลวง)",
-   "sponsorId": "sp_tlc",
-   "type": "external",
-   "amount": 10000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1pem4tv"
-  },
-  {
    "id": "rec_2567_39",
    "name": "นางสาวนันทิดา ท.",
    "level": "ปวช.",
@@ -1022,21 +992,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1tkmh8e"
-  },
-  {
-   "id": "rec_2567_41",
-   "name": "นางสาวสุดารัตน์ ใ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d07",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "v6v4jj"
   },
   {
    "id": "rec_2568_0",
