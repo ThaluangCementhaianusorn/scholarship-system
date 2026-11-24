@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:37:59.337Z",
+  "updatedAt": "2026-11-24T09:38:22.999Z",
   "schema": 2
  },
  "institution": {
@@ -2012,21 +2012,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "vqxhfg"
-  },
-  {
-   "id": "rec_2569_6",
-   "name": "นายธีรภัทร ท.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "vrim12"
   },
   {
    "id": "rec_2569_8",
