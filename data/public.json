@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:41:59.532Z",
+  "updatedAt": "2026-11-24T10:49:49.613Z",
   "schema": 2
  },
  "institution": {
@@ -1007,21 +1007,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1pem4tv"
-  },
-  {
-   "id": "rec_2567_37",
-   "name": "นายภานุวัฒน์ ศ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "vqxhfg"
   },
   {
    "id": "rec_2567_39",
