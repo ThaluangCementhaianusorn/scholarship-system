@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:09:01.004Z",
+  "updatedAt": "2026-11-24T09:16:39.478Z",
   "schema": 2
  },
  "institution": {
@@ -630,44 +630,7 @@
    "sample": true
   }
  ],
- "scholarships": [
-  {
-   "status": "open",
-   "levels": [
-    "ปวช.",
-    "ปวส."
-   ],
-   "departments": [
-    "d07",
-    "d08",
-    "d09"
-   ],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว"
-   ],
-   "sample": true,
-   "id": "sch_cp69",
-   "title": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "year": "2569",
-   "amount": 5000,
-   "quota": 6,
-   "minGpa": 2.75,
-   "openDate": "2026-11-01",
-   "deadline": "2026-12-05",
-   "description": "ทุนสำหรับนักศึกษาสายบริหารธุรกิจ",
-   "categoryId": "cat_merit",
-   "maxIncome": "",
-   "poster": "https://raw.githubusercontent.com/ThaluangCementhaianusorn/scholarship-system/main/uploads/posters/pos_mwswhf448dvz.jpg",
-   "updatedAt": "2026-11-23T06:44:22.242Z",
-   "applicants": 0,
-   "approved": 0
-  }
- ],
+ "scholarships": [],
  "announcements": [],
  "recipients": [
   {
