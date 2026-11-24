@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:44:01.120Z",
+  "updatedAt": "2026-11-24T12:44:35.706Z",
   "schema": 2
  },
  "institution": {
@@ -1442,21 +1442,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "vhfuu4"
-  },
-  {
-   "id": "rec_2568_50",
-   "name": "นางสาวพิมพ์ชนก ม.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1q8hset"
   }
  ],
  "loginKeys": [
