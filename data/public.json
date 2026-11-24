@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:03:45.729Z",
+  "updatedAt": "2026-11-24T09:04:58.504Z",
   "schema": 2
  },
  "institution": {
@@ -669,8 +669,8 @@
    "deadline": "2026-12-20",
    "description": "ทุนสนับสนุนนักศึกษาสายช่างอุตสาหกรรมที่มีความมุ่งมั่น ตั้งใจเรียน และประพฤติดี",
    "categoryId": "cat_career",
-   "applicants": 3,
-   "approved": 1
+   "applicants": 2,
+   "approved": 0
   },
   {
    "status": "open",
@@ -2514,23 +2514,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "vrim12"
-  },
-  {
-   "id": "rec_app_s1",
-   "appId": "app_s1",
-   "name": "นายณัฐวุฒิ บ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d15",
-   "scholarshipId": "sch_scg69",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 8000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "u2wprn"
   }
  ],
  "loginKeys": [
