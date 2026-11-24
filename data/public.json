@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:09:57.101Z",
+  "updatedAt": "2026-11-24T10:38:23.479Z",
   "schema": 2
  },
  "institution": {
@@ -1847,21 +1847,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "yjemys"
-  },
-  {
-   "id": "rec_2569_5",
-   "name": "นายภานุวัฒน์ ศ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "vqxhfg"
   }
  ],
  "loginKeys": [
