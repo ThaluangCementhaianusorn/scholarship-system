@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:28:15.613Z",
+  "updatedAt": "2026-11-24T12:29:11.180Z",
   "schema": 2
  },
  "institution": {
@@ -1337,21 +1337,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "xoupa9"
-  },
-  {
-   "id": "rec_2568_24",
-   "name": "นางสาวจิราพร ใ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "ohnu9"
   },
   {
    "id": "rec_2568_26",
