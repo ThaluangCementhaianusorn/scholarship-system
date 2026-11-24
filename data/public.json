@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:18:42.908Z",
+  "updatedAt": "2026-11-24T09:25:44.788Z",
   "schema": 2
  },
  "institution": {
@@ -889,21 +889,6 @@
    "pid": "1y1o3nj"
   },
   {
-   "id": "rec_2567_17",
-   "name": "นายอภิสิทธิ์ ศ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d04",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1yvjr8h"
-  },
-  {
    "id": "rec_2567_18",
    "name": "นางสาวสุดารัตน์ ใ.",
    "level": "ปวช.",
@@ -1022,21 +1007,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "ykf17"
-  },
-  {
-   "id": "rec_2567_26",
-   "name": "นายอนุชา ว.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1qihe3s"
   },
   {
    "id": "rec_2567_27",
@@ -2147,21 +2117,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1pylc7t"
-  },
-  {
-   "id": "rec_2569_11",
-   "name": "นางสาวมัลลิกา แ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนพนักงานอนาคต ปูนซิเมนต์ไทย (ท่าหลวง)",
-   "sponsorId": "sp_tlc",
-   "type": "external",
-   "amount": 11000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1tkmh8e"
   },
   {
    "id": "rec_2569_14",
