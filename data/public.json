@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:41:15.590Z",
+  "updatedAt": "2026-11-24T10:41:59.532Z",
   "schema": 2
  },
  "institution": {
@@ -1112,21 +1112,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "1rcpnom"
-  },
-  {
-   "id": "rec_2568_4",
-   "name": "นายธนกฤต พ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "vzlyav"
   },
   {
    "id": "rec_2568_5",
