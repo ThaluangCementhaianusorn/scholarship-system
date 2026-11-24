@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T08:59:16.398Z",
+  "updatedAt": "2026-11-24T08:59:24.149Z",
   "schema": 2
  },
  "institution": {
@@ -2368,21 +2368,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "2mi171"
-  },
-  {
-   "id": "rec_2569_3",
-   "name": "นางสาวกัญญารัตน์ อ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "v5jzpz"
   },
   {
    "id": "rec_2569_4",
