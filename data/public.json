@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:44:26.867Z",
+  "updatedAt": "2026-11-24T10:07:36.729Z",
   "schema": 2
  },
  "institution": {
@@ -964,21 +964,6 @@
    "pid": "ykf17"
   },
   {
-   "id": "rec_2567_27",
-   "name": "นายศุภชัย พ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d07",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 18000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "w03xei"
-  },
-  {
    "id": "rec_2567_28",
    "name": "นางสาวปิยะนุช บ.",
    "level": "ปวช.",
@@ -1052,21 +1037,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1qsnasp"
-  },
-  {
-   "id": "rec_2567_34",
-   "name": "นายธนวัฒน์ ส.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "xfd2ox"
   },
   {
    "id": "rec_2567_35",
@@ -1967,36 +1937,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "vqxhfg"
-  },
-  {
-   "id": "rec_2569_9",
-   "name": "นายศุภชัย ช.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 20000,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "1pylc7t"
-  },
-  {
-   "id": "rec_2569_16",
-   "name": "นายปฐมพงษ์ บ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5500,
-   "year": "2569",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "tsx42o"
   }
  ],
  "loginKeys": [
