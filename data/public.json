@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:35:35.480Z",
+  "updatedAt": "2026-11-24T09:35:53.208Z",
   "schema": 2
  },
  "institution": {
@@ -842,21 +842,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wkwaid"
-  },
-  {
-   "id": "rec_2567_15",
-   "name": "นายธนวัฒน์ ร.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d04",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "trlz94"
   },
   {
    "id": "rec_2567_16",
