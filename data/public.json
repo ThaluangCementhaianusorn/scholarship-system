@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:42:03.354Z",
+  "updatedAt": "2026-11-24T12:43:01.568Z",
   "schema": 2
  },
  "institution": {
@@ -1232,21 +1232,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "2mi171"
-  },
-  {
-   "id": "rec_2568_21",
-   "name": "นางสาวนันทิดา ท.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "watjbf"
   },
   {
    "id": "rec_2568_22",
