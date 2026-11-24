@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T10:07:36.729Z",
+  "updatedAt": "2026-11-24T10:09:33.680Z",
   "schema": 2
  },
  "institution": {
@@ -737,21 +737,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2567_9",
-   "name": "นายวีรพงษ์ บ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "vqubxh"
   },
   {
    "id": "rec_2567_10",
