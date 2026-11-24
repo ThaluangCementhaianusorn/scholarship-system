@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T09:08:19.698Z",
+  "updatedAt": "2026-11-24T09:08:26.699Z",
   "schema": 2
  },
  "institution": {
@@ -814,36 +814,6 @@
    "deadline": "2026-12-25",
    "description": "ทุนยกย่องนักเรียนนักศึกษาผลการเรียนดีเด่น",
    "categoryId": "cat_merit",
-   "applicants": 0,
-   "approved": 0
-  },
-  {
-   "status": "open",
-   "levels": [
-    "ปวช.",
-    "ปวส."
-   ],
-   "departments": [],
-   "requirements": [],
-   "documents": [
-    "สำเนาบัตรประจำตัวประชาชน",
-    "สำเนาผลการเรียน (ใบแสดงผลการเรียน)",
-    "รูปถ่ายหน้าตรง 1 นิ้ว"
-   ],
-   "sample": true,
-   "id": "sch_pta69",
-   "title": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "year": "2569",
-   "amount": 2500,
-   "quota": 20,
-   "minGpa": 2,
-   "maxIncome": 150000,
-   "openDate": "2026-11-01",
-   "deadline": "2027-01-10",
-   "description": "ทุนช่วยเหลือนักเรียนนักศึกษาที่มีปัญหาด้านค่าใช้จ่าย",
-   "categoryId": "cat_need",
    "applicants": 0,
    "approved": 0
   }
