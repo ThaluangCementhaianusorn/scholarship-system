@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:29:11.180Z",
+  "updatedAt": "2026-11-24T12:29:49.592Z",
   "schema": 2
  },
  "institution": {
@@ -1337,21 +1337,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "xoupa9"
-  },
-  {
-   "id": "rec_2568_26",
-   "name": "นางสาวชลธิชา น.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1iggx6"
   },
   {
    "id": "rec_2568_27",
