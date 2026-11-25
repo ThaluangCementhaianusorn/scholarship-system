@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:52:40.396Z",
+  "updatedAt": "2026-11-25T04:52:43.389Z",
   "schema": 2
  },
  "institution": {
@@ -782,21 +782,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1w3nqar"
-  },
-  {
-   "id": "rec_2568_10",
-   "name": "นายวรวุฒิ ศ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d06",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "1sg2m5"
   },
   {
    "id": "rec_2568_14",
