@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:56:08.376Z",
+  "updatedAt": "2026-11-25T04:56:12.308Z",
   "schema": 2
  },
  "institution": {
@@ -797,21 +797,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "1rcpnom"
-  },
-  {
-   "id": "rec_2568_22",
-   "name": "นายศุภชัย ท.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "xoupa9"
   },
   {
    "id": "rec_2568_27",
