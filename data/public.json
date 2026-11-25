@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:31.993Z",
+  "updatedAt": "2026-11-25T04:58:36.293Z",
   "schema": 2
  },
  "institution": {
@@ -559,14 +559,6 @@
    "contact": "ฝ่ายทุนการศึกษา",
    "website": "https://www.scgfoundation.org",
    "description": "ทุนการศึกษาเพื่อเยาวชนสายอาชีพ"
-  },
-  {
-   "id": "sp_gsb",
-   "name": "ธนาคารออมสิน",
-   "type": "external",
-   "category": "ธนาคาร/รัฐวิสาหกิจ",
-   "sample": true,
-   "website": "https://www.gsb.or.th"
   }
  ],
  "scholarships": [],
