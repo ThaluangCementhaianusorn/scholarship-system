@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:54.243Z",
+  "updatedAt": "2026-11-25T04:57:57.663Z",
   "schema": 2
  },
  "institution": {
@@ -597,13 +597,6 @@
    "category": "สถานศึกษา",
    "sample": true,
    "description": "งบประมาณทุนการศึกษาของวิทยาลัย"
-  },
-  {
-   "id": "sp_pta",
-   "name": "สมาคมผู้ปกครองและครูวิทยาลัยฯ",
-   "type": "internal",
-   "category": "สมาคม/ชมรม",
-   "sample": true
   },
   {
    "id": "sp_alm",
