@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:51:36.625Z",
+  "updatedAt": "2026-11-25T04:51:43.410Z",
   "schema": 2
  },
  "institution": {
@@ -737,21 +737,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1pem4tv"
-  },
-  {
-   "id": "rec_2567_31",
-   "name": "นางสาวชลธิชา น.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "1iggx6"
   },
   {
    "id": "rec_2567_33",
