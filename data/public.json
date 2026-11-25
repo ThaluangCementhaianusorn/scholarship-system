@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:56:49.026Z",
+  "updatedAt": "2026-11-25T04:57:01.357Z",
   "schema": 2
  },
  "institution": {
@@ -647,21 +647,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2568_2",
-   "name": "นางสาวสุภาวดี บ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนพนักงานอนาคต ปูนซิเมนต์ไทย (ท่าหลวง)",
-   "sponsorId": "sp_tlc",
-   "type": "external",
-   "amount": 10500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1pem4tv"
   },
   {
    "id": "rec_2568_7",
