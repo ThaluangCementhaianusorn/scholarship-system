@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:33.773Z",
+  "updatedAt": "2026-11-25T04:50:36.859Z",
   "schema": 2
  },
  "institution": {
@@ -1201,21 +1201,6 @@
    "year": "2568",
    "sample": true,
    "categoryId": "cat_talent",
-   "pid": "u2wprn"
-  },
-  {
-   "id": "rec_2568_39",
-   "name": "นายณัฐวุฒิ บ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
    "pid": "u2wprn"
   },
   {
