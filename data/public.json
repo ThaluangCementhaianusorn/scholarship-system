@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:19.069Z",
+  "updatedAt": "2026-11-25T04:57:23.816Z",
   "schema": 2
  },
  "institution": {
@@ -662,21 +662,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1p4mj4w"
-  },
-  {
-   "id": "rec_2568_40",
-   "name": "นางสาวอรอุมา จ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "1w3nqar"
   }
  ],
  "loginKeys": [
