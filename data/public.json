@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:12.133Z",
+  "updatedAt": "2026-11-25T04:57:16.339Z",
   "schema": 2
  },
  "institution": {
@@ -647,21 +647,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2568_8",
-   "name": "นางสาวอรอุมา จ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1w3nqar"
   },
   {
    "id": "rec_2568_14",
