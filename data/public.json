@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:51:58.405Z",
+  "updatedAt": "2026-11-25T04:52:06.976Z",
   "schema": 2
  },
  "institution": {
@@ -842,21 +842,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1w3nqar"
-  },
-  {
-   "id": "rec_2568_9",
-   "name": "นายวรวุฒิ ศ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d06",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1sg2m5"
   },
   {
    "id": "rec_2568_10",
