@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:02.250Z",
+  "updatedAt": "2026-11-25T04:58:07.900Z",
   "schema": 2
  },
  "institution": {
@@ -575,13 +575,6 @@
    "category": "บริษัทเอกชน",
    "sample": true,
    "description": "ทุนเยาวชนคนดีสายอาชีวศึกษา"
-  },
-  {
-   "id": "sp_pao",
-   "name": "องค์การบริหารส่วนจังหวัดสระบุรี",
-   "type": "external",
-   "category": "องค์กรปกครองส่วนท้องถิ่น",
-   "sample": true
   },
   {
    "id": "sp_col",
