@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:05.699Z",
+  "updatedAt": "2026-11-25T04:57:09.156Z",
   "schema": 2
  },
  "institution": {
@@ -692,21 +692,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wuz1pb"
-  },
-  {
-   "id": "rec_2568_19",
-   "name": "นายศักดิ์ดา ท.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "1rcpnom"
   },
   {
    "id": "rec_2568_35",
