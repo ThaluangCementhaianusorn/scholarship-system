@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:36.859Z",
+  "updatedAt": "2026-11-25T04:50:40.298Z",
   "schema": 2
  },
  "institution": {
@@ -1082,21 +1082,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "1rcpnom"
-  },
-  {
-   "id": "rec_2568_20",
-   "name": "นายปฐมพงษ์ พ.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "2mi171"
   },
   {
    "id": "rec_2568_22",
