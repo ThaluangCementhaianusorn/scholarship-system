@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:28.908Z",
+  "updatedAt": "2026-11-25T04:50:33.773Z",
   "schema": 2
  },
  "institution": {
@@ -1022,21 +1022,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "1sg2m5"
-  },
-  {
-   "id": "rec_2568_13",
-   "name": "นายณัฐพล น.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "4iggb"
   },
   {
    "id": "rec_2568_14",
