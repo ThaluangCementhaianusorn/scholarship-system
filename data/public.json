@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:11.291Z",
+  "updatedAt": "2026-11-25T04:50:14.748Z",
   "schema": 2
  },
  "institution": {
@@ -752,21 +752,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1iggx6"
-  },
-  {
-   "id": "rec_2567_16",
-   "name": "นายกิตติศักดิ์ ส.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1y1o3nj"
   },
   {
    "id": "rec_2567_18",
