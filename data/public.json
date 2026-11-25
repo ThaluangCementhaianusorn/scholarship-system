@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:52:24.508Z",
+  "updatedAt": "2026-11-25T04:52:28.314Z",
   "schema": 2
  },
  "institution": {
@@ -857,21 +857,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1uykhp9"
-  },
-  {
-   "id": "rec_2568_18",
-   "name": "นายอนุชา ว.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 19000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "1qihe3s"
   },
   {
    "id": "rec_2568_19",
