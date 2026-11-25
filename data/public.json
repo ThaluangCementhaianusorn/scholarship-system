@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:57.663Z",
+  "updatedAt": "2026-11-25T04:58:00.176Z",
   "schema": 2
  },
  "institution": {
@@ -581,13 +581,6 @@
    "name": "องค์การบริหารส่วนจังหวัดสระบุรี",
    "type": "external",
    "category": "องค์กรปกครองส่วนท้องถิ่น",
-   "sample": true
-  },
-  {
-   "id": "sp_rot",
-   "name": "สโมสรโรตารีสระบุรี",
-   "type": "external",
-   "category": "สมาคม/ชมรม",
    "sample": true
   },
   {
