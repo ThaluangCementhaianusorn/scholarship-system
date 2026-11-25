@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:51:43.410Z",
+  "updatedAt": "2026-11-25T04:51:58.405Z",
   "schema": 2
  },
  "institution": {
@@ -692,21 +692,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1p4mj4w"
-  },
-  {
-   "id": "rec_2567_18",
-   "name": "นางสาวสุดารัตน์ ใ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d07",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "v6v4jj"
   },
   {
    "id": "rec_2567_19",
