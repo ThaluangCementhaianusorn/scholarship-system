@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:01.357Z",
+  "updatedAt": "2026-11-25T04:57:05.699Z",
   "schema": 2
  },
  "institution": {
@@ -722,21 +722,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1p4mj4w"
-  },
-  {
-   "id": "rec_2568_37",
-   "name": "นายณัฐวุฒิ บ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d15",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "u2wprn"
   },
   {
    "id": "rec_2568_40",
