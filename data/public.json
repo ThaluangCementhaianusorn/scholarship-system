@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:36.401Z",
+  "updatedAt": "2026-11-25T04:57:49.114Z",
   "schema": 2
  },
  "institution": {
@@ -584,14 +584,6 @@
    "category": "บริษัทเอกชน",
    "sample": true,
    "description": "ทุนเยาวชนคนดีสายอาชีวศึกษา"
-  },
-  {
-   "id": "sp_eef",
-   "name": "กองทุนเพื่อความเสมอภาคทางการศึกษา (กสศ.)",
-   "type": "external",
-   "category": "หน่วยงานภาครัฐ",
-   "sample": true,
-   "website": "https://www.eef.or.th"
   },
   {
    "id": "sp_pao",
