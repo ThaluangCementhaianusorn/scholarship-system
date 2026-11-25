@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:40.640Z",
+  "updatedAt": "2026-11-25T13:01:32.589Z",
   "schema": 2
  },
  "institution": {
@@ -549,7 +549,20 @@
    "head": "นายอัครเดช พลังงานใหม่"
   }
  ],
- "sponsors": [],
+ "sponsors": [
+  {
+   "name": "ทุนวันไหว้ครู",
+   "type": "internal",
+   "category": "มูลนิธิ",
+   "contact": "",
+   "phone": "",
+   "email": "",
+   "website": "",
+   "description": "",
+   "id": "sp_mww4u97xzqcj",
+   "createdAt": "2026-11-25T13:01:32.588Z"
+  }
+ ],
  "scholarships": [],
  "announcements": [],
  "recipients": [],
