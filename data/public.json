@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:19.282Z",
+  "updatedAt": "2026-11-25T04:50:26.666Z",
   "schema": 2
  },
  "institution": {
@@ -1187,21 +1187,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "1r2jqzp"
-  },
-  {
-   "id": "rec_2568_32",
-   "name": "นางสาวรัตนาภรณ์ ช.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d07",
-   "scholarshipTitle": "ทุนการศึกษาสโมสรโรตารีสระบุรี",
-   "sponsorId": "sp_rot",
-   "type": "external",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "wvh0sy"
   },
   {
    "id": "rec_2568_35",
