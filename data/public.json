@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:45.402Z",
+  "updatedAt": "2026-11-25T04:50:51.506Z",
   "schema": 2
  },
  "institution": {
@@ -1127,21 +1127,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "ye419"
-  },
-  {
-   "id": "rec_2568_30",
-   "name": "นายศุภชัย ค.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "1r2jqzp"
   },
   {
    "id": "rec_2568_35",
