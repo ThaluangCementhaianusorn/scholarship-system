@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:16.339Z",
+  "updatedAt": "2026-11-25T04:57:19.069Z",
   "schema": 2
  },
  "institution": {
@@ -633,21 +633,6 @@
  "scholarships": [],
  "announcements": [],
  "recipients": [
-  {
-   "id": "rec_2567_8",
-   "name": "นางสาวกัญญารัตน์ อ.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "v5jzpz"
-  },
   {
    "id": "rec_2568_14",
    "name": "นายภานุวัฒน์ ค.",
