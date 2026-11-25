@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:56:41.257Z",
+  "updatedAt": "2026-11-25T04:56:44.690Z",
   "schema": 2
  },
  "institution": {
@@ -677,21 +677,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1pem4tv"
-  },
-  {
-   "id": "rec_2568_5",
-   "name": "นายกิตติศักดิ์ ส.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุนเยาวชนคนดี ซีพี ออลล์",
-   "sponsorId": "sp_cp",
-   "type": "external",
-   "amount": 5500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "1y1o3nj"
   },
   {
    "id": "rec_2568_7",
