@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:36.293Z",
+  "updatedAt": "2026-11-25T04:58:40.640Z",
   "schema": 2
  },
  "institution": {
@@ -549,18 +549,7 @@
    "head": "นายอัครเดช พลังงานใหม่"
   }
  ],
- "sponsors": [
-  {
-   "id": "sp_scg",
-   "name": "มูลนิธิเอสซีจี (SCG Foundation)",
-   "type": "external",
-   "category": "มูลนิธิ",
-   "sample": true,
-   "contact": "ฝ่ายทุนการศึกษา",
-   "website": "https://www.scgfoundation.org",
-   "description": "ทุนการศึกษาเพื่อเยาวชนสายอาชีพ"
-  }
- ],
+ "sponsors": [],
  "scholarships": [],
  "announcements": [],
  "recipients": [],
