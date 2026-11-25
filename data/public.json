@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:07.642Z",
+  "updatedAt": "2026-11-25T04:50:11.291Z",
   "schema": 2
  },
  "institution": {
@@ -752,21 +752,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "1iggx6"
-  },
-  {
-   "id": "rec_2567_14",
-   "name": "นางสาวพิมพ์ชนก จ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d13",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "wkwaid"
   },
   {
    "id": "rec_2567_16",
