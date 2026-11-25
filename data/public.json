@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:52:28.314Z",
+  "updatedAt": "2026-11-25T04:52:31.887Z",
   "schema": 2
  },
  "institution": {
@@ -767,21 +767,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "1y1o3nj"
-  },
-  {
-   "id": "rec_2568_6",
-   "name": "นายอนุชา พ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d02",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "1uykhp9"
   },
   {
    "id": "rec_2568_7",
