@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:52:31.887Z",
+  "updatedAt": "2026-11-25T04:52:35.630Z",
   "schema": 2
  },
  "institution": {
@@ -962,21 +962,6 @@
    "sample": true,
    "categoryId": "cat_merit",
    "pid": "trlz94"
-  },
-  {
-   "id": "rec_2568_44",
-   "name": "นายวีรพงษ์ บ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d01",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "vqubxh"
   },
   {
    "id": "rec_2568_45",
