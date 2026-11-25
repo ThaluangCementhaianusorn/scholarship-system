@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:23.816Z",
+  "updatedAt": "2026-11-25T04:57:33.095Z",
   "schema": 2
  },
  "institution": {
@@ -647,21 +647,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wuz1pb"
-  },
-  {
-   "id": "rec_2568_35",
-   "name": "นายณัฐวุฒิ ช.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 19000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "1p4mj4w"
   }
  ],
  "loginKeys": [
