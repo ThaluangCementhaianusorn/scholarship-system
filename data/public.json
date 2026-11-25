@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:07.900Z",
+  "updatedAt": "2026-11-25T04:58:28.581Z",
   "schema": 2
  },
  "institution": {
@@ -575,14 +575,6 @@
    "category": "บริษัทเอกชน",
    "sample": true,
    "description": "ทุนเยาวชนคนดีสายอาชีวศึกษา"
-  },
-  {
-   "id": "sp_col",
-   "name": "กองทุนเพื่อการศึกษาวิทยาลัย",
-   "type": "internal",
-   "category": "สถานศึกษา",
-   "sample": true,
-   "description": "งบประมาณทุนการศึกษาของวิทยาลัย"
   }
  ],
  "scholarships": [],
