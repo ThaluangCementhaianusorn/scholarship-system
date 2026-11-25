@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:33.095Z",
+  "updatedAt": "2026-11-25T04:57:36.401Z",
   "schema": 2
  },
  "institution": {
@@ -632,23 +632,7 @@
  ],
  "scholarships": [],
  "announcements": [],
- "recipients": [
-  {
-   "id": "rec_2568_14",
-   "name": "นายภานุวัฒน์ ค.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุนขาดแคลนทุนทรัพย์ สมาคมผู้ปกครองและครู",
-   "sponsorId": "sp_pta",
-   "type": "internal",
-   "amount": 2500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "wuz1pb"
-  }
- ],
+ "recipients": [],
  "loginKeys": [
   {
    "username": "admin",
