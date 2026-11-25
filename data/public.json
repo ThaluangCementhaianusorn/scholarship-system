@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:14.748Z",
+  "updatedAt": "2026-11-25T04:50:19.282Z",
   "schema": 2
  },
  "institution": {
@@ -842,21 +842,6 @@
    "sample": true,
    "categoryId": "cat_talent",
    "pid": "ykf17"
-  },
-  {
-   "id": "rec_2567_28",
-   "name": "นางสาวปิยะนุช บ.",
-   "level": "ปวช.",
-   "classYear": "3",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "2cifi2"
   },
   {
    "id": "rec_2567_31",
