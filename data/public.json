@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:09.156Z",
+  "updatedAt": "2026-11-25T04:57:12.133Z",
   "schema": 2
  },
  "institution": {
@@ -647,21 +647,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2568_7",
-   "name": "นายธนกฤต พ.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d08",
-   "scholarshipTitle": "ทุน อบจ.สระบุรี เพื่อเยาวชนสระบุรี",
-   "sponsorId": "sp_pao",
-   "type": "external",
-   "amount": 4000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "vzlyav"
   },
   {
    "id": "rec_2568_8",
