@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:57:49.114Z",
+  "updatedAt": "2026-11-25T04:57:54.243Z",
   "schema": 2
  },
  "institution": {
@@ -559,15 +559,6 @@
    "contact": "ฝ่ายทุนการศึกษา",
    "website": "https://www.scgfoundation.org",
    "description": "ทุนการศึกษาเพื่อเยาวชนสายอาชีพ"
-  },
-  {
-   "id": "sp_tlc",
-   "name": "บริษัท ปูนซิเมนต์ไทย (ท่าหลวง) จำกัด",
-   "type": "external",
-   "category": "บริษัทเอกชน",
-   "sample": true,
-   "contact": "ฝ่ายทรัพยากรบุคคล",
-   "description": "ทุนพนักงานอนาคตและทุนพัฒนาชุมชนรอบโรงงาน"
   },
   {
    "id": "sp_gsb",
