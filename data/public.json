@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:56:12.308Z",
+  "updatedAt": "2026-11-25T04:56:27.789Z",
   "schema": 2
  },
  "institution": {
@@ -769,21 +769,6 @@
    "pid": "wuz1pb"
   },
   {
-   "id": "rec_2568_17",
-   "name": "นายอนุชา พ.",
-   "level": "ปวส.",
-   "classYear": "1",
-   "departmentId": "d02",
-   "scholarshipTitle": "ทุนมูลนิธิเอสซีจี เพื่อเยาวชนช่างเทคนิค",
-   "sponsorId": "sp_scg",
-   "type": "external",
-   "amount": 6500,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1uykhp9"
-  },
-  {
    "id": "rec_2568_19",
    "name": "นายศักดิ์ดา ท.",
    "level": "ปวส.",
@@ -872,21 +857,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "4iggb"
-  },
-  {
-   "id": "rec_2568_48",
-   "name": "นางสาวสุภาวดี ท.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนเรียนดี ประจำวิทยาลัย",
-   "sponsorId": "sp_col",
-   "type": "internal",
-   "amount": 3000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_merit",
-   "pid": "vhfuu4"
   }
  ],
  "loginKeys": [
