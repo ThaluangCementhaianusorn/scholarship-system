@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-24T12:44:35.706Z",
+  "updatedAt": "2026-11-25T04:49:59.262Z",
   "schema": 2
  },
  "institution": {
@@ -827,21 +827,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "v5jzpz"
-  },
-  {
-   "id": "rec_2567_20",
-   "name": "นายณัฐวุฒิ ท.",
-   "level": "ปวช.",
-   "classYear": "1",
-   "departmentId": "d14",
-   "scholarshipTitle": "ทุนออมสินพัฒนาช่างเทคนิค",
-   "sponsorId": "sp_gsb",
-   "type": "external",
-   "amount": 5000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_need",
-   "pid": "xev3la"
   },
   {
    "id": "rec_2567_22",
