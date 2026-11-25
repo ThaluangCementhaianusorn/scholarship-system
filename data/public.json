@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:40.298Z",
+  "updatedAt": "2026-11-25T04:50:45.402Z",
   "schema": 2
  },
  "institution": {
@@ -1157,21 +1157,6 @@
    "sample": true,
    "categoryId": "cat_cont",
    "pid": "1p4mj4w"
-  },
-  {
-   "id": "rec_2568_36",
-   "name": "นายปฐมพงษ์ บ.",
-   "level": "ปวช.",
-   "classYear": "2",
-   "departmentId": "d09",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "tsx42o"
   },
   {
    "id": "rec_2568_37",
