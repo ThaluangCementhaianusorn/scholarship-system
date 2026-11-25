@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:51:09.547Z",
+  "updatedAt": "2026-11-25T04:51:15.234Z",
   "schema": 2
  },
  "institution": {
@@ -752,21 +752,6 @@
    "sample": true,
    "categoryId": "cat_career",
    "pid": "1pem4tv"
-  },
-  {
-   "id": "rec_2567_23",
-   "name": "นางสาวมัลลิกา แ.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d05",
-   "scholarshipTitle": "ทุนพนักงานอนาคต ปูนซิเมนต์ไทย (ท่าหลวง)",
-   "sponsorId": "sp_tlc",
-   "type": "external",
-   "amount": 10000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_career",
-   "pid": "1tkmh8e"
   },
   {
    "id": "rec_2567_24",
