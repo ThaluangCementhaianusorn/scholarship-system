@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:50:26.666Z",
+  "updatedAt": "2026-11-25T04:50:28.908Z",
   "schema": 2
  },
  "institution": {
@@ -1052,21 +1052,6 @@
    "sample": true,
    "categoryId": "cat_need",
    "pid": "wuz1pb"
-  },
-  {
-   "id": "rec_2568_15",
-   "name": "นางสาววิไลวรรณ น.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d12",
-   "scholarshipTitle": "ทุนศิษย์เก่าสนับสนุนรุ่นน้อง",
-   "sponsorId": "sp_alm",
-   "type": "internal",
-   "amount": 2000,
-   "year": "2568",
-   "sample": true,
-   "categoryId": "cat_talent",
-   "pid": "1rwlpkl"
   },
   {
    "id": "rec_2568_17",
