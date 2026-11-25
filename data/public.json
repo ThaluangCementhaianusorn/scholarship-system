@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:00.176Z",
+  "updatedAt": "2026-11-25T04:58:02.250Z",
   "schema": 2
  },
  "institution": {
@@ -590,13 +590,6 @@
    "category": "สถานศึกษา",
    "sample": true,
    "description": "งบประมาณทุนการศึกษาของวิทยาลัย"
-  },
-  {
-   "id": "sp_alm",
-   "name": "สมาคมศิษย์เก่าวิทยาลัยฯ",
-   "type": "internal",
-   "category": "สมาคม/ชมรม",
-   "sample": true
   }
  ],
  "scholarships": [],
