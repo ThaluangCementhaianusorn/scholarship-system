@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:58:28.581Z",
+  "updatedAt": "2026-11-25T04:58:31.993Z",
   "schema": 2
  },
  "institution": {
@@ -567,14 +567,6 @@
    "category": "ธนาคาร/รัฐวิสาหกิจ",
    "sample": true,
    "website": "https://www.gsb.or.th"
-  },
-  {
-   "id": "sp_cp",
-   "name": "บมจ. ซีพี ออลล์",
-   "type": "external",
-   "category": "บริษัทเอกชน",
-   "sample": true,
-   "description": "ทุนเยาวชนคนดีสายอาชีวศึกษา"
   }
  ],
  "scholarships": [],
