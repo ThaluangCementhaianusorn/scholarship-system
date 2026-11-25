@@ -1,6 +1,6 @@
 {
  "meta": {
-  "updatedAt": "2026-11-25T04:56:00.118Z",
+  "updatedAt": "2026-11-25T04:56:04.589Z",
   "schema": 2
  },
  "institution": {
@@ -633,21 +633,6 @@
  "scholarships": [],
  "announcements": [],
  "recipients": [
-  {
-   "id": "rec_2567_3",
-   "name": "นางสาวกัญญารัตน์ น.",
-   "level": "ปวส.",
-   "classYear": "2",
-   "departmentId": "d06",
-   "scholarshipTitle": "ทุนนวัตกรรมสายอาชีพชั้นสูง (กสศ.)",
-   "sponsorId": "sp_eef",
-   "type": "external",
-   "amount": 18000,
-   "year": "2567",
-   "sample": true,
-   "categoryId": "cat_cont",
-   "pid": "1t0n9ug"
-  },
   {
    "id": "rec_2567_8",
    "name": "นางสาวกัญญารัตน์ อ.",
